@@ -1,0 +1,173 @@
+[
+    {
+        "id": 1,
+        "name": "Camiseta",
+        "price": 19.99
+    },
+    {
+        "id": 2,
+        "name": "Pantalones",
+        "price": 39.99
+    },
+    {
+        "id": 3,
+        "name": "Zapatillas",
+        "price": 59.99
+    },
+    {
+        "id": 4,
+        "name": "Gorra",
+        "price": 14.99
+    },
+    {
+        "id": 5,
+        "name": "Chaqueta",
+        "price": 89.99
+    },
+    {
+        "id": 6,
+        "name": "Sudadera",
+        "price": 49.99
+    },
+    {
+        "id": 7,
+        "name": "Cinturón",
+        "price": 24.99
+    },
+    {
+        "id": 8,
+        "name": "Calcetines",
+        "price": 9.99
+    },
+    {
+        "id": 9,
+        "name": "Bufanda",
+        "price": 19.99
+    },
+    {
+        "id": 10,
+        "name": "Guantes",
+        "price": 15.99
+    },
+    {
+        "id": 11,
+        "name": "Reloj",
+        "price": 99.99
+    },
+    {
+        "id": 12,
+        "name": "Pulsera",
+        "price": 29.99
+    },
+    {
+        "id": 13,
+        "name": "Anillo",
+        "price": 49.99
+    },
+    {
+        "id": 14,
+        "name": "Bolso",
+        "price": 79.99
+    },
+    {
+        "id": 15,
+        "name": "Mochila",
+        "price": 39.99
+    },
+    {
+        "id": 16,
+        "name": "Zapatos de vestir",
+        "price": 89.99
+    },
+    {
+        "id": 17,
+        "name": "Sandalias",
+        "price": 34.99
+    },
+    {
+        "id": 18,
+        "name": "Traje",
+        "price": 149.99
+    },
+    {
+        "id": 19,
+        "name": "Pijama",
+        "price": 29.99
+    },
+    {
+        "id": 20,
+        "name": "Bañador",
+        "price": 24.99
+    },
+    {
+        "id": 21,
+        "name": "Camiseta de manga larga",
+        "price": 22.99
+    },
+    {
+        "id": 22,
+        "name": "Camiseta sin mangas",
+        "price": 18.99
+    },
+    {
+        "id": 23,
+        "name": "Chaleco",
+        "price": 39.99
+    },
+    {
+        "id": 24,
+        "name": "Chándal",
+        "price": 49.99
+    },
+    {
+        "id": 25,
+        "name": "Jersey",
+        "price": 39.99
+    },
+    {
+        "id": 26,
+        "name": "Pantalones cortos",
+        "price": 29.99
+    },
+    {
+        "id": 27,
+        "name": "Pantalones de chándal",
+        "price": 34.99
+    },
+    {
+        "id": 28,
+        "name": "Falda",
+        "price": 29.99
+    },
+    {
+        "id": 29,
+        "name": "Vestido",
+        "price": 59.99
+    },
+    {
+        "id": 30,
+        "name": "Mono",
+        "price": 49.99
+    },
+    {
+        "id": 31,
+        "name": "Bikini",
+        "price": 39.99
+    },
+    {
+        "id": 32,
+        "name": "Gafas de sol",
+        "price": 29.99
+    },
+    {
+        "id": 33,
+        "name": "Sombrero",
+        "price": 19.99
+    },
+    {
+        "id": 34,
+        "name": "Cartera",
+        "price": 34.99
+    } 
+]
+       

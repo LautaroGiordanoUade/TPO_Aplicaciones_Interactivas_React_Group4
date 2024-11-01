@@ -1,0 +1,84 @@
+.cart-container {
+    padding: 60px;
+    max-width: 8000px; 
+    margin: auto; 
+    border: 0px solid #ccc; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    background-color: #fff; 
+}
+
+.cart-title {
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.total-container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px; 
+    margin-top:60px
+}
+
+.total-pagar {
+    font-size: 1.5rem; 
+    font-weight: bold; 
+}
+
+.btn-clear-all {
+    padding: 10px 15px; 
+    background-color: #ff4d4d; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.btn-clear-all:hover {
+    background-color: #ff1a1a; 
+}
+
+.products-container {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+}
+
+.product-item {
+    height: 300px; 
+    box-sizing: border-box;
+    flex: 1 1 calc(25% - 20px); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    padding: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    text-align: center; 
+}
+
+.product-name {
+    font-size: 1.2rem; 
+    margin: 10px 0; 
+}
+
+.product-price {
+    color: #555; 
+}
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px; /* Ajusta el margen superior del botón */
+}
+
+.btn-remove {
+    margin-right: 10px; /* Agrega un margen derecho al botón */
+}
+
+.product-image-container {
+    width: 100%; /* Establecer el ancho del contenedor de imagen */
+    height: 150px; /* Establecer la altura del contenedor de imagen */
+    background-color: #eee; /* Agregar un color de fondo temporal */
+    border-radius: 5px; /* Agregar un borde redondeado al contenedor de imagen */
+}
