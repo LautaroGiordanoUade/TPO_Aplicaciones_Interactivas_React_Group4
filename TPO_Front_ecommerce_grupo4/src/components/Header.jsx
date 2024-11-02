@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-
 const Header = () => {
     return (
         <>
@@ -36,6 +35,7 @@ const Header = () => {
                                 <Link className="nav-link" to="/Cart">Carrito</Link>
                             </li>
                         </ul>
+                        
                         <form className="d-flex" role="search">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>

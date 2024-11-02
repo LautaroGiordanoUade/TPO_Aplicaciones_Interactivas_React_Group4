@@ -1,0 +1,44 @@
+.checkout-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.productCheckout-list {
+    margin-top: 20px;
+}
+
+.productCheckout-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+
+.productCheckout-name {
+    font-size: 16px; 
+    margin-bottom: 30px; 
+}
+
+.productCheckout-price {
+    font-size: 16px; 
+    font-weight: bold; 
+    margin-left: 30px; 
+}
+
+.totalCheckout {
+    margin-top: 20px;
+    font-size: 20px; 
+    font-weight: bold; 
+}
+.nameProductCheckout{
+    font-size: 16px; 
+    margin-bottom: 30px;
+}
+
+.nameprecioCheckout{
+    font-size: 16px; 
+    font-weight: bold; 
+    margin-left: 30px; 
+}

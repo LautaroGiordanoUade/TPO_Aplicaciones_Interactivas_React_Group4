@@ -3,6 +3,8 @@ import Home from "../pages/Home.jsx";
 import Header from "../components/Header.jsx";
 import Cart from "../pages/Cart.jsx";
 import UserLogin from "../pages/UserLogin.jsx";
+import Checkout from  "../pages/Checkout.jsx";
+import ProductDetail from '../pages/ProductDetail.jsx';
 
 const AppRoutes = () => {
     return (
@@ -13,6 +15,8 @@ const AppRoutes = () => {
                     <Route path="/" element={<Home/>} />
                     <Route path="/cart" element={<Cart/>} />
                     <Route path="/userLogin" element={<UserLogin/>} />
+                    <Route path="/checkout" element= {<Checkout/>}/>
+                    <Route path="product/:id" element={<ProductDetail/>} />
                 </Routes>
             </div>
         </>
