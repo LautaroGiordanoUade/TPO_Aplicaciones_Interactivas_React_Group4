@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import '../components/Cart.css';
 import { getProductsCart } from '../services/cartService';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const [products, setProducts] = useState([]); 
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchCartProducts = async () => {
             try {
-                const initialProducts = await getProductsCart();
-                setProducts(initialProducts);
+                const initialCartProducts = await getProductsCart();
+                setProducts(initialCartProducts);
             } catch (error) {
                 console.error("Error al cargar los productos:", error);
                 
             }
         };
-        fetchProducts();
+        fetchCartProducts();
     }, []);
 
 
-    const handleRemoveProduct = (id) => {
+    const handleRemoveCartProduct = (id) => {
         const updatedProducts = products.filter(product => product.id !== id);
         setProducts(updatedProducts);
     };
@@ -32,6 +34,11 @@ const Cart = () => {
 
     const handleCleanCart = () => {
         setProducts([]); 
+    };
+    
+
+    const handleCheckout = () => {
+        navigate('/checkout', { state: { items: products, total: total } });
     };
 
     return (
@@ -51,7 +58,7 @@ const Cart = () => {
                                 )}     
                             <h4 className="product-name">{product.name}</h4>
                             <p className="product-price">Precio: ${product.price}</p>
-                            <button className='btn-remove' onClick={() => handleRemoveProduct(product.id)}>
+                            <button className='btn-remove' onClick={() => handleRemoveCartProduct(product.id)}>
                                 Eliminar
                             </button>
                         </div>
@@ -64,6 +71,11 @@ const Cart = () => {
                 <span className='total-pagar'>Total: ${total.toFixed(2)}</span>
                 <button className='btn-clear-all' onClick={handleCleanCart}>
                     Vaciar Carrito
+                </button>
+            </div>
+            <div>
+            <button className='btn-checkout' onClick={handleCheckout}>
+                    Realizar Compra
                 </button>
             </div>
         </div>

@@ -40,6 +40,20 @@
     background-color: #ff1a1a; 
 }
 
+.btn-checkout {
+    padding: 10px 15px; 
+    background-color: #10db2b; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.btn-checkout:hover {
+    background-color: #10db2b; 
+}
+
 .products-container {
     display: flex; 
     flex-wrap: wrap; 
