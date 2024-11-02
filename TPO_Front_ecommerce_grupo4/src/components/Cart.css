@@ -80,8 +80,8 @@
     color: #555; 
 }
 .product-image {
-    width: 100px; /* Ajusta el ancho según sea necesario */
-    height: auto; /* Mantiene la proporción de la imagen */
-    margin-right: 10px; /* Espacio entre la imagen y el texto */
+    width: 100px; 
+    height: auto; 
+    margin-right: 10px; 
 }
 
