@@ -15,7 +15,6 @@ const Cart = () => {
                 setProducts(initialCartProducts);
             } catch (error) {
                 console.error("Error al cargar los productos:", error);
-                
             }
         };
         fetchCartProducts();
@@ -57,7 +56,8 @@ const Cart = () => {
                                 />
                                 )}     
                             <h4 className="product-name">{product.name}</h4>
-                            <p className="product-price">Precio: ${product.price}</p>
+                            <p className="product-price">Precio:  ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
+                           
                             <button className='btn-remove' onClick={() => handleRemoveCartProduct(product.id)}>
                                 Eliminar
                             </button>
@@ -68,7 +68,7 @@ const Cart = () => {
                 )}
             </div>
             <div className="total-container">
-                <span className='total-pagar'>Total: ${total.toFixed(2)}</span>
+                <span className='total-pagar'>Total: ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</span>
                 <button className='btn-clear-all' onClick={handleCleanCart}>
                     Vaciar Carrito
                 </button>

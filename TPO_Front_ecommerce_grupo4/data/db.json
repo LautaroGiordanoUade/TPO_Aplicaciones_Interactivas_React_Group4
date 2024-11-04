@@ -344,5 +344,49 @@
         "firstName": "User",
         "lastName": "USER",
         "carts": []
-    }
+    },
+
+    "cart-Products":[
+        {
+            "id": 1,
+            "name": "Pantalón Deportivo Real Madrid Originals",
+            "description": "Pantalones deportivos del Real Madrid inspirados en el legado de adidas y hechos parcialmente con materiales reciclados",
+            "categoryId": 1,
+            "quantity": 20,
+            "price": 119999,
+            "featured": false,
+            "images": []
+        },
+        {
+            "id": 2,
+            "name": "Pantalón Adicolor 70s",
+            "description": "Pantalones deportivos cómodos con un look de inspiración retro",
+            "categoryId": 1,
+            "quantity": 30,
+            "price": 97999,
+            "featured": true,
+            "images": []
+        },
+        {
+            "id": 3,
+            "name": "Remera Adizero Running",
+            "description": "Una remera de running ligera diseñada para ayudarte a llegar lejos.",
+            "categoryId": 2,
+            "quantity": 50,
+            "price": 80,
+            "featured": false,
+            "images": []
+        },
+        {
+            "id": 4,
+            "name": "Remera Own the Run 3 Tiras",
+            "description": "Expandí los límites de tu carrera con una remera de running ligera.",
+            "categoryId": 2,
+            "quantity": 60,
+            "price": 60,
+            "featured": true,
+            "images": []
+        }
+
+    ]
   }

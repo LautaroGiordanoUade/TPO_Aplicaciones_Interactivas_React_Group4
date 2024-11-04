@@ -25,17 +25,19 @@ const Checkout = () => {
                                         <div className="productCheckout-name">{item.name}</div>
                                     </td>
                                     <td>
-                                        <div className="productCheckout-price">${item.price.toFixed(2)}</div>
+                                        <div className="productCheckout-price">${item.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
+                                        
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    <p className="totalCheckout">Su Total es : ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                 </div>
             ) : (
                 <p>No hay productos en el carrito.</p>
             )}
-            <p className="totalCheckout">Total: ${total.toFixed(2)}</p>
+            
         </div>
     );
 };
