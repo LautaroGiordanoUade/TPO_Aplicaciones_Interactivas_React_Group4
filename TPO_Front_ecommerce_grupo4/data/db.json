@@ -454,5 +454,16 @@
             "email": "user2@example.com",
             "password": "password456"
         }
-  ]
+  ],
+  "categories": [
+        {"id": 1, "name": "Pantalones"},
+        {"id": 2, "name": "Remeras"},
+        {"id": 3, "name": "Buzos"},
+        {"id": 4, "name": "Zapatillas"},
+        {"id": 5, "name": "Calzas"},
+        {"id": 6, "name": "Shorts"},
+        {"id": 7, "name": "Bolsos"},
+        {"id": 8, "name": "Mochilas"},
+        {"id": 9, "name": "Camperas"}
+    ]
   }

@@ -25,3 +25,8 @@ export const getProductsById = async (id) => {
     const response =  await apiClient.get(`products/${id}`);
     return response.data;
 }
+
+export const getCategories = async (id) => {
+    const response =  await apiClient.get('categories');
+    return response.data;
+}
