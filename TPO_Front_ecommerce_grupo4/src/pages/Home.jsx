@@ -1,5 +1,6 @@
 import FavoriteProducts from "../components/product/FavoriteProducts.jsx";
 import FeaturedProducts from "../components/product/FeaturedProducts.jsx";
+import ViewedProducts from "../components/product/ViewedProducts.jsx";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
 
       <FeaturedProducts />
       <FavoriteProducts />
+      <ViewedProducts />
     </div>
   );
 };

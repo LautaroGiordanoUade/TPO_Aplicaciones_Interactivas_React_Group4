@@ -16,6 +16,11 @@ export const getFavorites = async () => {
     return response.data;
 }
 
+export const getViewed = async () => {
+    const response =  await apiClient.get('viewed');
+    return response.data;
+}
+
 export const getProductsById = async (id) => {
     const response =  await apiClient.get(`products/${id}`);
     return response.data;
