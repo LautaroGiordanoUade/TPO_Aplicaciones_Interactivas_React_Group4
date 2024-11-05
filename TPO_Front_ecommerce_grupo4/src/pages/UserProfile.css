@@ -1,0 +1,13 @@
+/* src/pages/UserProfile.css */
+.user-profile {
+    padding: 20px;
+}
+
+.user-info, .user-transactions {
+    margin-bottom: 20px;
+}
+
+.user-transactions ul {
+    list-style-type: none;
+    padding: 0;
+}
