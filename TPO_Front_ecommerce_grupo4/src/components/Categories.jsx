@@ -38,7 +38,11 @@ const Categories = () => {
           <ul className="dropdown-menu">
             {categories.map((category) => (
               <li key={category.id}>
-                <Link className="dropdown-item" to="#">
+                <Link
+                  className="dropdown-item"
+                  reloadDocument
+                  to={"/category/" + category.id}
+                >
                   {category.name}
                 </Link>
               </li>

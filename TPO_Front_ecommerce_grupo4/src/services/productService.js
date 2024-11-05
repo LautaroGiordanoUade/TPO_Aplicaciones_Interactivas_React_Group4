@@ -26,6 +26,11 @@ export const getProductsById = async (id) => {
     return response.data;
 }
 
+export const getProductsByCategory = async (categoryId) => {
+    const response =  await apiClient.get(`products?categoryId=${categoryId}`);
+    return response.data;
+}
+
 export const getCategories = async (id) => {
     const response =  await apiClient.get('categories');
     return response.data;

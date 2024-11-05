@@ -6,6 +6,7 @@ import UserLogin from "../pages/UserLogin.jsx";
 import Checkout from  "../pages/Checkout.jsx";
 import ProductDetail from '../pages/ProductDetail.jsx';
 import AllProducts from "../pages/AllProducts.jsx";
+import Category from "../pages/Category.jsx";
 
 const AppRoutes = () => {
     return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
                     <Route path="/checkout" element= {<Checkout/>}/>
                     <Route path="/products" element={<AllProducts/>} />
                     <Route path="/product/:id" element={<ProductDetail/>} />
+                    <Route path="/category/:id" element={<Category/>} />
                 </Routes>
             </div>
         </>
