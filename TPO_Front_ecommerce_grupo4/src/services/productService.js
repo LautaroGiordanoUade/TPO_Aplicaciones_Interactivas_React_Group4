@@ -35,3 +35,8 @@ export const getCategories = async (id) => {
     const response =  await apiClient.get('categories');
     return response.data;
 }
+
+export const postViewed = async () => {
+    const response =  await apiClient.post('viewed');
+    return response.data;
+}

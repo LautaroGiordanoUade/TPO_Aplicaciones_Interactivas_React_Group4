@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsById } from "../services/productService";
+import { getProductsById, postViewed } from "../services/productService";
 import ImageCarousel from "../components/product/ImageCarousel.jsx";
 import "./ProductDetail.css";
 
@@ -15,6 +15,7 @@ const ProductDetail = () => {
       try {
         const response = await getProductsById(id);
         setProduct(response);
+        //await postViewed();
       } catch (error) {
         console.log(error);
         setProductHasError(true);
