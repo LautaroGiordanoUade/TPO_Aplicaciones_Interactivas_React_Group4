@@ -10,7 +10,7 @@ const Checkout = () => {
         <div className="checkout-container">
             <h1>Checkout</h1>
             {items.length > 0 ? (
-                <div className="productCheckout-list">
+                <div>
                     <table>
                         <thead>
                             <tr>
@@ -26,20 +26,19 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="productCheckout-price">${item.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
-                                        
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <p className="totalCheckout">Su Total es : ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
+                    <p className="totalCheckout">Su total es ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                 </div>
             ) : (
-                <p>No hay productos en el carrito.</p>
+                <p>No hay productos en el carrito. ¡Que esperas para agregar productos al carrito!</p>
             )}
-            
         </div>
     );
+    
 };
 
 export default Checkout;
