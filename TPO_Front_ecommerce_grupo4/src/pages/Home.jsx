@@ -1,3 +1,4 @@
+import FavoriteProducts from "../components/product/FavoriteProducts.jsx";
 import FeaturedProducts from "../components/product/FeaturedProducts.jsx";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
       <h1>BIENVENIDO</h1>
 
       <FeaturedProducts />
+      <FavoriteProducts />
     </div>
   );
 };

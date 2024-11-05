@@ -11,6 +11,11 @@ export const getFeaturedProducts = async () => {
     return response.data;
 }
 
+export const getFavorites = async () => {
+    const response =  await apiClient.get('favorites');
+    return response.data;
+}
+
 export const getProductsById = async (id) => {
     const response =  await apiClient.get(`products/${id}`);
     return response.data;
