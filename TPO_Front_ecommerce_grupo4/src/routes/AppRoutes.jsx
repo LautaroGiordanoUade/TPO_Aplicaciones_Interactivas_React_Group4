@@ -4,7 +4,9 @@ import Header from "../components/Header.jsx";
 import Cart from "../pages/Cart.jsx";
 import UserLogin from "../pages/UserLogin.jsx";
 import Checkout from  "../pages/Checkout.jsx";
-import ProductDetail from '../pages/ProductDetail.jsx';
+import ProductDetail from '../pages/ProductDetail/ProductDetail.jsx';
+import AllProducts from "../pages/AllProducts.jsx";
+import Category from "../pages/Category.jsx";
 
 const AppRoutes = () => {
     return (
@@ -16,7 +18,9 @@ const AppRoutes = () => {
                     <Route path="/cart" element={<Cart/>} />
                     <Route path="/userLogin" element={<UserLogin/>} />
                     <Route path="/checkout" element= {<Checkout/>}/>
-                    <Route path="product/:id" element={<ProductDetail/>} />
+                    <Route path="/products" element={<AllProducts/>} />
+                    <Route path="/product/:id" element={<ProductDetail/>} />
+                    <Route path="/category/:id" element={<Category/>} />
                 </Routes>
             </div>
         </>
