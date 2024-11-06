@@ -7,21 +7,28 @@ const Cart = () => {
     const [products, setProducts] = useState([]); 
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
+    const [cartHasError, setcartHasError] = useState(false);
+    const [cartErrorMessage, setcartErrorMessage] = useState("");
+
+
+    const handlerfetchCartProducts = async () => {
+        try {
+            const initialCartProducts = await getProductsCart();
+            setProducts(initialCartProducts);
+        } catch (error) {
+            console.log('Error al cargar los productos del carrito:', error);
+            setcartHasError(true);
+            setcartErrorMessage(error.message ||'Ocurrió un error.');
+        }
+    };
 
     useEffect(() => {
-        const fetchCartProducts = async () => {
-            try {
-                const initialCartProducts = await getProductsCart();
-                setProducts(initialCartProducts);
-            } catch (error) {
-                console.error("Error al cargar los productos:", error);
-            }
-        };
-        fetchCartProducts();
+        
+        handlerfetchCartProducts();
     }, []);
 
 
-    const handleRemoveCartProduct = (id) => {
+    const handlerRemoveCartProduct = (id) => {
         const updatedProducts = products.filter(product => product.id !== id);
         setProducts(updatedProducts);
     };
@@ -31,12 +38,12 @@ const Cart = () => {
         setTotal(newTotal);
     }, [products]);
 
-    const handleCleanCart = () => {
+    const handlerCleanCart = () => {
         setProducts([]); 
     };
     
 
-    const handleCheckout = () => {
+    const handlerCheckout = () => {
         navigate('/checkout', { state: { items: products, total: total } });
     };
 
@@ -58,7 +65,7 @@ const Cart = () => {
                             <h4 className="product-name">{product.name}</h4>
                             <p className="product-price">Precio:  ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                            
-                            <button className='btn-remove' onClick={() => handleRemoveCartProduct(product.id)}>
+                            <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.id)}>
                                 Eliminar
                             </button>
                         </div>
@@ -69,12 +76,12 @@ const Cart = () => {
             </div>
             <div className="total-container">
                 <span className='total-pagar'>Total: ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</span>
-                <button className='btn-clear-all' onClick={handleCleanCart}>
+                <button className='btn-clear-all' onClick={handlerCleanCart}>
                     Vaciar Carrito
                 </button>
             </div>
             <div>
-            <button className='btn-checkout' onClick={handleCheckout}>
+            <button className='btn-checkout' onClick={handlerCheckout}>
                     Realizar Compra
                 </button>
             </div>
