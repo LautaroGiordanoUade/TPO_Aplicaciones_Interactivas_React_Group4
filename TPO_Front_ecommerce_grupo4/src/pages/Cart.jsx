@@ -10,6 +10,18 @@ const Cart = () => {
     const [cartHasError, setcartHasError] = useState(false);
     const [cartErrorMessage, setcartErrorMessage] = useState("");
 
+    useEffect(() => {
+        const fetchCartProducts = async () => {
+            try {
+                const initialCartProducts = await getProductsCart();
+                setProducts(initialCartProducts);
+            } catch (error) {
+                console.error("Error al cargar los productos:", error);
+                
+            }
+        };
+        fetchCartProducts();
+    }, []);
 
     const handlerfetchCartProducts = async () => {
         try {
