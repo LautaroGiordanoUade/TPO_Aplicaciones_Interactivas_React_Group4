@@ -4,7 +4,7 @@ import Header from "../components/Header.jsx";
 import Cart from "../pages/Cart.jsx";
 import UserLogin from "../pages/UserLogin.jsx";
 import Checkout from  "../pages/Checkout.jsx";
-import ProductDetail from '../pages/ProductDetail.jsx';
+import ProductDetail from '../pages/ProductDetail/ProductDetail.jsx';
 import AllProducts from "../pages/AllProducts.jsx";
 import Category from "../pages/Category.jsx";
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsById, postViewed } from "../services/productService";
-import ImageCarousel from "../components/product/ImageCarousel.jsx";
-import "./ProductDetail.css";
+import { getProductsById, postViewed } from "../../services/productService.js";
+import ImageCarousel from "../../components/product/ImageCarousel.jsx";
+import "./StyledProductDetail.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -10,19 +10,20 @@ const ProductDetail = () => {
   const [productHasError, setProductHasError] = useState(false);
   const [productErrorMessage, setProductErrorMessage] = useState("");
 
+  const handlerInit = async () => {
+    try {
+      const response = await getProductsById(id);
+      setProduct(response);
+      //await postViewed();
+    } catch (error) {
+      console.log(error);
+      setProductHasError(true);
+      setProductErrorMessage("Ocurrió un error.");
+    }
+  };
+
   useEffect(() => {
-    const init = async () => {
-      try {
-        const response = await getProductsById(id);
-        setProduct(response);
-        //await postViewed();
-      } catch (error) {
-        console.log(error);
-        setProductHasError(true);
-        setProductErrorMessage("Ocurrió un error.");
-      }
-    };
-    init();
+    handlerInit();
   }, [id]);
 
   return (
