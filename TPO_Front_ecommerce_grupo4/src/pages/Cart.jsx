@@ -17,7 +17,6 @@ const Cart = () => {
                 setProducts(initialCartProducts);
             } catch (error) {
                 console.error("Error al cargar los productos:", error);
-                
             }
         };
         fetchCartProducts();
@@ -30,15 +29,13 @@ const Cart = () => {
         } catch (error) {
             console.log('Error al cargar los productos del carrito:', error);
             setcartHasError(true);
-            setcartErrorMessage(error.message ||'Ocurrió un error.');
+            setcartErrorMessage(error.message || 'Ocurrió un error.');
         }
     };
 
     useEffect(() => {
-        
         handlerfetchCartProducts();
     }, []);
-
 
     const handlerRemoveCartProduct = (id) => {
         const updatedProducts = products.filter(product => product.id !== id);
@@ -54,34 +51,48 @@ const Cart = () => {
         setProducts([]); 
     };
     
-
     const handlerCheckout = () => {
         navigate('/checkout', { state: { items: products, total: total } });
     };
 
+    // Función para agrupar productos
+    const groupedProducts = products.reduce((acc, product) => {
+        const existingProduct = acc.find(item => item.id === product.id);
+        if (existingProduct) {
+            existingProduct.quantity += 1; // Aumentar la cantidad
+        } else {
+            acc.push({ ...product, quantity: 1 }); // Agregar nuevo producto con cantidad
+        }
+        return acc;
+    }, []);
     return (
         <div className="cart-container">
             <h3 className="cart-title">Carrito de Compras</h3>
             
             <div className="products-container">
-                {products.length > 0 ? (
-                    products.map((product) => (
-                        <div className="product-item" key={product.id}>
-                            {product.images.length>0 && (
-                                <img 
-                                src={product.images[0].imageBase64} 
-                                alt={product.name}
-                                className='produc-image'
-                                />
+                {groupedProducts.length > 0 ? (
+                    groupedProducts.map((product) => {
+                        const totalPrice = product.price * product.quantity; // Calcular el precio total
+                        return (
+                            <div className="product-item" key={product.id}>
+                                {product.images.length > 0 && (
+                                    <img 
+                                        src={product.images[0].imageBase64} 
+                                        alt={product.name}
+                                        className='produc-image'
+                                    />
                                 )}     
-                            <h4 className="product-name">{product.name}</h4>
-                            <p className="product-price">Precio:  ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
-                           
-                            <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.id)}>
-                                Eliminar
-                            </button>
-                        </div>
-                    ))
+                                <h4 className="product-name">{product.name} (X
+                                    {product.quantity})</h4>
+                                <p className="product-price">Precio Unitario: ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
+                                <p className="product-total-price">Precio Total: ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
+                               
+                                <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.id)}>
+                                    Eliminar
+                                </button>
+                            </div>
+                        );
+                    })
                 ) : (
                     <p>No hay productos en el carrito.</p>
                 )}
@@ -93,7 +104,7 @@ const Cart = () => {
                 </button>
             </div>
             <div>
-            <button className='btn-checkout' onClick={handlerCheckout}>
+                <button className='btn-checkout' onClick={handlerCheckout}>
                     Realizar Compra
                 </button>
             </div>
