@@ -9,6 +9,8 @@ const Cart = () => {
     const navigate = useNavigate();
     const [cartHasError, setcartHasError] = useState(false);
     const [cartErrorMessage, setcartErrorMessage] = useState("");
+    const [stockErrorModal, setStockErrorModal] = useState(false);
+    const [outOfStockProducts, setOutOfStockProducts] = useState([]);
 
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -55,13 +57,12 @@ const Cart = () => {
         navigate('/checkout', { state: { items: products, total: total } });
     };
 
-    // Función para agrupar productos
     const groupedProducts = products.reduce((acc, product) => {
         const existingProduct = acc.find(item => item.id === product.id);
         if (existingProduct) {
-            existingProduct.quantity += 1; // Aumentar la cantidad
+            existingProduct.quantity += 1; 
         } else {
-            acc.push({ ...product, quantity: 1 }); // Agregar nuevo producto con cantidad
+            acc.push({ ...product, quantity: 1 }); 
         }
         return acc;
     }, []);
@@ -72,7 +73,7 @@ const Cart = () => {
             <div className="products-container">
                 {groupedProducts.length > 0 ? (
                     groupedProducts.map((product) => {
-                        const totalPrice = product.price * product.quantity; // Calcular el precio total
+                        const totalPrice = product.price * product.quantity; 
                         return (
                             <div className="product-item" key={product.id}>
                                 {product.images.length > 0 && (
@@ -113,3 +114,5 @@ const Cart = () => {
 }
 
 export default Cart;
+
+
