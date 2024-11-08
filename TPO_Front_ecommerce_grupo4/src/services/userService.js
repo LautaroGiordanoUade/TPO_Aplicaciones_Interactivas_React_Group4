@@ -1,21 +1,11 @@
-import axios from 'axios';
+import apiClient from './apiClient';
 
-const API_URL = 'http://localhost:8080/api'; // Cambia esto según tu configuración
-
-export const getUser Profile = async () => {
-    const response = await axios.get(`${API_URL}/user/profile`, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}` // Suponiendo que usas JWT
-        }
-    });
+export const getUser Profile = async (userId) => {
+    const response = await apiClient.get(`users/${userId}`);
     return response.data;
 };
 
-export const getUser Transactions = async () => {
-    const response = await axios.get(`${API_URL}/user/transactions`, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-    });
+export const getProductsCart = async () => {
+    const response = await apiClient.get('cart-Products');
     return response.data;
 };
