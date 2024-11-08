@@ -6,21 +6,10 @@ const Checkout = () => {
     const location = useLocation();
     const { items, total } = location.state || { items: [], total: 0 };
 
-    // Función para agrupar productos
-    const groupedItems = items.reduce((acc, item) => {
-        const existingItem = acc.find(product => product.id === item.id);
-        if (existingItem) {
-            existingItem.quantity += 1; // Aumentar la cantidad
-        } else {
-            acc.push({ ...item, quantity: 1 }); // Agregar nuevo producto con cantidad
-        }
-        return acc;
-    }, []);
-
     return (
         <div className="checkout-container">
             <h1>Checkout</h1>
-            {groupedItems.length > 0 ? (
+            {items.length > 0 ? (
                 <div>
                     <table>
                         <thead>
@@ -30,8 +19,8 @@ const Checkout = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {groupedItems.map((item, index) => {
-                                const totalPrice = item.price * item.quantity;
+                            {items.map((item, index) => {
+                                const totalPrice = item.price * item.quantity; 
                                 return (
                                     <tr key={index} className="productCheckout-item">
                                         <td>
@@ -46,7 +35,13 @@ const Checkout = () => {
                         </tbody>
                     </table>
                     <p className="totalCheckout">Su total es ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
+                    <div>
+                <button className='btn-checkout' >
+                     Comprar
+                </button>
+                    </div>
                 </div>
+
             ) : (
                 <p>No hay productos en el carrito. ¡Que esperas para agregar productos al carrito!</p>
             )}
