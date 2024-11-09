@@ -54,6 +54,18 @@ server.post('/auth/register', (req, res) => {
   }
 });
 
+server.post('/auth/reset-password', (req, res) => {
+  const { email } = req.body;
+  const users = router.db.get('users').value();
+  const userExists = users.some(u => u.email === email);
+
+  if (!userExists) {
+    res.status(400).json({ message: 'El usuario no existe' });
+  } else {
+    return res.json({ userExists });;
+  }
+});
+
 server.use(router);
 server.listen(3000, () => {
   console.log('JSON Server está ejecutándose en http://localhost:3000');

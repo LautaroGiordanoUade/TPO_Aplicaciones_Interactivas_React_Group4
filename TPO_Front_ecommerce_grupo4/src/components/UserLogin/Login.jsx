@@ -1,23 +1,24 @@
 
 import React, { useState } from "react";
 import { loginUser } from "../../services/userService";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = ({ setView }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  const { login } = useAuth();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const user = await loginUser(email, password);
       if (user) {
-        console.log("Usuario logeado:", user);
-        localStorage.setItem('user', JSON.stringify(user));
-        // Redirigir o actualizar desp de login exitoso
+        await login(email, password);
       }
     } catch (error) {
-      setError("Error en el inicio de sesión");
+      setError("Las credenciales ingresadas son incorrectas");
       console.error(error);
     }
   };
