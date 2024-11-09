@@ -15,11 +15,17 @@ function EditProductModal({ show, onHide, product, onSave }) {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .required("El nombre es requerido")
-      .min(3, "El nombre debe tener al menos caracteres"),
+      .required("Ingrese el nombre.")
+      .min(3, "El nombre debe tener al menos caracteres."),
+      description: Yup.string()
+      .required("Ingrese la descripción.")
+      .min(3, "El nombre debe tener al menos caracteres."),
     price: Yup.number()
-      .required("El precio es requerido")
-      .positive("El precio debe ser positivo"),
+      .required("Ingrese el precio.")
+      .positive("El precio tiene que ser positivo"),
+      quantity: Yup.number()
+      .required("Ingrese la cantidad.")
+      .positive("La cantidad tiene que ser positiva."),
   });
 
   return (
@@ -57,9 +63,11 @@ function EditProductModal({ show, onHide, product, onSave }) {
             description: product ? product.description : "",
             price: product ? product.price : "",
             quantity: product ? product.quantity : "",
+            featured: product?.featured
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
+            console.log("valores:", values);
             // Lógica para guardar los datos
           }}
         >
