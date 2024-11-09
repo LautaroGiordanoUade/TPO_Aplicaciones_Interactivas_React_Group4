@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProductsByCategory } from "../services/productService";
-import ProductCard from "../components/product/ProductCard";
+import ProductCard from "../components/product/ProductCard/ProductCard";
 
 const Category = () => {
   const { id } = useParams();
@@ -28,7 +28,7 @@ const Category = () => {
     <div className="container-fluid">
       <div className="row">
         {productList.map((product) => (
-            <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+            <div className="col-md-3 col-sm-6 col-xs-12" key={product.id}>
               <ProductCard product={product} />
             </div>
         ))}

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { getViewed } from "../../services/productService";
-import ProductCard from "./ProductCard";
+import ProductCard from "./ProductCard/ProductCard";
 
 const ViewedProducts = () => {
   const [viewedProductList, setViewedProductList] = useState([]);
