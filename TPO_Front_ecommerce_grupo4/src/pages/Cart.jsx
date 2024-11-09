@@ -11,12 +11,7 @@ const Cart = () => {
 
     useEffect(() => {
         const fetchCartProducts = async () => {
-            try {
-                const initialCartProducts = await getProductsCart();
-                setProducts(initialCartProducts);
-            } catch (error) {
-                console.error("Error al cargar los productos:", error);
-            }
+           await handlerfetchCartProducts();
         };
         fetchCartProducts();
     }, []);
