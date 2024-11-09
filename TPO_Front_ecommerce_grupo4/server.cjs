@@ -6,7 +6,7 @@ const middlewares = jsonServer.defaults();
 
 const jsonServer = require('json-server');
 const server = jsonServer.create();
-const router = jsonServer.router('db.json');
+const router = jsonServer.router('./data/db.json');
 const middlewares = jsonServer.defaults();
 const bodyParser = require('body-parser');
 
@@ -51,6 +51,18 @@ server.post('/auth/register', (req, res) => {
     const newUser = { id: Date.now(), username, email, password };
     router.db.get('users').push(newUser).write();
     res.json({ ...newUser, token: 'fake-jwt-token' });
+  }
+});
+
+server.post('/auth/reset-password', (req, res) => {
+  const { email } = req.body;
+  const users = router.db.get('users').value();
+  const userExists = users.some(u => u.email === email);
+
+  if (!userExists) {
+    res.status(400).json({ message: 'El usuario no existe' });
+  } else {
+    return res.json({ userExists });;
   }
 });
 
