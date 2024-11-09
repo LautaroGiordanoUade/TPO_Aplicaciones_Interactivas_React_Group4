@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Categories from "./Categories";
 import { useAuth } from "../hooks/useAuth";
 
@@ -50,7 +50,7 @@ const Header = () => {
                         <button 
                             className="btn btn-outline-success ms-2" 
                             onClick={handlerLoginClick}>
-                            <i className={`fa ${user ? 'fa-user' : 'fa-sign-in-alt'}`} aria-hidden="true"></i>
+                            <i className={`bi ${user ? 'bi-person-fill' : 'bi-box-arrow-in-right'}`} aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
