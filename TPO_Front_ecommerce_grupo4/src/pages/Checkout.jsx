@@ -20,11 +20,11 @@ const Checkout = () => {
                         </thead>
                         <tbody>
                             {items.map((item, index) => {
-                                const totalPrice = item.price * item.quantity; 
+                                const totalPrice = item.price * item.quantityOnCart; 
                                 return (
                                     <tr key={index} className="productCheckout-item">
                                         <td>
-                                            <div className="productCheckout-name">X {item.quantity} {item.name} </div>
+                                            <div className="productCheckout-name">X {item.quantityOnCart} {item.name} </div>
                                         </td>
                                         <td>
                                             <div className="productCheckout-price">${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
@@ -43,7 +43,7 @@ const Checkout = () => {
                 </div>
 
             ) : (
-                <p>No hay productos en el carrito. ¡Que esperas para agregar productos al carrito!</p>
+                <p>No hay productos en el carrito. ¿Qué esperás para agregar productos al carrito?</p>
             )}
         </div>
     );

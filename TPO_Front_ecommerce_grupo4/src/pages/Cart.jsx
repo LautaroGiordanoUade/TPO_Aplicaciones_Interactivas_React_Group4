@@ -39,63 +39,71 @@ const Cart = () => {
 
    
     const handlerRemoveCartProduct = (id) => {
-        console.log("Intentando eliminar producto con id:", id);
+      
         
-        const updatedProducts = groupedProducts.reduce((acc, product) => {
-            console.log("Comparando con producto:", product.id);
+        const updatedProducts = products.reduce((acc, product) => {
+            
             if (product.id === id) {
-                console.log("Eliminando producto:", product.id);
-                // Si la cantidad es 1, no lo agregamos al acumulador (lo eliminamos)
-                if (product.quantity > 1) {
-                    console.log("Reduciendo producto:", product.id);
-                    // Si la cantidad es mayor que 1, reducimos la cantidad
-                    acc.push({ ...product, quantity: product.quantity - 1 });
+                if (product.quantityOnCart > 1) {
+                   
+                    acc.push({ ...product, quantityOnCart: product.quantityOnCart - 1 });
                 }
-                // Si la cantidad es 1, simplemente no lo agregamos al acumulador
+              
             } else {
-                acc.push(product); // Mantener otros productos
+                acc.push(product);
             }
             return acc;
         }, []);
     
-        console.log("Los productos nuevos son:", updatedProducts);
+
         setProducts(updatedProducts);
     };
     
     useEffect(() => {
-        const newTotal = products.reduce((acc, product) => acc + product.price, 0);
+        const newTotal = products.reduce((acc, product) => {
+            return acc + (product.price * product.quantityOnCart);
+        }, 0);
         setTotal(newTotal);
     }, [products]);
+
 
     const handlerCleanCart = () => {
         setProducts([]); 
     };
     
-    const handlerCheckout = () => {
-        console.log("Productos actualizados:", groupedProducts);
-       navigate('/checkout', { state: { items: groupedProducts, total: total } });
-    
-    }; 
 
-    const groupedProducts = products.reduce((acc, product) => {
-        const existingProduct = acc.find(item => item.name === product.name);
-        if (existingProduct) {
-            console.log("los productos nuevos son:",{existingProduct});
-            existingProduct.quantity += 1; 
-        } else {
-            acc.push({ ...product, quantity: 1 }); 
+
+    const handlerCheckout = () => {
+        const outOfStockItems = [];
+    
+        for (const product of products) {
+            if (product.quantityOnCart > product.quantity) {
+                console.log("Ahora estoy en este producto", { product });
+                outOfStockItems.push(product);
+            }
         }
-          
-        return acc;
-    }, []);
+    
+        if (outOfStockItems.length > 0) {
+            const message = outOfStockItems.map(item => {
+                return `${item.name} (Cantidad solicitada: ${item.quantityOnCart}, Cantidad disponible: ${item.quantity})`;
+            }).join('\n'); 
+    
+            alert(`No se puede realizar la compra, los siguientes productos no están disponibles:\n${message}`);
+            return;
+        }
+    
+        console.log("Productos actualizados:", products);
+        navigate('/checkout', { state: { items: products, total: total } });
+    };
+  
     return (
         <div className="cart-container">
             <h3 className="cart-title">Carrito de Compras</h3>
             
             <div className="products-container">
-                {groupedProducts.length > 0 ? (
-                    groupedProducts.map((product) => {
-                        const totalPrice = product.price * product.quantity; 
+                {products.length > 0 ? (
+                    products.map((product) => {
+                        const totalPrice = product.price * product.quantityOnCart; 
                         return (
                             <div className="product-item" key={product.id}>
                                 {product.images.length > 0 && (
@@ -105,7 +113,7 @@ const Cart = () => {
                                         className='produc-image'
                                     />
                                 )}     
-                                <h4 className="product-name">{product.name} (X{product.quantity})</h4>
+                                <h4 className="product-name">{product.name} (X{product.quantityOnCart})</h4>
                                 <p className="product-price">Precio Unitario: ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                 <p className="product-total-price">Precio Total: ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                
