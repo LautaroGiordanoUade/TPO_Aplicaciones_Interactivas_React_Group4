@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { getProducts, deleteProduct } from "../services/productService";
 import DeleteProductModal from "../components/DeleteProductModal";
 import EditProductModal from "../components/EditProductModal";
 
 const AdminProducts = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
@@ -22,15 +24,17 @@ const AdminProducts = () => {
     handlerInit();
   }, []);
 
-  const handleDelete = (product) => {
+  const handleDeleteProduct = (product) => {
     setProductToDelete(product);
     setShowModalDelete(true);
   };
 
-  const handleEdit = (product) => {
-    console.log("Editar producto:", product);
-    setProductToEdit(product);
-    setShowModalEdit(true);
+  const handleEditProduct = (product) => {
+    navigate("edit/" + product.id);
+  };
+
+  const handleCreateProduct = (product) => {
+    navigate("create");
   };
 
   const handleConfirmDelete = async () => {
@@ -75,10 +79,10 @@ const AdminProducts = () => {
               <td>{product.name}</td>
               <td>${product.price}</td>
               <td>
-                <Button className="me-2" variant="primary" onClick={() => handleEdit(product)}>
+                <Button className="me-2" variant="primary" onClick={() => handleEditProduct(product)}>
                   Editar
                 </Button>
-                <Button variant="danger" onClick={() => handleDelete(product)}>
+                <Button variant="danger" onClick={() => handleDeleteProduct(product)}>
                   Eliminar
                 </Button>
               </td>
@@ -87,7 +91,7 @@ const AdminProducts = () => {
         </tbody>
       </Table>
 
-      <Button variant="primary" onClick={() => handleCreate()}>
+      <Button variant="primary" onClick={() => handleCreateProduct()}>
                   Nuevo producto
                 </Button>
 

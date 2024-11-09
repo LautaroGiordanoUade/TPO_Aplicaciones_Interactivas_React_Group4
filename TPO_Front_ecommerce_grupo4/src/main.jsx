@@ -6,11 +6,9 @@ import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-   <div className="container-fluid">
     <BrowserRouter>
       <AuthProvider>
       <AppRoutes/>
       </AuthProvider>
    </BrowserRouter>
- </div>
 );

@@ -44,3 +44,13 @@ export const deleteProduct = async (id) => {
     const response =  await apiClient.delete(`products/${id}`);
     return response.data;
 }
+
+export const createProduct = async (product) => {
+    const response =  await apiClient.post('products', {product});
+    return response.data;
+}
+
+export const editProduct = async (product) => {
+    const response =  await apiClient.put(`products/${product.id}`, JSON.stringify(product));
+    return response.data;
+}
