@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, Form as BootstrapForm, Col } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { getCategories } from "../services/productService";
 
 const EditProductModal = ({ show, onHide, product, onSave }) => {
-  console.log("Editando producto:", product);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const response = await getCategories();
+        setCategories(response);
+      } catch (error) {
+      }
+    };
+    init();
+  }, []);
 
   const handleSubmit = (values) => {
     console.log("Form values:", values);
-    onSave(values); // Pasa los datos al padre (onSave)
-    onHide(); // Cierra el modal
+    onSave(values);
+    onHide();
   };
 
   const validationSchema = Yup.object().shape({
@@ -25,6 +37,8 @@ const EditProductModal = ({ show, onHide, product, onSave }) => {
     quantity: Yup.number()
       .required("Ingrese la cantidad.")
       .positive("La cantidad tiene que ser positiva."),
+      category: Yup.number()
+      .required("Ingrese la categoría."),
   });
 
   return (
@@ -37,11 +51,12 @@ const EditProductModal = ({ show, onHide, product, onSave }) => {
       <Modal.Body>
         <Formik
           initialValues={{
-            name: product ? product.name : "",
+            name: product?.name || "",
             description: product ? product.description : "",
             price: product ? product.price : "",
             quantity: product ? product.quantity : "",
             featured: product?.featured || false,
+            category: product?.categoryId || -1,
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
@@ -88,9 +103,9 @@ const EditProductModal = ({ show, onHide, product, onSave }) => {
                 />
               </BootstrapForm.Group>
 
-              {/* <Form.Group as={Col} md="12">
-                <Form.Label>Categoría</Form.Label>
-                <Field as="select" name="category">
+              <BootstrapForm.Group as={Col} md="12">
+                <BootstrapForm.Label>Categoría</BootstrapForm.Label>
+                <Field className="form-control" as="select" name="category">
                   <option value="">Selecciona una categoría</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
@@ -103,7 +118,7 @@ const EditProductModal = ({ show, onHide, product, onSave }) => {
                   component="div"
                   className="text-danger"
                 />
-              </Form.Group> */}
+              </BootstrapForm.Group>
 
               <BootstrapForm.Group as={Col} md="12">
                 <BootstrapForm.Label>Destacado</BootstrapForm.Label>
