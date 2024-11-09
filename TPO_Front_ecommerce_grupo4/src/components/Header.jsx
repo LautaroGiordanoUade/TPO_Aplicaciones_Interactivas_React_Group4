@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
+import Categories from "./Categories";
 const Header = () => {
     return (
         <>
@@ -16,21 +17,9 @@ const Header = () => {
                                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Productos</Link>
+                                <Link className="nav-link" to="/products">Productos</Link>
                             </li>
-                            <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Categorías
-                                </Link>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="#">Electrónica</Link></li>
-                                    <li><Link className="dropdown-item" to="#">Ropa</Link></li>
-                                    <li><Link className="dropdown-item" to="#">Hogar</Link></li>
-                                    <li><Link className="dropdown-item" to="#">Juguetes</Link></li>
-                                    <li><hr className="dropdown-divider"/></li>
-                                    <li><Link className="dropdown-item" to="#">Más categorías</Link></li>
-                                </ul>
-                            </li>
+                            <Categories/>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/Cart">Carrito</Link>
                             </li>
