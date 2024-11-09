@@ -3,27 +3,26 @@ import { Modal, Button, Form as BootstrapForm, Col } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function EditProductModal({ show, onHide, product, onSave }) {
-  console.log("Editatando producto:", product);
-  const [name, setName] = useState(product?.name || "");
-  const [price, setPrice] = useState(product?.price || 0);
+const EditProductModal = ({ show, onHide, product, onSave }) => {
+  console.log("Editando producto:", product);
 
-  const handleSubmit = () => {
-    onSave({ name, price });
-    onHide();
+  const handleSubmit = (values) => {
+    console.log("Form values:", values);
+    onSave(values); // Pasa los datos al padre (onSave)
+    onHide(); // Cierra el modal
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .required("Ingrese el nombre.")
-      .min(3, "El nombre debe tener al menos caracteres."),
-      description: Yup.string()
+      .min(3, "El nombre debe tener al menos 3 caracteres."),
+    description: Yup.string()
       .required("Ingrese la descripción.")
-      .min(3, "El nombre debe tener al menos caracteres."),
+      .min(3, "La descripción debe tener al menos 3 caracteres."),
     price: Yup.number()
       .required("Ingrese el precio.")
       .positive("El precio tiene que ser positivo"),
-      quantity: Yup.number()
+    quantity: Yup.number()
       .required("Ingrese la cantidad.")
       .positive("La cantidad tiene que ser positiva."),
   });
@@ -35,27 +34,6 @@ function EditProductModal({ show, onHide, product, onSave }) {
           {product ? "Editar Producto" : "Crear Producto"}
         </Modal.Title>
       </Modal.Header>
-      {/* <Modal.Body>
-        <Formik
-          initialValues={{ name: product ? product.name : ''
-            , price: 0 }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            // Lógica para guardar los datos
-          }}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <Field name="name" />
-              {errors.name && touched.name ? <div>{errors.name}</div> : null}
-            </Form>
-            
-
-            
-          )}
-        </Formik>
-      </Modal.Body> */}
-
       <Modal.Body>
         <Formik
           initialValues={{
@@ -63,16 +41,13 @@ function EditProductModal({ show, onHide, product, onSave }) {
             description: product ? product.description : "",
             price: product ? product.price : "",
             quantity: product ? product.quantity : "",
-            featured: product?.featured
+            featured: product?.featured || false,
           }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log("valores:", values);
-            // Lógica para guardar los datos
-          }}
+          onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
-            <BootstrapForm>
+            <Form>
               <BootstrapForm.Group as={Col} md="12">
                 <BootstrapForm.Label>Nombre</BootstrapForm.Label>
                 <Field className="form-control" name="name" />
@@ -95,7 +70,7 @@ function EditProductModal({ show, onHide, product, onSave }) {
 
               <BootstrapForm.Group as={Col} md="12">
                 <BootstrapForm.Label>Precio</BootstrapForm.Label>
-                <Field className="form-control" name="price" />
+                <Field className="form-control" name="price" type="number" />
                 <ErrorMessage
                   name="price"
                   component="div"
@@ -105,20 +80,11 @@ function EditProductModal({ show, onHide, product, onSave }) {
 
               <BootstrapForm.Group as={Col} md="12">
                 <BootstrapForm.Label>Cantidad</BootstrapForm.Label>
-                <Field className="form-control" name="quantity" />
+                <Field className="form-control" name="quantity" type="number" />
                 <ErrorMessage
                   name="quantity"
                   component="div"
                   className="text-danger"
-                />
-              </BootstrapForm.Group>
-
-              <BootstrapForm.Group as={Col} md="12">
-                <BootstrapForm.Label>Destacado</BootstrapForm.Label>
-                <Field
-                  className="form-check-input"
-                  type="checkbox"
-                  name="featured"
                 />
               </BootstrapForm.Group>
 
@@ -139,22 +105,29 @@ function EditProductModal({ show, onHide, product, onSave }) {
                 />
               </Form.Group> */}
 
-              {/* ... (resto de los campos del formulario) */}
-            </BootstrapForm>
+              <BootstrapForm.Group as={Col} md="12">
+                <BootstrapForm.Label>Destacado</BootstrapForm.Label>
+                <Field
+                  className="form-check-input"
+                  type="checkbox"
+                  name="featured"
+                />
+              </BootstrapForm.Group>
+
+              <div className="text-end">
+                <Button className="me-2" variant="secondary" onClick={onHide}>
+                  Cerrar
+                </Button>
+                <Button variant="primary" type="submit">
+                  {product ? "Guardar" : "Crear"}
+                </Button>
+              </div>
+            </Form>
           )}
         </Formik>
       </Modal.Body>
-
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Cerrar
-        </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          {product ? "Guardar" : "Crear"}
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
-}
+};
 
 export default EditProductModal;

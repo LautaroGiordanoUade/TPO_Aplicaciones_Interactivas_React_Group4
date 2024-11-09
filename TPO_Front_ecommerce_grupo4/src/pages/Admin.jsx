@@ -75,7 +75,7 @@ const AdminProducts = () => {
               <td>{product.name}</td>
               <td>${product.price}</td>
               <td>
-                <Button variant="primary" onClick={() => handleEdit(product)}>
+                <Button className="me-2" variant="primary" onClick={() => handleEdit(product)}>
                   Editar
                 </Button>
                 <Button variant="danger" onClick={() => handleDelete(product)}>
