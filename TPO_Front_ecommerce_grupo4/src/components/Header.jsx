@@ -1,8 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
+import 'font-awesome/css/font-awesome.min.css';
 import Categories from "./Categories";
+import { useAuth } from "../hooks/useAuth";
+
 const Header = () => {
+    const { user } = useAuth();  // Usamos el contexto para obtener el usuario autenticado
+    const navigate = useNavigate();
+
+    const handlerLoginClick = () => {
+        // Si el usuario está loggeado, redirige a su perfil
+        // Si no está loggeado, redirige a la página de login
+        if (user) {
+            
+            navigate("/profile");
+        } else {
+            
+            navigate("/userLogin");
+        }
+    };
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -29,6 +47,11 @@ const Header = () => {
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
+                        <button 
+                            className="btn btn-outline-success ms-2" 
+                            onClick={handlerLoginClick}>
+                            <i className={`fa ${user ? 'fa-user' : 'fa-sign-in-alt'}`} aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
             </nav>
