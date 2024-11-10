@@ -46,7 +46,7 @@ export const deleteProduct = async (id) => {
 }
 
 export const createProduct = async (product) => {
-    const response =  await apiClient.post('products', {product});
+    const response =  await apiClient.post('products', product);
     return response.data;
 }
 

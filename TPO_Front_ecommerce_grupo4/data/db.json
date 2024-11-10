@@ -176,12 +176,12 @@
     },
     {
       "id": 14,
-      "name": "Test Product edited",
+      "name": "Test Product edited 34",
       "description": "Test descripcion edited",
       "categoryId": 2,
-      "quantity": 20,
-      "price": 299,
-      "featured": true,
+      "quantity": 2034,
+      "price": 2994,
+      "featured": false,
       "images": [
         {
           "id": 14,
@@ -414,7 +414,8 @@
       "id": 1,
       "username": "user1",
       "email": "user1@example.com",
-      "password": "password123"
+      "password": "password123",
+      "admin": true
     },
     {
       "id": 2,

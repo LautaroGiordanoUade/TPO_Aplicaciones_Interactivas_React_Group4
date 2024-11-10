@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button, Form as BootstrapForm, Col } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
 import {
   getProductsById,
   getCategories,
@@ -12,32 +11,30 @@ import {
 } from "../services/productService.js";
 
 const EditProduct = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [categories, setCategories] = useState([]);
 
   const handleInit = async () => {
-
-    try {
-      
-      const response = await getProductsById(id);
-      setProduct(response);
-    } catch (error) {
-      console.log(error);
-      setProductHasError(true);
-      setProductErrorMessage("Ocurrió un error.");
+    if (id != null) {
+      try {
+        const response = await getProductsById(id);
+        setProduct(response);
+      } catch (error) {
+        console.log(error);
+        setProductHasError(true);
+        setProductErrorMessage("Ocurrió un error.");
+      }
     }
-  
   };
 
   const handleGetCategories = async () => {
     try {
-      const init = async () => {
-        try {
-          const response = await getCategories();
-          setCategories(response);
-        } catch (error) {}
-      };
+      try {
+        const response = await getCategories();
+        setCategories(response);
+      } catch (error) {}
     } catch (error) {
       console.log(error);
     }
@@ -62,20 +59,30 @@ const EditProduct = () => {
   };
 
   const handleSubmit = (values) => {
-    console.log("Old product:", product);
-    product.name = values.name;
-    product.description = values.description;
-    product.quantity = values.quantity;
-    product.price = values.price;
-    product.categoryId = values.category;
-    product.featured = values.featured
-    console.log("new product:", product);
+    if (id != null) {
+      product.name = values.name;
+      product.description = values.description;
+      product.quantity = values.quantity;
+      product.price = values.price;
+      product.categoryId = values.category;
+      product.featured = values.featured;
+      handleEditProduct(product);
+    } else {
+      let newProduct = {
+        name: values.name,
+        description: values.description,
+        quantity: values.quantity,
+        price: values.price,
+        categoryId: values.category,
+        featured: values.featured,
+      };
+      console.log(newProduct);
+      handleCreateProduct(newProduct);
+    }
+  };
 
-    product ? (
-      handleEditProduct(product)
-    ) : (
-      handleCreateProduct(product)
-    )
+  const handleClose = () => {
+    navigate("/admin");
   };
 
   const validationSchema = Yup.object().shape({
@@ -103,9 +110,7 @@ const EditProduct = () => {
     <>
       {(id && product) || id == null ? (
         <>
-          <h2>
-            {product ? "Editar Producto" : "Crear Producto"}
-          </h2>
+          <h2>{product ? "Editar Producto" : "Crear Producto"}</h2>
           <Formik
             initialValues={{
               name: product?.name || "",
@@ -140,7 +145,7 @@ const EditProduct = () => {
                   />
                 </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Col} md="6">
+                <BootstrapForm.Group as={Col} md="12">
                   <BootstrapForm.Label>Precio</BootstrapForm.Label>
                   <Field className="form-control" name="price" type="number" />
                   <ErrorMessage
@@ -191,8 +196,14 @@ const EditProduct = () => {
                 </BootstrapForm.Group>
 
                 <div className="text-end">
-                <Link to={"/admin"}><button className="me-2" variant="secondary">Cerrar</button></Link>
-                  
+                  <Button
+                    className="me-2"
+                    variant="secondary"
+                    onClick={() => handleClose()}
+                  >
+                    Cerrar
+                  </Button>
+
                   <Button variant="primary" type="submit">
                     {product ? "Guardar" : "Crear"}
                   </Button>
