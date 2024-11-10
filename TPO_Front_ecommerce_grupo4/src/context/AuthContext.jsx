@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate("/userLogin");
   };
 
   useEffect(() => {
