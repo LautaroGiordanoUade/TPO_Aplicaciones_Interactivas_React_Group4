@@ -6,12 +6,12 @@ export const getProducts = async () => {
 }
 
 export const getFeaturedProducts = async () => {
-    const response =  await apiClient.get('product-featured');
+    const response =  await apiClient.get('products?featured=true');
     return response.data;
 }
 
 export const getFavorites = async () => {
-    const response =  await apiClient.get('favorites');
+    const response =  await apiClient.get('products?favorite=true');
     return response.data;
 }
 
