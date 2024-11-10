@@ -75,6 +75,8 @@ const EditProduct = () => {
         price: values.price,
         categoryId: values.category,
         featured: values.featured,
+        favorite: false,
+        viewed: false,
       };
       console.log(newProduct);
       handleCreateProduct(newProduct);

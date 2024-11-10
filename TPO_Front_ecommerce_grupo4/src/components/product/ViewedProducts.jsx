@@ -42,15 +42,28 @@ const ViewedProducts = () => {
   return (
     <div className="container-fluid border border-success rounded m-3 p-3">
       {loading && <LoadingSpinner {...propsLoading} />}
-      <h2>Últimos productos vistos:</h2>
+      <h4>Últimos productos vistos:</h4>
       {!user ? (
         <div>
-          <Link to="/userLogin">Inicia sesión</Link> para ver tus últimos productos vistos
+          <i className="bi bi-eye info-icon-4"></i>
+          <div>
+            <Link to="/userLogin">Inicia sesión</Link> para ver tus últimos
+            productos vistos
+          </div>
         </div>
       ) : products === null ? (
-        <div>{error}</div>
+        <div>
+          <div>
+          <i className="bi bi-exclamation-circle info-icon-4"></i>
+          <div>{error}</div>
+        </div></div>
       ) : products.length < 1 ? (
-        <div>Aquí mostraremos los últimos productos que visitaste.</div>
+        <div>
+          <i className="bi bi-eye info-icon-4"></i>
+          <div>
+            Aquí mostraremos los últimos productos que visitaste.
+          </div>
+        </div>
       ) : (
         <div className="row">
           {products.map((product) => (

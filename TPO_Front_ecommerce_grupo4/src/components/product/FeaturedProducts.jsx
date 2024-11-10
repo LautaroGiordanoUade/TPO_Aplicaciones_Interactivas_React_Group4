@@ -32,13 +32,19 @@ const FavoriteProducts = () => {
   return (
     <div className="container-fluid border border-success rounded m-3 p-3">
       {loading && <LoadingSpinner {...propsLoading} />}
-      <h2>Productos destacados:</h2>
+      <h4>Productos destacados:</h4>
       {products === null ? (
         <div>
-          {error}
+          <div>
+          <i className="bi bi-exclamation-circle info-icon-4"></i>
+          <div>{error}</div>
+        </div>
         </div>
       ) : products.length < 1 ? (
-        <div>No hay productos destacados por el momento.</div>
+        <div>
+          <i className="bi bi-star info-icon-4"></i>
+          <div>No hay productos destacados por el momento.</div>
+        </div>
       ) : (
         <div className="row">
           {products.map((product) => (

@@ -40,16 +40,25 @@ const FavoriteProducts = () => {
   return (
     <div className="container-fluid border border-success rounded m-3 p-3">
       {loading && <LoadingSpinner {...propsLoading} />}
-      <h2>Favoritos:</h2>
+      <h4>Favoritos:</h4>
       {!user ? (
+        <div>
+        <i className="bi bi-box2-heart info-icon-4"></i>
         <div>
           <Link to="/userLogin">Inicia sesión</Link> para ver tus productos
           favoritos
         </div>
+      </div>
       ) : products === null ? (
-        <div>{error}</div>
+        <div>
+          <i className="bi bi-exclamation-circle info-icon-4"></i>
+          <div >{error}</div>
+        </div>
       ) : products.length < 1 ? (
-        <div>Agrega productos a favoritos para verlos aquí.</div>
+        <div>
+          <i className="bi bi-box2-heart info-icon-4"></i>
+          <div>Agrega productos a favoritos para verlos aquí.</div>
+        </div>
       ) : (
         <div className="row">
           {products.map((product) => (

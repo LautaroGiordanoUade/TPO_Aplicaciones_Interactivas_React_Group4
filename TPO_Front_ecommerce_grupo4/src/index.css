@@ -58,6 +58,14 @@ button:focus-visible {
   margin-top: 56px;
 }
 
+.info-icon-6 {
+  font-size: 6rem;
+}
+
+.info-icon-4 {
+  font-size: 4rem;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

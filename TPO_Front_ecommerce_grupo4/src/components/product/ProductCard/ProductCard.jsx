@@ -6,8 +6,6 @@ import placeholderImage from '/public/placeholder.png';
 
 const ProductCard = ({ product }) => {
   const { images, name, price } = product;
-  console.log(images);
-  console.log(images.length);
   return (
     <Card className="card d-flex flex-column">
       <Link to={"/product/" + product.id}>
