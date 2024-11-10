@@ -4,41 +4,33 @@
     margin: auto;
 }
 
-.productCheckout-list {
-    margin-top: 20px;
+table {
+    width: 100%;
+    border-collapse: collapse; 
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 18px; 
 }
 
 .productCheckout-item {
-    display: flex;
-    justify-content: space-between;
     border-bottom: 1px solid #ccc;
-    padding: 10px 0;
 }
-
 
 .productCheckout-name {
     font-size: 16px; 
-    margin-bottom: 30px; 
 }
 
 .productCheckout-price {
     font-size: 16px; 
     font-weight: bold; 
-    margin-left: 30px; 
+    text-align: right; /* Alinear el precio a la derecha */
 }
 
 .totalCheckout {
     margin-top: 20px;
     font-size: 20px; 
     font-weight: bold; 
-}
-.nameProductCheckout{
-    font-size: 16px; 
-    margin-bottom: 30px;
-}
-
-.nameprecioCheckout{
-    font-size: 16px; 
-    font-weight: bold; 
-    margin-left: 30px; 
 }
