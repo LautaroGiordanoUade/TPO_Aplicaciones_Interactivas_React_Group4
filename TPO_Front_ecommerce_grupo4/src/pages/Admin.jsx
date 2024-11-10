@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getProducts, deleteProduct } from "../services/productService";
-import DeleteProductModal from "../components/DeleteProductModal";
-import EditProductModal from "../components/EditProductModal";
+import DeleteProductModal from "../components/product/DeleteProductModal";
 
 const AdminProducts = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
-  const [showModalEdit, setShowModalEdit] = useState(false);
-  const [productToEdit, setProductToEdit] = useState(null);
 
   const handlerInit = async () => {
     try {
@@ -50,17 +47,6 @@ const AdminProducts = () => {
     } catch (error) {}
   };
 
-  const handleCreate = () => {
-    setProductToEdit(null); // Para crear un nuevo producto
-    setShowModalEdit(true);
-  };
-
-  const handleSave = (productData) => {
-    // Lógica para guardar o actualizar el producto en el backend
-    console.log("Producto a guardar/actualizar:", productData);
-    setShowModalEdit(false);
-  };
-
   return (
     <div>
       <Table striped bordered hover>
@@ -79,10 +65,17 @@ const AdminProducts = () => {
               <td>{product.name}</td>
               <td>${product.price}</td>
               <td>
-                <Button className="me-2" variant="primary" onClick={() => handleEditProduct(product)}>
+                <Button
+                  className="me-2"
+                  variant="primary"
+                  onClick={() => handleEditProduct(product)}
+                >
                   Editar
                 </Button>
-                <Button variant="danger" onClick={() => handleDeleteProduct(product)}>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDeleteProduct(product)}
+                >
                   Eliminar
                 </Button>
               </td>
@@ -92,21 +85,14 @@ const AdminProducts = () => {
       </Table>
 
       <Button variant="primary" onClick={() => handleCreateProduct()}>
-                  Nuevo producto
-                </Button>
+        Nuevo producto
+      </Button>
 
       <DeleteProductModal
         show={showModalDelete}
         onHide={() => setShowModalDelete(false)}
         onConfirm={handleConfirmDelete}
         product={productToDelete}
-      />
-
-      <EditProductModal
-        show={showModalEdit}
-        onHide={() => setShowModalEdit(false)}
-        product={productToEdit}
-        onSave={handleSave}
       />
     </div>
   );
