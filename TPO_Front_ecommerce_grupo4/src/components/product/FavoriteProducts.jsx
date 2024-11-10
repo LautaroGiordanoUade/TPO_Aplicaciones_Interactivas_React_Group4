@@ -8,7 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const FavoriteProducts = () => {
   const { user } = useAuth();
-  const [favorites, setFavorites] = useState([]);
+  const [products, setProducts] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,8 +16,8 @@ const FavoriteProducts = () => {
     try {
       setLoading(true);
       const response = await getFavorites();
-      setFavorites(response);
-    } catch (error) {
+      setProducts(response);
+    } catch (err) {
       setError(
         err.response?.data?.message ||
           "No pudimos obtener tus productos favoritos. Intenta más tarde."
@@ -46,13 +46,13 @@ const FavoriteProducts = () => {
           <Link to="/userLogin">Inicia sesión</Link> para ver tus productos
           favoritos
         </div>
-      ) : !favorites === undefined ? (
+      ) : products === null ? (
         <div>{error}</div>
-      ) : favorites.length < 1 ? (
+      ) : products.length < 1 ? (
         <div>Agrega productos a favoritos para verlos aquí.</div>
       ) : (
         <div className="row">
-          {favorites.map((product) => (
+          {products.map((product) => (
             <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
               <ProductCard product={product} />
             </div>
