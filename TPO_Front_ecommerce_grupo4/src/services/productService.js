@@ -16,7 +16,7 @@ export const getFavorites = async () => {
 }
 
 export const getViewed = async () => {
-    const response =  await apiClient.get('viewed');
+    const response =  await apiClient.get('products?viewed=true');
     return response.data;
 }
 

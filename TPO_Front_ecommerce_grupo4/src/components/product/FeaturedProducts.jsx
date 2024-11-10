@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { getFeaturedProducts } from "../../services/productService";
 import ProductCard from "./ProductCard/ProductCard";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import { useAuth } from "../../hooks/useAuth";
 
 const FavoriteProducts = () => {
   const [products, setProducts] = useState(null);
