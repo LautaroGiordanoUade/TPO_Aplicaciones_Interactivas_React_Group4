@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import '../components/Cart.css';
+import '../components/StyledCart.css';
 import { getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
+import ModalCart from '../components/Cart/ModalCart'; 
 
 const Cart = () => {
     const [products, setProducts] = useState([]); 
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
-   
+    const [outOfStockItems, setOutOfStockItems] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+
+
+
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setOutOfStockItems([]); 
+    };
 
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -32,7 +42,8 @@ const Cart = () => {
         handlerfetchCartProducts();
     }, []);
 
-   
+
+
     const handlerRemoveCartProduct = (id) => {
       
         
@@ -53,6 +64,8 @@ const Cart = () => {
 
         setProducts(updatedProducts);
     };
+
+
     
     useEffect(() => {
         const newTotal = products.reduce((acc, product) => {
@@ -69,8 +82,6 @@ const Cart = () => {
 
 
     const handlerCheckout = () => {
-        const outOfStockItems = [];
-    
         for (const product of products) {
             if (product.quantityOnCart > product.quantity) {
                 console.log("Ahora estoy en este producto", { product });
@@ -79,11 +90,8 @@ const Cart = () => {
         }
     
         if (outOfStockItems.length > 0) {
-            const message = outOfStockItems.map(item => {
-                return `${item.name} (Cantidad solicitada: ${item.quantityOnCart}, Cantidad disponible: ${item.quantity})`;
-            }).join('\n'); 
-    
-            alert(`No se puede realizar la compra, los siguientes productos no están disponibles:\n${message}`);
+            setOutOfStockItems(outOfStockItems);
+            handleOpenModal()
             return;
         }
     
@@ -133,6 +141,11 @@ const Cart = () => {
                     Realizar Compra
                 </button>
             </div>
+            <ModalCart 
+            showModal={showModal} 
+            handleClose={handleCloseModal} 
+            items={outOfStockItems} 
+        />
         </div>
     );
 }
