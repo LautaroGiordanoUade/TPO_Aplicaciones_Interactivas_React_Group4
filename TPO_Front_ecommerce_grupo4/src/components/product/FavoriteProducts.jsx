@@ -1,39 +1,64 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getFavorites } from "../../services/productService";
 import ProductCard from "./ProductCard/ProductCard";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useAuth } from "../../hooks/useAuth";
 
 const FavoriteProducts = () => {
-  const [favoriteProductList, setFavoriteProductList] = useState([]);
-  const [favoriteProductHasError, setFavoriteProductHasError] = useState(false);
-  const [favoriteProductErrorMessage, setFvovoriteProductErrorMessage] =
-    useState("");
+  const { user } = useAuth();
+  const [favorites, setFavorites] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handlerInit = async () => {
+    try {
+      setLoading(true);
+      const response = await getFavorites();
+      setFavorites(response);
+    } catch (error) {
+      setError(
+        err.response?.data?.message ||
+          "No pudimos obtener tus productos favoritos. Intenta más tarde."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const init = async () => {
-      try {
-        const response = await getFavorites();
-        setFavoriteProductList(response);
-        console.log(response);
-      } catch (error) {setFavoriteProductHasError
-        console.log(error);
-        favoriteProductHasError(true);
-        favoriteProductErrorMessage("Ocurrió un error.");
-      }
-    };
-    init();
+    if (user) {
+      handlerInit();
+    }
   }, []);
 
+  const propsLoading = {
+    text: "Cargando favoritos, por favor espere...",
+  };
+
   return (
-    <div className="container-fluid">
+    <div className="container-fluid border border-success rounded m-3 p-3">
+      {loading && <LoadingSpinner {...propsLoading} />}
       <h2>Favoritos:</h2>
-      <div className="row">
-        {favoriteProductList.map((product) => (
+      {!user ? (
+        <div>
+          <Link to="/userLogin">Inicia sesión</Link> para ver tus productos
+          favoritos
+        </div>
+      ) : !favorites === undefined ? (
+        <div>{error}</div>
+      ) : favorites.length < 1 ? (
+        <div>Agrega productos a favoritos para verlos aquí.</div>
+      ) : (
+        <div className="row">
+          {favorites.map((product) => (
             <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
               <ProductCard product={product} />
             </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
