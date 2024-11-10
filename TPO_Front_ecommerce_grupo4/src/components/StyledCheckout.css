@@ -1,0 +1,36 @@
+.checkout-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; 
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 18px; 
+}
+
+.productCheckout-item {
+    border-bottom: 1px solid #ccc;
+}
+
+.productCheckout-name {
+    font-size: 16px; 
+}
+
+.productCheckout-price {
+    font-size: 16px; 
+    font-weight: bold; 
+    text-align: right; /* Alinear el precio a la derecha */
+}
+
+.totalCheckout {
+    margin-top: 20px;
+    font-size: 20px; 
+    font-weight: bold; 
+}
