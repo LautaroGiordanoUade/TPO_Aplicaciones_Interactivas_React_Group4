@@ -276,12 +276,34 @@
       "name": "Short De Boca Adidas Descanso",
       "description": "Cuando jugás con la misma intensidad que Boca Juniors, descansar es clave. Cuando las estrellas de La Bombonera se relajan, usan shorts como estos. La tecnología de absorción AEROREADY mantiene tu cuerpo seco todo el tiempo que necesites. La cintura elástica con cordón permite un ajuste perfecto. Hecho con materiales 100% reciclados, este producto representa solo una de nuestras soluciones para acabar con los residuos plásticos. Cintura elastizada con cordón de ajuste. Bolsillos laterales con cierre. Logo ADIDAS bordado. Escudo CABJ aplicado.",
       "quantity": 30,
-      "price": 94.435,
+      "price": 94435,
       "categoryId": "6",
       "featured": false,
       "favorite": false,
       "viewed": false,
       "id": 19
+    },
+    {
+      "name": "Bolso Gilbert Player Holdall",
+      "description": "Dimensiones aproximadas Largo: 52 cm. Ancho: 28 cm. Alto: 29 cm. Amplio compartimiento principal con cierre. Bolsillos laterales con cierre. Bolsillo frontal con cierre. Tira con ajuste regulable y desmontable. Asas para transporte azules. Logo GILBERT estampado.",
+      "quantity": 90,
+      "price": 92000,
+      "categoryId": "8",
+      "featured": false,
+      "favorite": false,
+      "viewed": false,
+      "id": 20
+    },
+    {
+      "name": "Zapatillas De Entrenamiento Head Austin",
+      "description": "Completá tus entrenamientos con HEAD.",
+      "quantity": 15,
+      "price": 58499,
+      "categoryId": "4",
+      "featured": false,
+      "favorite": false,
+      "viewed": false,
+      "id": 21
     }
   ],
   "profile": {
