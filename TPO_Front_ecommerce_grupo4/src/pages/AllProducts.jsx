@@ -37,7 +37,7 @@ const AllProducts = () => {
         <div>
           <div>
           <i className="bi bi-exclamation-circle info-icon-6"></i>
-          <div class="h4">{error}</div>
+          <div className="h4">{error}</div>
         </div>
           
         </div>
@@ -45,7 +45,7 @@ const AllProducts = () => {
         <div>
           <div>
           <i className="bi bi-search info-icon-6"></i>
-          <div class="h4">No hay productos por el momento.</div>
+          <div className="h4">No hay productos por el momento.</div>
         </div>
           
         </div>

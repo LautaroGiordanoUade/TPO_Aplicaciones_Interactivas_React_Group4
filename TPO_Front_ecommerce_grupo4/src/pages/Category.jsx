@@ -43,7 +43,7 @@ const Category = () => {
       ) : products.length < 1 ? (
         <div>
           <i className="bi bi-search info-icon-6"></i>
-          <div class="h4">No hay productos para la categoría. Prueba otra o <Link to="/products">mira todos los productos.</Link></div>
+          <div className="h4">No hay productos para la categoría. Prueba otra o <Link to="/products">mira todos los productos.</Link></div>
         </div>
       ) : (
         <div className="row">
