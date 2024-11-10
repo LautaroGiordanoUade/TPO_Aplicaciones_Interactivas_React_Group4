@@ -454,7 +454,7 @@
             "email": "user2@example.com",
             "password": "password456"
         }
-  ],
+    ],
   "categories": [
         {"id": 1, "name": "Pantalones"},
         {"id": 2, "name": "Remeras"},
@@ -465,5 +465,43 @@
         {"id": 7, "name": "Bolsos"},
         {"id": 8, "name": "Mochilas"},
         {"id": 9, "name": "Camperas"}
-    ]
+    ],
+    "purchase-history":[
+        {
+          "userId": 1,
+          "date": "2024-11-10T14:30:00Z",
+          "products": [
+            {
+              "id": 1,
+              "name": "Pantalón Deportivo Real Madrid Originals",
+              "price": 119999,
+              "quantity": 2
+            },
+            {
+              "id": 2,
+              "name": "Camiseta Barcelona 2023",
+              "price": 79999,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "userId": 2,
+          "date": "2024-11-10T14:30:00Z",
+          "products": [
+            {
+              "id": 3,
+              "name": "Zapatillas Nike Air Max",
+              "price": 129999,
+              "quantity": 1
+            },
+            {
+              "id": 4,
+              "name": "Bicicleta de montaña",
+              "price": 259999,
+              "quantity": 1
+            }
+          ]
+        }
+      ]
   }
