@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { getUser Profile, getProductsCart } from '../services/userService';
-import { useAuth } from '../context/AuthContext'; // Asumiendo que tienes un contexto de autenticación
-import './User Profile.css'; // Importa los estilos
+import { getUserProfile, getProductsCart } from '../services/userService';
+import { useAuth } from '../context/AuthContext';
+import './UserProfile.css'; // Importa los estilos
 
 const UserProfile = () => {
     const { userId } = useAuth(); // Obtener el ID del usuario autenticado
-    const [userData, setUser Data] = useState(null);
+    const [userData, setUserData] = useState(null);
     const [cartProducts, setCartProducts] = useState([]);
 
     useEffect(() => {
-        const fetchUser Data = async () => {
+        const fetchUserData = async () => {
             try {
-                const profileData = await getUser Profile(userId);
-                setUser Data(profileData);
+                const profileData = await getUserProfile(userId);
+                setUserData(profileData);
             } catch (error) {
                 console.error("Error al obtener los datos del usuario:", error);
             }
         };
 
-        const fetchUser Cart = async () => {
+        const fetchUserCart = async () => {
             try {
                 const userCart = await getProductsCart();
                 setCartProducts(userCart);
@@ -27,8 +27,8 @@ const UserProfile = () => {
             }
         };
 
-        fetchUser Data();
-        fetchUser Cart();
+        fetchUserData();
+        fetchUserCart();
     }, [userId]);
 
     return (
