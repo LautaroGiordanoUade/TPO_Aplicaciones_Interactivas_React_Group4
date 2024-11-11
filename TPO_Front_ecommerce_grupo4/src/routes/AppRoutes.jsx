@@ -8,6 +8,8 @@ import ProductDetail from '../pages/ProductDetail/ProductDetail.jsx';
 import AllProducts from "../pages/AllProducts.jsx";
 import Category from "../pages/Category.jsx";
 import Profile from "../pages/Profile.jsx";
+import Admin from "../pages/Admin.jsx";
+import EditProduct from "../pages/EditProduct.jsx";
 import PurchaseHistory from "../pages/PurchaseHistory/PurchaseHistory.jsx";
 
 const AppRoutes = () => {
@@ -26,6 +28,9 @@ const AppRoutes = () => {
                     <Route path="/products" element={<AllProducts/>} />
                     <Route path="/product/:id" element={<ProductDetail/>} />
                     <Route path="/category/:id" element={<Category/>} />
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/admin/edit/:id" element={<EditProduct/>} />
+                    <Route path="/admin/create" element={<EditProduct/>} />
                 </Routes>
             </div>
         </>

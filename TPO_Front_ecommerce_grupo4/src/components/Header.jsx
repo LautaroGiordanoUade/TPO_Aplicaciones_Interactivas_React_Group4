@@ -6,8 +6,8 @@ import Categories from "./Categories";
 import { useAuth } from "../hooks/useAuth";
 
 const Header = () => {
-    const { user } = useAuth();  // Usamos el contexto para obtener el usuario autenticado
-    const navigate = useNavigate();
+  const { user } = useAuth(); // Usamos el contexto para obtener el usuario autenticado
+  const navigate = useNavigate();
 
     const handlerLoginClick = () => {
         // Si el usuario está loggeado, redirige a su perfil
@@ -47,6 +47,13 @@ const Header = () => {
                                 <Link className="nav-link" to="/products">Productos</Link>
                             </li>
                             <Categories/>
+                            {user?.admin && (
+                              <li className="nav-item">
+                                <Link className="nav-link" to="/admin">
+                                  Admin
+                                </Link>
+                              </li>
+                            )}
                         </ul>
                         <form className="d-flex align-items-center" role="search">
                             <Link className="nav-link" to="/Cart">

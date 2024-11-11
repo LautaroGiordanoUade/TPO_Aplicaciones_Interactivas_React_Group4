@@ -39,7 +39,7 @@ const ProductDetail = () => {
               </div>
 
               <div
-                className="col-md-6 left-aligned"
+                className="col-md-8 left-aligned"
                 style={{ textAlign: "left" }}
               >
                 <h1 className="left-aligned">{product.name}</h1>

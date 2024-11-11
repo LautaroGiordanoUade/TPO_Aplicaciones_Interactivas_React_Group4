@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { getFavorites } from "../../services/productService";
-import ProductCard from "./ProductCard";
+import ProductCard from "./ProductCard/ProductCard";
 
 const FavoriteProducts = () => {
   const [favoriteProductList, setFavoriteProductList] = useState([]);
@@ -14,9 +14,11 @@ const FavoriteProducts = () => {
       try {
         const response = await getFavorites();
         setFavoriteProductList(response);
+        console.log(response);
       } catch (error) {setFavoriteProductHasError
-        setFeaturedProductHasError(true);
-        setFvovoriteProductErrorMessage("Ocurrió un error.");
+        console.log(error);
+        favoriteProductHasError(true);
+        favoriteProductErrorMessage("Ocurrió un error.");
       }
     };
     init();
