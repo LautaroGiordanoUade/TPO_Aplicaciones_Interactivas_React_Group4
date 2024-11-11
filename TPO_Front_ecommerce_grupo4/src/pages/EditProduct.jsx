@@ -17,8 +17,8 @@ const EditProduct = () => {
   const [product, setProduct] = useState(null);
   const [categories, setCategories] = useState([]);
   const [showToast, setShowToast] = useState(false);
-  const [saveMessage, setSaveMessage] = useState('');
-  const [toastVariant, setToastVariant] = useState('');
+  const [saveMessage, setSaveMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
 
   const handleInit = async () => {
     if (id != null) {
@@ -48,11 +48,11 @@ const EditProduct = () => {
     try {
       const response = await editProduct(product);
       setSaveMessage("Se guardó el producto.");
-      setToastVariant('success');
+      setToastVariant("success");
       setShowToast(true);
     } catch (error) {
       setSaveMessage("Ocurrió un error.");
-      setToastVariant('danger');
+      setToastVariant("danger");
       setShowToast(true);
     }
   };
@@ -61,11 +61,11 @@ const EditProduct = () => {
     try {
       const response = await createProduct(product);
       setSaveMessage("Se creó el producto.");
-      setToastVariant('success');
+      setToastVariant("success");
       setShowToast(true);
     } catch (error) {
       setSaveMessage("Ocurrió un error.");
-      setToastVariant('danger');
+      setToastVariant("danger");
       setShowToast(true);
     }
   };
@@ -228,12 +228,18 @@ const EditProduct = () => {
         </>
       ) : (
         <>
-          <div className="container-fluid">
-            <h1>No se encontró el producto</h1>
+          <div>
+            <i className="bi bi-search info-icon-6"></i>
+            <div className="h4">No se encontró el producto</div>
           </div>
         </>
       )}
-      <ToastMessage message={saveMessage} variant={toastVariant} show={showToast} setShow={setShowToast} />
+      <ToastMessage
+        message={saveMessage}
+        variant={toastVariant}
+        show={showToast}
+        setShow={setShowToast}
+      />
     </>
   );
 };
