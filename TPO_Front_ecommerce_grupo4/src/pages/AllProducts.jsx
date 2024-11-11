@@ -52,7 +52,7 @@ const AllProducts = () => {
       ) : (
         <div className="row">
           {products.map((product) => (
-            <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+            <div className="col" key={product.id}>
               <ProductCard product={product} />
             </div>
           ))}
