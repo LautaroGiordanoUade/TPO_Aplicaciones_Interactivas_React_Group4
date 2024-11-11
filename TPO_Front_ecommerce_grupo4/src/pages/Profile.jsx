@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserProfile, getProductsCart } from '../services/userService';
 import { useAuth } from '../context/AuthContext';
-import './User Profile.css'; // Importa los estilos
+import './Profile.css'; // Importa los estilos
 
 const UserProfile = () => {
     const { user } = useAuth(); // Obtener el objeto de usuario
