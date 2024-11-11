@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { getUserProfile, getProductsCart } from '../services/userService';
+import { getUserProfile, getProductsCart } from '../services/profileService';
 import { useAuth } from '../context/AuthContext';
-import './Profile.css'; // Importa los estilos
+import './Profile.css';
 
 const UserProfile = () => {
-    const { user } = useAuth(); // Obtener el objeto de usuario
-    const userId = user?.id; // Me aseguro que user tenga un id
+    const { user } = useAuth();
+    const userId = user?.id;
     const [userData, setUserData] = useState(null);
     const [cartProducts, setCartProducts] = useState([]);
 
     useEffect(() => {
-        if (!userId) return; // No hacer nada si no hay userId
+        if (!userId) return;
 
         const fetchUserData = async () => {
             try {
@@ -23,7 +23,7 @@ const UserProfile = () => {
 
         const fetchUserCart = async () => {
             try {
-                const userCart = await getProductsCart(userId); // Paso userId 
+                const userCart = await getProductsCart(userId);
                 setCartProducts(userCart);
             } catch (error) {
                 console.error("Error al obtener el carrito del usuario:", error);
