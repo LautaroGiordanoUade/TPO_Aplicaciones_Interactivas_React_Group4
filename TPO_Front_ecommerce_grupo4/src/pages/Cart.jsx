@@ -123,14 +123,6 @@ const Cart = () => {
             handleOpenModal()
             return;
         }
-        /*for(const product of products){
-            product.quantity=product.quantity-product.quantityOnCart
-            product.quantityOnCart=0
-            handlerUpdatedb(product)
-        } PONER EN EL CHECKOUT PARA ASI CUANDO VALIDA QUE COMPLETO TODOS LOS DATOS DEL FORMULARIO RESTE 
-        DEBERIA SACARLOS DEL CARRITO Y ACTUALIZAR EN PRODUCTO 
-        */ 
-        console.log("Productos actualizados:", products);
         navigate('/checkout', { state: { items: products, total: total } });
     };
   

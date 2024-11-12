@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductsById, postViewed } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
+import placeholderImage from "/public/placeholder.png";
 import ModalOnCart from '../../components/Cart/ModalOnCart.jsx'; 
 import{
   checkIfProductExistsInCart,
@@ -11,7 +12,6 @@ import{
   getProductQuantityInCart
   }
   from "../../services/cartService.js";
-import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -52,12 +52,10 @@ const ProductDetail = () => {
     try {
       
       const exists = await checkIfProductExistsInCart(product.id);
-      console.log(exists);
       
       if (exists) {
           
-          const currentQuantity = await getProductQuantityInCart(product.id); 
-          console.log(currentQuantity)
+          const currentQuantity = await getProductQuantityInCart(product.id);
           
           product.quantityOnCart = currentQuantity || 0; 
           product.quantityOnCart += 1; 
@@ -84,9 +82,9 @@ const ProductDetail = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-4">
-                {product.images ? (
-                  <ImageCarousel images={product.images} />
-                ) : null}
+                {product.images && product.images.length > 0 ? (
+                  <ImageCarousel images={product.images}/>
+                ) : <img src={placeholderImage} width={300} height={300} />}
               </div>
 
               <div

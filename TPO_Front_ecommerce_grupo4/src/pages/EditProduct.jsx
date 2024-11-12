@@ -10,8 +10,10 @@ import {
   createProduct,
 } from "../services/productService.js";
 import ToastMessage from "../components/ToastMessage";
+import { useAuth } from "../hooks/useAuth";
 
 const EditProduct = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -122,117 +124,149 @@ const EditProduct = () => {
 
   return (
     <>
-      {(id && product) || id == null ? (
-        <>
-          <h2>{product ? "Editar Producto" : "Crear Producto"}</h2>
-          <Formik
-            initialValues={{
-              name: product?.name || "",
-              description: product ? product.description : "",
-              price: product ? product.price : "",
-              quantity: product ? product.quantity : "",
-              featured: product?.featured || false,
-              category: product?.categoryId || -1,
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ errors, touched }) => (
-              <Form className="md-12">
-                <BootstrapForm.Group as={Col} md="12">
-                  <BootstrapForm.Label>Nombre</BootstrapForm.Label>
-                  <Field className="form-control" name="name" />
-                  <ErrorMessage
-                    name="name"
-                    component="div"
-                    className="text-danger"
-                  />
-                </BootstrapForm.Group>
+      {user?.admin ? (
+        (id && product) || id == null ? (
+          <>
+            <h2>{product ? "Editar Producto" : "Crear Producto"}</h2>
+            <Formik
+              initialValues={{
+                name: product?.name || "",
+                description: product ? product.description : "",
+                price: product ? product.price : "",
+                quantity: product ? product.quantity : "",
+                featured: product?.featured || false,
+                category: product?.categoryId || -1,
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ errors, touched }) => (
+                <Form className="col-12">
+                  <BootstrapForm.Group className="row p-2">
+                    <BootstrapForm.Label className="col text-start">
+                      Nombre
+                    </BootstrapForm.Label>
+                    <Field className="form-control col" name="name" />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Col} md="12">
-                  <BootstrapForm.Label>Descripción</BootstrapForm.Label>
-                  <Field className="form-control" name="description" />
-                  <ErrorMessage
-                    name="description"
-                    component="div"
-                    className="text-danger"
-                  />
-                </BootstrapForm.Group>
+                  <BootstrapForm.Group className="row p-2">
+                    <BootstrapForm.Label className="col text-start">
+                      Descripción
+                    </BootstrapForm.Label>
+                    <Field
+                      as="textarea"
+                      className="col form-control"
+                      rows={5}
+                      name="description"
+                    />
+                    <ErrorMessage
+                      name="description"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Col} md="12">
-                  <BootstrapForm.Label>Precio</BootstrapForm.Label>
-                  <Field className="form-control" name="price" type="number" />
-                  <ErrorMessage
-                    name="price"
-                    component="div"
-                    className="text-danger"
-                  />
-                </BootstrapForm.Group>
+                  <BootstrapForm.Group className="row p-2">
+                    <BootstrapForm.Label className="col text-start">
+                      Precio
+                    </BootstrapForm.Label>
+                    <Field
+                      className="col form-control"
+                      name="price"
+                      type="number"
+                    />
+                    <ErrorMessage
+                      name="price"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Col} md="12">
-                  <BootstrapForm.Label>Cantidad</BootstrapForm.Label>
-                  <Field
-                    className="form-control"
-                    name="quantity"
-                    type="number"
-                  />
-                  <ErrorMessage
-                    name="quantity"
-                    component="div"
-                    className="text-danger"
-                  />
-                </BootstrapForm.Group>
+                  <BootstrapForm.Group className="row p-2">
+                    <BootstrapForm.Label className="col text-start">
+                      Cantidad
+                    </BootstrapForm.Label>
+                    <Field
+                      className="col form-control"
+                      name="quantity"
+                      type="number"
+                    />
+                    <ErrorMessage
+                      name="quantity"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Col} md="12">
-                  <BootstrapForm.Label>Categoría</BootstrapForm.Label>
-                  <Field className="form-control" as="select" name="category">
-                    <option value="">Selecciona una categoría</option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Field>
-                  <ErrorMessage
-                    name="category"
-                    component="div"
-                    className="text-danger"
-                  />
-                </BootstrapForm.Group>
+                  <BootstrapForm.Group className="row p-2">
+                    <BootstrapForm.Label className="col text-start">
+                      Categoría
+                    </BootstrapForm.Label>
+                    <Field
+                      className="col form-control"
+                      as="select"
+                      name="category"
+                    >
+                      <option value="">Selecciona una categoría</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="category"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </BootstrapForm.Group>
 
-                <BootstrapForm.Group as={Col} md="12">
-                  <BootstrapForm.Label>Destacado</BootstrapForm.Label>
-                  <Field
-                    className="form-check-input"
-                    type="checkbox"
-                    name="featured"
-                  />
-                </BootstrapForm.Group>
+                  <BootstrapForm.Group className="row p-2">
+                    <BootstrapForm.Label className="col text-start">
+                      Destacado
+                    </BootstrapForm.Label>
+                    <Field
+                      className="form-check-input"
+                      type="checkbox"
+                      name="featured"
+                    />
+                  </BootstrapForm.Group>
 
-                <div className="text-end">
-                  <Button
-                    className="me-2"
-                    variant="secondary"
-                    onClick={() => handleClose()}
-                  >
-                    Cerrar
-                  </Button>
+                  <div className="text-end">
+                    <Button
+                      className="me-2"
+                      variant="secondary"
+                      onClick={() => handleClose()}
+                    >
+                      Cerrar
+                    </Button>
 
-                  <Button variant="primary" type="submit">
-                    {product ? "Guardar" : "Crear"}
-                  </Button>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </>
+                    <Button variant="primary" type="submit">
+                      {product ? "Guardar" : "Crear"}
+                    </Button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </>
+        ) : (
+          <>
+            <div>
+              <i className="bi bi-search info-icon-6"></i>
+              <div className="h4">No se encontró el producto</div>
+            </div>
+          </>
+        )
       ) : (
-        <>
-          <div>
-            <i className="bi bi-search info-icon-6"></i>
-            <div className="h4">No se encontró el producto</div>
-          </div>
-        </>
+        <div>
+          <i className="bi bi-shield-exclamation info-icon-6"></i>
+          <div className="h4">No tienes permisos para ver esta sección.</div>
+        </div>
       )}
       <ToastMessage
         message={saveMessage}
