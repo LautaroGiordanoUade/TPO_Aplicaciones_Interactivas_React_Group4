@@ -92,9 +92,7 @@ const ProductDetail = () => {
               </div>
 
               <div className="col text-start">
-                <div
-                  className="row-1 text-end"
-                >
+                <div className="row-1 text-end">
                   {user && (
                     <button
                       className="favorite btn btn-link"
@@ -111,15 +109,20 @@ const ProductDetail = () => {
                 </div>
                 <div className="row h1">{product.name}</div>
                 <div className="row h2">$ {product.price}</div>
-                <div className="row">{product.description}</div>
-                <div className="row-1">
-                  <button
-                    type="button"
-                    className="btn btn-primary bi bi-cart-fill"
-                    onClick={() => handlerAddToCart(product)}
-                  >
-                    Agregar al carrito
-                  </button>
+                <div className="row mt-4">{product.description}</div>
+                <div className="row mt-4 align-middle">
+                    <div className="col h6">
+                      Quedan {product.quantity} unidades
+                    </div>
+                    <div className="col text-end">
+                      <button
+                        type="button"
+                        className="btn btn-primary bi bi-cart-fill"
+                        onClick={() => handlerAddToCart(product)}
+                      >
+                        Agregar al carrito
+                      </button>
+                    </div>
                 </div>
               </div>
             </div>
