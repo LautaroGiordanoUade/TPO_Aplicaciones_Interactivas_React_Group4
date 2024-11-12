@@ -392,24 +392,13 @@
       "admin": true
     },
     {
-      "id": 2,
-      "username": "user2",
-      "email": "user2@example.com",
-      "password": "password456"
-    },
-    {
-      "id": 1731381540083,
-      "username": "Lautaro",
-      "email": "LG@lg.com",
-      "password": "lautaro"
-    },
-    {
-      "id": 1731388796152,
-      "username": "pepe",
-      "email": "pepe@pepe.com",
-      "password": "123",
-      "firstName": "pepe",
-      "lastName": "grillo"
+      "username": "el topazo",
+      "firstName": "topoq",
+      "lastName": "werer",
+      "email": "asda@topo.com",
+      "password": "asdasd.",
+      "dob": "2001-10-10",
+      "id": 1731415884997
     }
   ],
   "categories": [
