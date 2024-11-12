@@ -1,79 +1,81 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsById, postViewed } from "../../services/productService.js";
+import { getProductsById, editProduct } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
 import placeholderImage from "/public/placeholder.png";
-import ModalOnCart from '../../components/Cart/ModalOnCart.jsx'; 
-import{
+import ModalOnCart from "../../components/Cart/ModalOnCart.jsx";
+import {
   checkIfProductExistsInCart,
   updateProductCart,
   createProductCart,
-  getProductQuantityInCart
-  }
-  from "../../services/cartService.js";
+  getProductQuantityInCart,
+} from "../../services/cartService.js";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const [product, setProduct] = useState(null);
-  const [productHasError, setProductHasError] = useState(false);
-  const [productErrorMessage, setProductErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
 
-
+  const handleFavorite = async () => {
+    try {
+      product.favorite = !product.favorite;
+      await editProduct(product);
+    } catch (error) {
+      product.favorite = !product.favorite;
+    } finally {
+      setIsFavorite(product.favorite);
+    }
+  };
 
   const handleOpenModal = (product) => {
-    setModalProduct(product)
+    setModalProduct(product);
     setShowModal(true);
-  }
-    
+  };
+
   const handleCloseModal = () => {
-      setShowModal(false);
-   
+    setShowModal(false);
   };
   const handlerInit = async () => {
     try {
       const response = await getProductsById(id);
       setProduct(response);
+      setIsFavorite(response.favorite);
       //await postViewed();
     } catch (error) {
       console.log(error);
-      setProductHasError(true);
-      setProductErrorMessage("Ocurrió un error.");
     }
   };
 
   useEffect(() => {
     handlerInit();
-  }, [id]);
+  }, [id, isFavorite]);
 
-  const handlerAddToCart = async(product)=>{
+  const handlerAddToCart = async (product) => {
     try {
-      
       const exists = await checkIfProductExistsInCart(product.id);
-      
+
       if (exists) {
-          
-          const currentQuantity = await getProductQuantityInCart(product.id);
-          
-          product.quantityOnCart = currentQuantity || 0; 
-          product.quantityOnCart += 1; 
-          
-          
-          await updateProductCart(product);
-          handleOpenModal(product);
+        const currentQuantity = await getProductQuantityInCart(product.id);
+
+        product.quantityOnCart = currentQuantity || 0;
+        product.quantityOnCart += 1;
+
+        await updateProductCart(product);
+        handleOpenModal(product);
       } else {
-          
-          product.quantityOnCart = 1;
-          await createProductCart(product); 
-          handleOpenModal(product);
+        product.quantityOnCart = 1;
+        await createProductCart(product);
+        handleOpenModal(product);
       }
-      } catch (error) {
-          handleOpenModal("Error al agregar el producto al carrito.");
-      }
-    
-  }
+    } catch (error) {
+      handleOpenModal("Error al agregar el producto al carrito.");
+    }
+  };
 
   return (
     <>
@@ -81,22 +83,44 @@ const ProductDetail = () => {
         <>
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-4">
+              <div className="col">
                 {product.images && product.images.length > 0 ? (
-                  <ImageCarousel images={product.images}/>
-                ) : <img src={placeholderImage} width={300} height={300} />}
+                  <ImageCarousel images={product.images} />
+                ) : (
+                  <img src={placeholderImage} width={300} height={300} />
+                )}
               </div>
 
-              <div
-                className="col-md-8 left-aligned"
-                style={{ textAlign: "left" }}
-              >
-                <h1 className="left-aligned">{product.name}</h1>
-                <h2>${product.price}</h2>
-                <p>{product.description}</p>
-                <button type="button" className="btn btn-primary" onClick={() => handlerAddToCart(product)}>
-                  Agregar al carrito
-                </button>
+              <div className="col text-start">
+                <div
+                  className="row-1 text-end"
+                >
+                  {user && (
+                    <button
+                      className="favorite btn btn-link"
+                      onClick={handleFavorite}
+                    >
+                      <i
+                        className={
+                          isFavorite ? "h2 bi bi-heart-fill" : "h2 bi bi-heart"
+                        }
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  )}
+                </div>
+                <div className="row h1">{product.name}</div>
+                <div className="row h2">$ {product.price}</div>
+                <div className="row">{product.description}</div>
+                <div className="row-1">
+                  <button
+                    type="button"
+                    className="btn btn-primary bi bi-cart-fill"
+                    onClick={() => handlerAddToCart(product)}
+                  >
+                    Agregar al carrito
+                  </button>
+                </div>
               </div>
             </div>
           </div>
