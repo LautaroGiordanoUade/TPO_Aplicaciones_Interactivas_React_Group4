@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../components/StyledCart.css';
+import '../components/Cart/StyledCart.css';
 import { getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
 import ModalCart from '../components/Cart/ModalCart'; 

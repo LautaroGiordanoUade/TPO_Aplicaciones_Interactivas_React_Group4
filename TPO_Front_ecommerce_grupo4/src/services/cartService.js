@@ -7,9 +7,7 @@ export const getProductsCart = async () => {
        
 }
 
-
-
-
+ 
 //TODO: cuando la integracion se realice , cambiar para q envie los datos de usuario y con eso ya filtra
 export const getPurchaseHistory = async (user) => {
   try {

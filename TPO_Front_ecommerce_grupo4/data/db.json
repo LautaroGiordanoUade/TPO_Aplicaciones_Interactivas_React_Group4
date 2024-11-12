@@ -493,7 +493,7 @@
             "name": "Remera Own the Run 3 Tiras",
             "description": "Expandí los límites de tu carrera con una remera de running ligera.",
             "categoryId": 2,
-            "quantity": 3,
+            "quantity": 90,
             "quantityOnCart":4,
             "price": 60,
             "featured": true,

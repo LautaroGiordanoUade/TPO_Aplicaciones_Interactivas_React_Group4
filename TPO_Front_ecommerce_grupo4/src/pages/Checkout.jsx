@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import '../components/StyledCheckout.css';
+import '../components/Cart/StyledCheckout.css';
 
 
 const Checkout = () => {
