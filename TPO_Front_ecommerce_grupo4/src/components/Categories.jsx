@@ -11,8 +11,7 @@ const Categories = () => {
       try {
         const response = await getCategories();
         setCategories(response);
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     init();
   }, []);
@@ -33,11 +32,7 @@ const Categories = () => {
           <ul className="dropdown-menu">
             {categories.map((category) => (
               <li key={category.id}>
-                <Link
-                  className="dropdown-item"
-                  reloadDocument
-                  to={"/category/" + category.id}
-                >
+                <Link className="dropdown-item" to={"/category/" + category.id}>
                   {category.name}
                 </Link>
               </li>
