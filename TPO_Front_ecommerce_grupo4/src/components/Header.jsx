@@ -6,8 +6,8 @@ import Categories from "./Categories";
 import { useAuth } from "../hooks/useAuth";
 
 const Header = () => {
-    const { user } = useAuth();  // Usamos el contexto para obtener el usuario autenticado
-    const navigate = useNavigate();
+  const { user } = useAuth(); // Usamos el contexto para obtener el usuario autenticado
+  const navigate = useNavigate();
 
     const handlerLoginClick = () => {
         // Si el usuario está loggeado, redirige a su perfil
@@ -65,6 +65,18 @@ const Header = () => {
                             >
                                 <i className="bi bi-cart" style={{ fontSize:'30px',marginRight: '10px' }}></i> 
                             </button>
+                            {user?.admin && (
+                              <li className="nav-item">
+                                <Link className="nav-link" to="/admin">
+                                  Admin
+                                </Link>
+                              </li>
+                            )}
+                        </form>
+                        <form className="d-flex align-items-center" role="search">
+                            <Link className="nav-link" to="/Cart">
+                                    <i className="bi bi-cart" style={{ fontSize:'30px',marginRight: '10px' }}></i> 
+                            </Link>
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>

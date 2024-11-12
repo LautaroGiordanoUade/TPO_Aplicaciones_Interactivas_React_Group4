@@ -1,4 +1,3 @@
-import axios from "axios";
 import apiClient from "./apiClient"
 
 export const getProducts = async () => {
@@ -38,5 +37,20 @@ export const getCategories = async (id) => {
 
 export const postViewed = async () => {
     const response =  await apiClient.post('viewed');
+    return response.data;
+}
+
+export const deleteProduct = async (id) => {
+    const response =  await apiClient.delete(`products/${id}`);
+    return response.data;
+}
+
+export const createProduct = async (product) => {
+    const response =  await apiClient.post('products', product);
+    return response.data;
+}
+
+export const editProduct = async (product) => {
+    const response =  await apiClient.put(`products/${product.id}`, JSON.stringify(product));
     return response.data;
 }
