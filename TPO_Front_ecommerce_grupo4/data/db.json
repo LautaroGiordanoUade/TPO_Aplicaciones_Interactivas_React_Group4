@@ -400,6 +400,15 @@
       "password": "password456",
       "firstName": "Flor",
       "lastName": "Flor"
+    },
+    {
+      "username": "user1@example.com",
+      "firstName": "Fede",
+      "lastName": "Guerrero",
+      "email": "fede@gmail.com",
+      "password": "fede123",
+      "dob": "1978-04-26",
+      "id": 1731424239836
     }
   ],
   "categories": [
