@@ -139,7 +139,7 @@ const Cart = () => {
                             <div className="product-item" key={product.id}>
                                 {product?.images?.length > 0 && (
                                     <img 
-                                        src={product.images[0].imageBase64} 
+                                        src={product.images[0].imageBase64} width={300} 
                                         alt={product.name}
                                         className='produc-image'
                                     />

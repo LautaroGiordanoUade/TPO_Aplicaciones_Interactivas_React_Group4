@@ -73,7 +73,7 @@ const Checkout = () => {
         };
     
         try {
-            await postPurchaseHistory(user.userId, currentProducts);
+            await postPurchaseHistory(user.userId || user.id, currentProducts);
             finalizePurchase('Compra realizada con éxito', 'success', true);
             
         } catch (error) {
