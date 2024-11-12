@@ -5,7 +5,8 @@ const ImageCarousel = ({images}) => {
     <Carousel data-bs-theme="dark">
         {images.map((image, index) => (
             <Carousel.Item key={index}>
-                <img key={index} src={image.imageBase64} />
+                <img key={index} src={image? image.imageBase64
+              : placeholderImage} />
             </Carousel.Item>
             ))
         }

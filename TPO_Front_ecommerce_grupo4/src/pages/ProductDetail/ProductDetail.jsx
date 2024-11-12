@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductsById, postViewed } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
+import placeholderImage from "/public/placeholder.png";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -33,9 +34,9 @@ const ProductDetail = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-4">
-                {product.images ? (
-                  <ImageCarousel images={product.images} />
-                ) : null}
+                {product.images && product.images.length > 0 ? (
+                  <ImageCarousel images={product.images}/>
+                ) : <img src={placeholderImage} width={300} height={300} />}
               </div>
 
               <div
