@@ -3,8 +3,10 @@ import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getProducts, deleteProduct } from "../services/productService";
 import DeleteProductModal from "../components/product/DeleteProductModal";
+import { useAuth } from "../hooks/useAuth";
 
 const AdminProducts = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -48,53 +50,62 @@ const AdminProducts = () => {
   };
 
   return (
-    <div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>${product.price}</td>
-              <td>
-                <Button
-                  className="me-2"
-                  variant="primary"
-                  onClick={() => handleEditProduct(product)}
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => handleDeleteProduct(product)}
-                >
-                  Eliminar
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+    <>
+      {user?.admin ? (
+        <div>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td>${product.price}</td>
+                  <td>
+                    <Button
+                      className="me-2"
+                      variant="primary"
+                      onClick={() => handleEditProduct(product)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDeleteProduct(product)}
+                    >
+                      Eliminar
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
 
-      <Button variant="primary" onClick={() => handleCreateProduct()}>
-        Nuevo producto
-      </Button>
+          <div className="col text-end">
+            <Button variant="primary" onClick={() => handleCreateProduct()}>
+              Nuevo producto
+            </Button>
+          </div>
 
-      <DeleteProductModal
-        show={showModalDelete}
-        onHide={() => setShowModalDelete(false)}
-        onConfirm={handleConfirmDelete}
-        product={productToDelete}
-      />
-    </div>
+          <DeleteProductModal
+            show={showModalDelete}
+            onHide={() => setShowModalDelete(false)}
+            onConfirm={handleConfirmDelete}
+            product={productToDelete}
+          />
+        </div>
+      ) : (
+        <div>
+          <i className="bi bi-shield-exclamation info-icon-6"></i>
+          <div className="h4">No tienes permisos para ver esta sección.</div>
+        </div>
+      )}
+    </>
   );
 };
 
