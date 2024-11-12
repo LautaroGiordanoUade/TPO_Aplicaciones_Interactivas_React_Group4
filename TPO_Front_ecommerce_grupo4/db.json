@@ -327,9 +327,17 @@
         "email": "user2@example.com",
         "password": "password456",
         "profile": {
-          "firstName": "User2",
-          "lastName": "USER2",
-          "carts": []
+          "firstName": "Flor",
+          "lastName": "Flor",
+          "carts": [
+            {
+              "id": 203,
+              "date": "2023-09-25",
+              "products": [
+                { "id": 4, "name": "Chaqueta Impermeable", "quantity": 1 }
+              ]
+            }
+          ]
         }
       },
       {
