@@ -14,7 +14,6 @@ export const deleteProductCart = async (id) => {
 
 export const deleteAllProductCart = async () => {
   const response = await apiClient.delete('cart-Products');
-  console.log("Todos los productos del carrito han sido eliminados:", response);
   return response.data;
 }
 

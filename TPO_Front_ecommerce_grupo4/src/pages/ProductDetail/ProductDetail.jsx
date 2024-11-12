@@ -12,7 +12,6 @@ import{
   getProductQuantityInCart
   }
   from "../../services/cartService.js";
-import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -53,12 +52,10 @@ const ProductDetail = () => {
     try {
       
       const exists = await checkIfProductExistsInCart(product.id);
-      console.log(exists);
       
       if (exists) {
           
-          const currentQuantity = await getProductQuantityInCart(product.id); 
-          console.log(currentQuantity)
+          const currentQuantity = await getProductQuantityInCart(product.id);
           
           product.quantityOnCart = currentQuantity || 0; 
           product.quantityOnCart += 1; 
