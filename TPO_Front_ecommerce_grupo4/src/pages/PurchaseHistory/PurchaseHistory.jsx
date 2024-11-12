@@ -62,7 +62,7 @@ const PurchaseHistory = () => {
                       return (
                         <React.Fragment key={index}>
                           {purchase.products.map((product, productIndex) => (
-                            <tr key={product.id}>
+                            <tr key={product.id} style={{ marginBottom: '5px' }}>
                               {productIndex === 0 && (
                                 <td rowSpan={purchase.products.length}>
                                   {new Date(purchase.date).toLocaleDateString()}
@@ -78,7 +78,10 @@ const PurchaseHistory = () => {
                             <td colSpan={5} className="total-row">
                               <strong>Total Compra: </strong>${totalCompra}
                             </td>
+                            
                           </tr>
+                          {/* Fila vacía para crear el espacio entre las compras */}
+                          <br />
                         </React.Fragment>
                       );
                     })}

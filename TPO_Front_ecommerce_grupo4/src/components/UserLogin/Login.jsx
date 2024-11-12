@@ -2,29 +2,42 @@
 import React, { useState } from "react";
 import { loginUser } from "../../services/userService";
 import { useAuth } from "../../hooks/useAuth";
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const Login = ({ setView }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
+    await delay(5000);
     try {
       const user = await loginUser(email, password);
+      
       if (user) {
-        await login(email, password);
+        await login(email, password, user.id);
+        setLoading(false);
       }
     } catch (error) {
       setError("Las credenciales ingresadas son incorrectas");
       console.error(error);
+      setLoading(false);
     }
   };
 
+  const propsLoading = {
+    text:'Ingresando, por favor espere...'
+  }
+
   return (
     <form onSubmit={handleLogin}>
+      {loading && <LoadingSpinner {...propsLoading}/>}
       <div className="mb-3">
         <input
           type="email"
