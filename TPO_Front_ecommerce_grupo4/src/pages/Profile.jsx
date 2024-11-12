@@ -24,17 +24,7 @@ const UserProfile = () => {
             }
         };
 
-        const fetchUserPurchases = async () => {
-            try {
-                const purchases = await getUserPurchases(userId);
-                setUserPurchases(purchases);
-            } catch (error) {
-                setError("Error al obtener las compras del usuario.");
-            }
-        };
-
         fetchUserData();
-        fetchUserPurchases();
     }, [userId]);
 
     const handleEditProfile = () => {
@@ -82,7 +72,7 @@ const UserProfile = () => {
                 <p>No has realizado ninguna compra.</p>
             )}
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <LogoutButton />
+               Cerrar sesión <LogoutButton />
             </div>
         </div>
     );

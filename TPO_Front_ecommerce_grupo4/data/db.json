@@ -396,6 +396,20 @@
       "username": "user2",
       "email": "user2@example.com",
       "password": "password456"
+    },
+    {
+      "id": 1731381540083,
+      "username": "Lautaro",
+      "email": "LG@lg.com",
+      "password": "lautaro"
+    },
+    {
+      "id": 1731388796152,
+      "username": "pepe",
+      "email": "pepe@pepe.com",
+      "password": "123",
+      "firstName": "pepe",
+      "lastName": "grillo"
     }
   ],
   "categories": [
@@ -461,6 +475,36 @@
         }
       ],
       "id": 2
+    },
+    {
+      "date": "2024-11-12T11:57:29.066Z",
+      "products": [
+        {
+          "id": 1,
+          "name": "Pantalón Deportivo Real Madrid Originals",
+          "price": 119999,
+          "quantity": 1
+        },
+        {
+          "id": 2,
+          "name": "Pantalón Adicolor 70s",
+          "price": 97999,
+          "quantity": 1
+        },
+        {
+          "id": 3,
+          "name": "Remera Adizero Running",
+          "price": 80,
+          "quantity": 1
+        },
+        {
+          "id": 4,
+          "name": "Remera Own the Run 3 Tiras",
+          "price": 60,
+          "quantity": 1
+        }
+      ],
+      "id": 3
     }
   ]
 }
