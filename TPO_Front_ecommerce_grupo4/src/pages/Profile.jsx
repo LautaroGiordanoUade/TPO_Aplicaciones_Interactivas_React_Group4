@@ -57,7 +57,6 @@ const UserProfile = () => {
             ) : (
                 <p>Cargando datos del usuario...</p>
             )}
-            <></>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                Cerrar sesión <LogoutButton />
             </div>

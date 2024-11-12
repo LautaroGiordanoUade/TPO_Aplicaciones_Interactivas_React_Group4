@@ -5,7 +5,7 @@
       "name": "Pantalón Deportivo Real Madrid Originals",
       "description": "Pantalones deportivos del Real Madrid inspirados en el legado de adidas y hechos parcialmente con materiales reciclados",
       "categoryId": 1,
-      "quantity": 15,
+      "quantity": 9,
       "price": 119999,
       "featured": true,
       "favorite": false,
@@ -28,7 +28,7 @@
       "name": "Pantalón Adicolor 70s",
       "description": "Pantalones deportivos cómodos con un look de inspiración retro",
       "categoryId": 1,
-      "quantity": 27,
+      "quantity": 16,
       "price": 97999,
       "featured": true,
       "favorite": false,
@@ -51,7 +51,7 @@
       "name": "Remera Adizero Running",
       "description": "Una remera de running ligera diseñada para ayudarte a llegar lejos.",
       "categoryId": 2,
-      "quantity": 50,
+      "quantity": 48,
       "price": 80,
       "featured": false,
       "favorite": false,
@@ -273,7 +273,7 @@
       "price": 92000,
       "categoryId": "8",
       "featured": false,
-      "favorite": false,
+      "favorite": true,
       "viewed": false,
       "id": 20
     },
@@ -295,7 +295,7 @@
       "price": 82.999,
       "categoryId": "2",
       "featured": false,
-      "favorite": false,
+      "favorite": true,
       "viewed": false,
       "id": 22
     }
@@ -605,36 +605,28 @@
       "id": 11
     },
     {
-      "userId": 1731433471440,
-      "date": "2024-11-12T17:45:51.084Z",
+      "date": "2024-11-12T19:10:25.170Z",
       "products": [
+        {
+          "id": 2,
+          "name": "Pantalón Adicolor 70s",
+          "price": 97999,
+          "quantity": 11
+        },
         {
           "id": 1,
           "name": "Pantalón Deportivo Real Madrid Originals",
           "price": 119999,
-          "quantity": 1
+          "quantity": 7
         },
         {
-          "id": 16,
-          "name": "Buzo De Boca Medio Cierre Adidas",
-          "price": 133330,
-          "quantity": 1
+          "id": 3,
+          "name": "Remera Adizero Running",
+          "price": 80,
+          "quantity": 2
         }
       ],
       "id": 12
-    },
-    {
-      "userId": 1731433471440,
-      "date": "2024-11-12T17:49:29.339Z",
-      "products": [
-        {
-          "id": 18,
-          "name": "Botines De Futbol Adidas Goletto",
-          "price": 79999,
-          "quantity": 1
-        }
-      ],
-      "id": 13
     }
   ]
 }
