@@ -308,79 +308,86 @@
       "name": "Camperas"
     }
   ],
-  "profile": {
-    "id": 3,
-    "username": "user@example.com",
-    "email": "user@example.com",
-    "firstName": "User",
-    "lastName": "USER",
-    "carts": []
-  },
-  "users": [
-    {
-      "id": 1,
-      "username": "user1",
-      "email": "user1@example.com",
-      "password": "password123"
-    },
-    {
-      "id": 2,
-      "username": "user2",
-      "email": "user2@example.com",
-      "password": "password456"
-    },
-    {
-      "id": 5,
-      "username": "juanPerez",
-      "email": "juan@example.com",
-      "firstName": "Juan",
-      "lastName": "Pérez",
-      "password": "juan123",
-      "purchases": [
-        {
-          "id": 201,
-          "date": "2023-09-15",
-          "products": [
-            { "id": 1, "name": "Pantalón Deportivo", "quantity": 1 },
-            { "id": 2, "name": "Zapatillas Running", "quantity": 1 }
-          ]
-        },
-        {
-          "id": 202,
-          "date": "2023-09-20",
-          "products": [
-            { "id": 3, "name": "Camiseta de Algodón", "quantity": 2 }
+
+    "users": [
+      {
+        "id": 1,
+        "username": "user1",
+        "email": "user1@example.com",
+        "password": "password123",
+        "profile": {
+          "firstName": "User",
+          "lastName": "USER",
+          "carts": []
+        }
+      },
+      {
+        "id": 2,
+        "username": "user2",
+        "email": "user2@example.com",
+        "password": "password456",
+        "profile": {
+          "firstName": "User2",
+          "lastName": "USER2",
+          "carts": []
+        }
+      },
+      {
+        "id": 5,
+        "username": "juanPerez",
+        "email": "juan@example.com",
+        "password": "juan123",
+        "profile": {
+          "firstName": "Juan",
+          "lastName": "Pérez",
+          "carts": [
+            {
+              "id": 201,
+              "date": "2023-09-15",
+              "products": [
+                { "id": 1, "name": "Pantalón Deportivo", "quantity": 1 },
+                { "id": 2, "name": "Zapatillas Running", "quantity": 1 }
+              ]
+            },
+            {
+              "id": 202,
+              "date": "2023-09-20",
+              "products": [
+                { "id": 3, "name": "Camiseta de Algodón", "quantity": 2 }
+              ]
+            }
           ]
         }
-      ]
-    },
-    {
-      "id": 6,
-      "username": "Maria Gomez",
-      "email": "maria@example.com",
-      "firstName": "María",
-      "lastName": "Gómez",
-      "password": "maria",
-      "purchases": [
-        {
-          "id": 203,
-          "date": "2023-09-25",
-          "products": [
-            { "id": 4, "name": "Chaqueta Impermeable", "quantity": 1 }
+      },
+      {
+        "id": 6,
+        "username": "Maria Gomez",
+        "email": "maria@example.com",
+        "password": "maria",
+        "profile": {
+          "firstName": "María",
+          "lastName": "Gómez",
+          "carts": [
+            {
+              "id": 203,
+              "date": "2023-09-25",
+              "products": [
+                { "id": 4, "name": "Chaqueta Impermeable", "quantity": 1 }
+              ]
+            }
           ]
         }
-      ]
-    },
-    {
-      "id": 3,
-      "username": "Carlitos. L",
-      "email": "lopez@example.com",
-      "firstName": "Carlos",
-      "lastName": "López",
-      "password": "password789",
-      "purchases": []
-    }
-    
-  ]
-  
-}
+      },
+      {
+        "id": 3,
+        "username": "Carlitos. L",
+        "email": "lopez@example.com",
+        "password": "password789",
+        "profile": {
+          "firstName": "Carlos",
+          "lastName": "López",
+          "carts": []
+        }
+      }
+    ]
+  }
