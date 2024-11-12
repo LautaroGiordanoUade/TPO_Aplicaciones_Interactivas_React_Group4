@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useLocation } from 'react-router-dom';
 import '../components/Cart/StyledCheckout.css';
 import ToastMessage from '../components/ToastMessage'
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
-import { postPurchaseHistory } from '../services/cartService';
+import { 
+    postPurchaseHistory,
+    getProductsCart,
+    deleteProductCart
+    }    
+    from '../services/cartService';
+import {editProduct,getProductsById,deleteProduct} from "../services/productService.js";
+
 
 
 
@@ -17,6 +24,36 @@ const Checkout = () => {
     const [toastVariant, setToastVariant] = useState("success");
     const [loading, setLoading] = useState(false);
     const [bought, setbought] = useState(false);
+    const [currentProducts, setCurrentProducts] = useState([]);
+
+    const fetchCurrentProducts = async () => {
+        try {
+            const products = await getProductsCart(); // Obtener todos los productos desde la base de datos
+            setCurrentProducts(products);
+        } catch (error) {
+            console.error("Error al obtener productos: ", error);
+        }
+    };
+    useEffect(() => {
+        fetchCurrentProducts();
+    }, []);
+
+    const handlerUpdatedb = async(productCart)=>{
+        try{
+            const response=await editProduct(productCart);
+        }catch(error){
+            console.log(error)
+        }
+    }
+    const handlerDeleteForCheckout= async (id)=>{
+        try{
+            const response=await deleteProductCart(id)
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+
 
     const handlePurchase = async () => {
         setLoading(true);
@@ -36,7 +73,7 @@ const Checkout = () => {
         };
     
         try {
-            await postPurchaseHistory(user.userId, items);
+            await postPurchaseHistory(user.userId, currentProducts);
             finalizePurchase('Compra realizada con éxito', 'success', true);
             
         } catch (error) {
@@ -45,13 +82,30 @@ const Checkout = () => {
         } finally {
 
         }
+
+        for (const item of currentProducts) {
+            const originalItem = await getProductsById(item.id); 
+            if (originalItem) {
+                const newQuantity = originalItem.quantity - item.quantityOnCart;
+                if(newQuantity>0){
+                    originalItem.quantity=newQuantity;
+                    await handlerUpdatedb(originalItem); 
+                }else{
+                    await deleteProduct(originalItem.id);
+                }
+            }
+            await handlerDeleteForCheckout(item.id)
+        }
+        
     };
+    
+    
 
     return (
         <div className="checkout-container">
             <h1>Checkout</h1>
             {loading && <LoadingSpinner text="Procesando compra..." />}
-            {items.length > 0 ? (
+            {currentProducts.length > 0 ? (
                 <div>
                     <table>
                         <thead>
@@ -61,7 +115,7 @@ const Checkout = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {items.map((item, index) => {
+                            {currentProducts.map((item, index) => {
                                 const totalPrice = item.price * item.quantityOnCart; 
                                 return (
                                     <tr key={index} className="productCheckout-item">

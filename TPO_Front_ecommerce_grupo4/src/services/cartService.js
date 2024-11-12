@@ -3,12 +3,18 @@ import apiClient from "./apiClient"
 
 export const getProductsCart = async () => {
     const response = await apiClient.get('cart-Products');
-    return response.data
-       
+    return response.data    
 }
 
 export const deleteProductCart = async (id) => {
   const response =  await apiClient.delete(`cart-Products/${id}`);
+  return response.data;
+}
+
+
+export const deleteAllProductCart = async () => {
+  const response = await apiClient.delete('cart-Products');
+  console.log("Todos los productos del carrito han sido eliminados:", response);
   return response.data;
 }
 

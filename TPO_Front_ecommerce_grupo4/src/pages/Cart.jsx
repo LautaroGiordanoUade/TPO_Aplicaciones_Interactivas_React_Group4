@@ -65,6 +65,8 @@ const Cart = () => {
         }
     }
 
+
+
     const handlerRemoveCartProduct = (id) => {
         const updatedProducts = products.reduce((acc, product) => {
             
@@ -99,7 +101,11 @@ const Cart = () => {
 
 
     const handlerCleanCart = () => {
+        for (const product of products){
+            handlerRemoveCartdb(product.id)
+        }
         setProducts([]); 
+        
     };
     
 

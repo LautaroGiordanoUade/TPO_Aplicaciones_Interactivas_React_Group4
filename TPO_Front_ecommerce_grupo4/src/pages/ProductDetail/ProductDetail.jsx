@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductsById, postViewed } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
+import ModalOnCart from '../../components/Cart/ModalOnCart.jsx'; 
 import{
   checkIfProductExistsInCart,
   updateProductCart,
@@ -10,13 +11,27 @@ import{
   getProductQuantityInCart
   }
   from "../../services/cartService.js";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [productHasError, setProductHasError] = useState(false);
   const [productErrorMessage, setProductErrorMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalProducto, setModalProduct] = useState("");
 
+
+
+  const handleOpenModal = (product) => {
+    setModalProduct(product)
+    setShowModal(true);
+  }
+    
+  const handleCloseModal = () => {
+      setShowModal(false);
+   
+  };
   const handlerInit = async () => {
     try {
       const response = await getProductsById(id);
@@ -49,16 +64,16 @@ const ProductDetail = () => {
           
           
           await updateProductCart(product);
-          console.log(`Producto actualizado en el carrito: ${product.id}, nueva cantidad: ${product.quantityOnCart}`);
+          handleOpenModal(product);
       } else {
           
           product.quantityOnCart = 1;
-          await createProductCart(product); // Asegúrate de que esta función maneje el objeto correctamente
-          console.log(`Producto agregado al carrito: ${product.id}`);
+          await createProductCart(product); 
+          handleOpenModal(product);
       }
-  } catch (error) {
-      console.log("Error al agregar el producto al carrito:", error);
-  }
+      } catch (error) {
+          handleOpenModal("Error al agregar el producto al carrito.");
+      }
     
   }
 
@@ -96,6 +111,11 @@ const ProductDetail = () => {
           </div>
         </>
       )}
+      <ModalOnCart
+        show={showModal}
+        handleClose={handleCloseModal}
+        product={product}
+      />
     </>
   );
 };
