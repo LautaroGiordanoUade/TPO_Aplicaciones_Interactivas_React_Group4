@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUserProfile, getProductsCart } from '../services/profileService';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import './Profile.css';
 
 const UserProfile = () => {
