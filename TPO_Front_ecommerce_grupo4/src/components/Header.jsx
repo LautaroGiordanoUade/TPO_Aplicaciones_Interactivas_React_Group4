@@ -10,6 +10,7 @@ const Header = () => {
   const { user } = useAuth(); // Usamos el contexto para obtener el usuario autenticado
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
+  const queryParams = new URLSearchParams(location.search);
 
     const handlerLoginClick = () => {
         // Si el usuario está loggeado, redirige a su perfil
@@ -27,7 +28,11 @@ const Header = () => {
     const handleSearch = (event) => {
         event.preventDefault();
         const searchText = searchInputRef.current.value;
-        navigate("/products/" + searchText)
+        queryParams.set("search", searchText);
+        navigate({
+            pathname: '/products',
+            search: `?${queryParams.toString()}`,
+          });
     };
 
     const handlerHistoryClick = () => {

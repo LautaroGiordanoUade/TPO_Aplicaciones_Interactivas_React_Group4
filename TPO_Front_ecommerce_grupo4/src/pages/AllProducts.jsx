@@ -1,12 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { getProducts, getProductsByName } from "../services/productService";
 import ProductCard from "../components/product/ProductCard/ProductCard";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 const AllProducts = () => {
-  const { search } = useParams();
+  const location = useLocation();
+  const search = new URLSearchParams(location.search).get('search');
+
   const [products, setProducts] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +36,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     handlerInit();
-  }, []);
+  }, [search]);
 
   const propsLoading = {
     text: "Cargando productos, por favor espere...",
