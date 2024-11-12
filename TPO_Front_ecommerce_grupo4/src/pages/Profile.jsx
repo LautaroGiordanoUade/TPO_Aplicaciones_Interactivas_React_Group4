@@ -50,6 +50,8 @@ const UserProfile = () => {
                     <h2>Datos del Usuario</h2>
                     <p><strong>Nombre:</strong> {userData.firstName} {userData.lastName}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
+                    <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.birthDate).toLocaleDateString()}</p>
+                    <p><strong>Dirección:</strong> {userData.address}</p>
                     <button 
                         onClick={handleEditProfile} 
                         style={{ padding: '10px 15px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: '10px' }}

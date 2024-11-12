@@ -328,6 +328,56 @@
       "username": "user2",
       "email": "user2@example.com",
       "password": "password456"
+    },
+    {
+      "id": 5,
+      "username": "juanPerez",
+      "email": "juan@example.com",
+      "firstName": "Juan",
+      "lastName": "Pérez",
+      "purchases": [
+        {
+          "id": 201,
+          "date": "2023-09-15",
+          "products": [
+            { "id": 1, "name": "Pantalón Deportivo", "quantity": 1 },
+            { "id": 2, "name": "Zapatillas Running", "quantity": 1 }
+          ]
+        },
+        {
+          "id": 202,
+          "date": "2023-09-20",
+          "products": [
+            { "id": 3, "name": "Camiseta de Algodón", "quantity": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "username": "Maria Gomez",
+      "email": "maria@example.com",
+      "firstName": "María",
+      "lastName": "Gómez",
+      "purchases": [
+        {
+          "id": 203,
+          "date": "2023-09-25",
+          "products": [
+            { "id": 4, "name": "Chaqueta Impermeable", "quantity": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "username": "Carlitos. L",
+      "email": "lopez@example.com",
+      "firstName": "Carlos",
+      "lastName": "López",
+      "purchases": []
     }
+    
   ]
+  
 }
