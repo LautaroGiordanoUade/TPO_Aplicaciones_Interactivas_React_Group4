@@ -5,7 +5,7 @@
       "name": "Pantalón Deportivo Real Madrid Originals",
       "description": "Pantalones deportivos del Real Madrid inspirados en el legado de adidas y hechos parcialmente con materiales reciclados",
       "categoryId": 1,
-      "quantity": 16,
+      "quantity": 9,
       "price": 119999,
       "featured": true,
       "favorite": false,
@@ -28,7 +28,7 @@
       "name": "Pantalón Adicolor 70s",
       "description": "Pantalones deportivos cómodos con un look de inspiración retro",
       "categoryId": 1,
-      "quantity": 27,
+      "quantity": 16,
       "price": 97999,
       "featured": true,
       "favorite": false,
@@ -51,7 +51,7 @@
       "name": "Remera Adizero Running",
       "description": "Una remera de running ligera diseñada para ayudarte a llegar lejos.",
       "categoryId": 2,
-      "quantity": 50,
+      "quantity": 48,
       "price": 80,
       "featured": false,
       "favorite": false,
@@ -273,7 +273,7 @@
       "price": 92000,
       "categoryId": "8",
       "featured": false,
-      "favorite": false,
+      "favorite": true,
       "viewed": false,
       "id": 20
     },
@@ -295,7 +295,7 @@
       "price": 82.999,
       "categoryId": "2",
       "featured": false,
-      "favorite": false,
+      "favorite": true,
       "viewed": false,
       "id": 22
     }
@@ -314,7 +314,7 @@
       "name": "Pantalón Adicolor 70s",
       "description": "Pantalones deportivos cómodos con un look de inspiración retro",
       "categoryId": 1,
-      "quantity": 27,
+      "quantity": 16,
       "price": 97999,
       "featured": true,
       "favorite": false,
@@ -331,7 +331,7 @@
           "imageBase64": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUSERIVEhUSEhgVFRcXFxAVFRUWFxUXFxUWFRUYHSggGBolGxcVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGxAQGy0dHR8tKysrLS0tLi0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0rLS0rLf/AABEIAPkAywMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYDBAcCAf/EAD8QAAIBAgEIBwQIBgIDAAAAAAABAgMRIQQFBhIxQVFhInGBkaGxwSMyUuETQmJygrLC0TOSotLw8VNjBxZD/8QAGQEBAAMBAQAAAAAAAAAAAAAAAAIDBAEF/8QAIBEBAAIDAAIDAQEAAAAAAAAAAAECAzEyEUESISITBP/aAAwDAQACEQMRAD8A7iAAAAAAAAAAAIDLtK6VOTjGM6jW9auq+pt49djQqaZP6tFLrk34WRCb1h34ytwKPPS+u9kaceyX9xhlpRlO6UV+GPqc/rV34SvwOfPSXKf+W34Kf9p5elOUrbUT/BT/AGOf1g+Euhg57/7flC3xf4UbFLTSqvehTfUpJ+ZL+kHxlegVnIdLoytr02r74vW8MH5llhJNJrFPFEotE6cmPD6ADrgAAAAAAAAAAAAAAAAYMtnaPXOEX1SnGL8zOa+X1YxpylN2ili1t5W53tbmBT8+wipuKikouy6uRAyeNuLsSGVV3PFu+7HF4b2975mg5K65P0f7GKZ8yueZUsXi8HbdwT4czHKjbZLw+Zlpvb95+Z9qSVtwcYY5C5KMtdJSSfuvfjb3jZhmq/8A9G/w29TSr5rWURpTVVx+jdmo431Xq4O/R2Yk3S1Yq2t3u77SM2lLx9NGGQRdRQ1n7rk723WwwXNElTzfTX1E+u78zVjNfSpp/Ul5xN2lW8uw5My7EJHIqMYropLqSRPZpoakWk205ayu721kpNLldvDmV6hlGx2wZZM2Sbi21bpWW3YkktvUW/55+5RyabYANakAAAAAAAAAAAAAAAAKzpTlN5RpLYlrPrezuXmWZlIzxVbq1Zfa1f5Vq+hVmnxVOkfaHymeNka0ablrcVqvh8RnqStwPNOrtw4epmWPsY2VjxUMrqP9jFXfRb5HIJfM0JakpWxlUk12Wj+k2b+e0x5PaMIrhBd9lcUZ7+Bydpen2VJqSaeK5cf9Gxk0Ol3K3j6nijxe8zUJR233WOTLiQhG5ZMyVb09XfB27Hiv85FZyWqngkTWY6ntJLjC/an82TwT4uXj8p0AG5nAAAAAAAAAAAAAAAAChZwi25W3zk+9svpRMv2u2Bnz+lmP2h68EtruzwnY91j5CxSm9KdzHlL6MupmXVMddYPqI+x6vh2Ly+Rjgnu3nyi+j3flZ7hc6M6pr6zMlLVS+R4pLFG1BciEpQz5I7u6JzNX8WL5SXhchYUeGBN5nXSj1/pZ3H3DttJ8AHosoAAAAAAAAAAAAAAAAUbOytOS4SfmXkpGe4dKXWyjPqFmNBVT5GJ9qRPlJ8ShIxR5rT6L6mZnVW5GGtPDZY5Aw0KmG3gt3w/MzRb5mhQe5O3+kbKc/iJTDkS3Itm9SIylKW9klQZVZOst+kTGZV0lyv5Mh6bJrMnvdh3F3Dt+U2AD0WYAAAAAAAAAAAAAAAAKZn335Y7Gy5lM0kXtJdb8cfUpzahOit1Ffaz1k+0xzieqDs8TPOkols1JLdiYsnp69WEH9acV3tIzT2YH3Mkb5RT5VI/mQpt2zZ0+zfGnVhUglH6VPWtgtaLV31vWXcQFLKbYSXaXj/yHQvQhP4KnhJNeaRQKEsS7JH2rqlKNnsJGhsRE0U08CXyZ6y248DNZbVt02T2Ytr6iv00WLMUdr5fsdw9wlflMAA9BmAAAAAAAAAAAAAAAACk6V0L1W8eG/gv3LsVTSWF5S6/0RKc3KVdqhOnbZJn2lLHHDnuPdSldYbjFT4Mzpt2RIaK0L5RH7N5Psi7eLRGw2WLJobQ6c58I6v8AM7/pJYo/TttJXS2hr5JVXCKl/K1J+CZyyirM7DnKnrUakfipzXfFo5CliX5FdUhRNunGzwuamTs2ITxRklbCQyaLvtLZmNdF9nqVbJ0WvMvuvs8iWDsycpEAG5QAAAAAAAAAAAAAAAAFX0j9+XZ4xt6FoK1pBHpy5peCXzKs3KVNqje0j7Oknjc8VleTPcVYyrIe4Fv0Mj7KT4z/AM8ymqXAvWilPVyeP2m3429C3DH6RvpLyV1Z7zj+U0nCcovbFtPsdjsJzfTDJtTKZcJ2l3rHxuXZNIQi8nqG7QxZGKGOwkMjlbAy2hbWU1kr2FnzMui+sq2TlqzK+g+v0GDt3JpIAA3KAAAAAAAAAAAAAAAAArOlEnrYbkizFU0mqdKa4NflTKs3KVdqxPF7k/M+/Rs16lR3NmjK5llZD1FbjoOZIWoUrb4J/wA2PqUBLadGyOnq04R+GEV3JIvwe0bsxR9PqXtYS407d0n+5eCr6dwTpwvtu7eHyLb6QjakQZuUGakafNGxQVtuPUZbLITWSlozE+i+z1KlkUpXXAtmYZYT615MYe0r8pUAG1QAAAAAAAAAAAAAAAAFR0gpuVSphhdd6ii3FL0lrPXlGMtW7xa4bGU5tJVVupq3xx8zLRjZ4O5rTyRLbO5kyaNnhczynDfjG7S4teZ0k51kavUhb44/mR0UvwalG4VbTq+rTtxl+ktJWNOo+zg+Dfkv2Lb8oxtR6bszdo1k3bYaGpzM+TQuzLaFkJ7JKbtdFk0e+v8Ah/UVahO2wtGjzvrPlH1I4e4SvymQAblAAAAAAAAAAAAAAAAAUfPn8SfKcvNl4KNpFLpzt8T8ynNqEqoK6bs0ZFTs8GYaOLNlQM0rIb+Y43rU1wmn3M6AUTR3HKKa5t9ybL2acOkL7CvabR9gnwqJd8WWEg9MYXyfqmn4NepZfSMbc8hHF42NmgmuD7/Rmk3ibmTS4mWyyErQlySLTo2ujLs9Sq5OWzRz3Zda8jmHt2+kuADapAAAAAAAAAAAAAAAADn+eneU/vPzOgHOs5O92ntk/wAzKc3pKqH1bY3N2lLAwUp2dmsGbEaa3GaycJvRWneunwjJ+FvUuhUdEP4suVN/miW41YeUL7CM0lhfJqnJJ90kyTNLPP8AAq8qcn3K5ZOkYctnC7ut56pTtuPlaGrJpbmZqcrmWVsJPInhct+jkehJ8ZehUMl2WLjo/L2bXCXohh7dvpKAA1qQAAAAAAAAAAAAAAAA5vlOxo6QcyyyXSlf4mU5vSVWlF4m/TjgakI3ZuwhYzWTqsWh1LpVJcFFd92/Is5AaIxtCfOS8ifNeLiELbDWznG9GouNOa/pZsnmcbprirFiLk+VLHsMmTo+ZRz2o9UNpjnS2Ejk0S1aNSup8nHyZV8mVkWXRh+/+H1GLuHb6ToANikAAAAAAAAAAAAAAAAOZZWrtvn/AKOmnMqqwX+b7+pTm9JVeMmWJtRNWisTagZpWQtOinuT+8vInSE0UXs5ff8AQmzZj5hVbYACbjl+cIdKXKTXc2kY8l2m1nKPTnyqSX9TNajtMdl0JGmWHRiXSmvsrzK9SJ7Rl+0l9z1Qx9QW0sgANikAAAAAAAAAAAAAAAAObVYnSSoZ10enB61K848F70eVt5TlrMx9JVlA0libSRhVJqVpJp8GrMkKObqs/dhLrasu9mbxMrPKw6Lr2T5zfkiYNTNeR/RU1Bu72vhd8DbNtI8ViFU7AAScc6zrD2tRf9kvzM04LEtOe9HpOUqlLpazbccE03i7Per3wK7UyecHacZRfNNGO9ZiftbEtmkie0YXTk/s+b+REZPkk5e7CUupO3eWbMeb5Uk3PCUsLbbLnzO4qz8vJafpKAA1qgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf//Z"
         }
       ],
-      "quantityOnCart": 2
+      "quantityOnCart": 1
     }
   ],
   "users": [
@@ -622,6 +622,30 @@
         }
       ],
       "id": 11
+    },
+    {
+      "date": "2024-11-12T19:10:25.170Z",
+      "products": [
+        {
+          "id": 2,
+          "name": "Pantalón Adicolor 70s",
+          "price": 97999,
+          "quantity": 11
+        },
+        {
+          "id": 1,
+          "name": "Pantalón Deportivo Real Madrid Originals",
+          "price": 119999,
+          "quantity": 7
+        },
+        {
+          "id": 3,
+          "name": "Remera Adizero Running",
+          "price": 80,
+          "quantity": 2
+        }
+      ],
+      "id": 12
     }
   ]
 }

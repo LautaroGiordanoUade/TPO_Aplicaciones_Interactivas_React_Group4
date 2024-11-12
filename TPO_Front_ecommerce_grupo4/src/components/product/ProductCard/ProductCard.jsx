@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
         />
         <Card.Body className="d-flex flex-column justify-content-end align-items-center">
           <Card.Title className="title">{name}</Card.Title>
-          <Card.Text className="price">${price}</Card.Text>
+          <Card.Text className="price">${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</Card.Text>
         </Card.Body>
       </Link>
     </Card>

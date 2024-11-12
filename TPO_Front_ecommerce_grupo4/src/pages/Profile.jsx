@@ -47,7 +47,6 @@ const UserProfile = () => {
                     <p><strong>Nombre:</strong> {userData.firstName} {userData.lastName}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
                     <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.dob).toLocaleDateString()}</p>
-                    <p><strong>Dirección:</strong> {userData.address}</p>
                     <button 
                         onClick={handleEditProfile} 
                         style={{ padding: '10px 15px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: '10px' }}
@@ -58,7 +57,6 @@ const UserProfile = () => {
             ) : (
                 <p>Cargando datos del usuario...</p>
             )}
-            <></>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                Cerrar sesión <LogoutButton />
             </div>

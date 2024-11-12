@@ -65,7 +65,7 @@ const AdminProducts = () => {
               {products.map((product) => (
                 <tr key={product.id}>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</td>
                   <td>
                     <Button
                       className="me-2"
