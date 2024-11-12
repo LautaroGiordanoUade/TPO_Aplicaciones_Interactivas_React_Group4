@@ -9,12 +9,16 @@ import {
   editProduct,
   createProduct,
 } from "../services/productService.js";
+import ToastMessage from "../components/ToastMessage";
 
 const EditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("");
 
   const handleInit = async () => {
     if (id != null) {
@@ -43,18 +47,26 @@ const EditProduct = () => {
   const handleEditProduct = async (product) => {
     try {
       const response = await editProduct(product);
-      console.log(response);
+      setSaveMessage("Se guardó el producto.");
+      setToastVariant("success");
+      setShowToast(true);
     } catch (error) {
-      console.log(error);
+      setSaveMessage("Ocurrió un error.");
+      setToastVariant("danger");
+      setShowToast(true);
     }
   };
 
   const handleCreateProduct = async (product) => {
     try {
       const response = await createProduct(product);
-      console.log(response);
+      setSaveMessage("Se creó el producto.");
+      setToastVariant("success");
+      setShowToast(true);
     } catch (error) {
-      console.log(error);
+      setSaveMessage("Ocurrió un error.");
+      setToastVariant("danger");
+      setShowToast(true);
     }
   };
 
@@ -75,6 +87,8 @@ const EditProduct = () => {
         price: values.price,
         categoryId: values.category,
         featured: values.featured,
+        favorite: false,
+        viewed: false,
       };
       console.log(newProduct);
       handleCreateProduct(newProduct);
@@ -214,11 +228,18 @@ const EditProduct = () => {
         </>
       ) : (
         <>
-          <div className="container-fluid">
-            <h1>No se encontró el producto</h1>
+          <div>
+            <i className="bi bi-search info-icon-6"></i>
+            <div className="h4">No se encontró el producto</div>
           </div>
         </>
       )}
+      <ToastMessage
+        message={saveMessage}
+        variant={toastVariant}
+        show={showToast}
+        setShow={setShowToast}
+      />
     </>
   );
 };

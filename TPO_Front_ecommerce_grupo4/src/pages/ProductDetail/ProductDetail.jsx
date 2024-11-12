@@ -54,8 +54,9 @@ const ProductDetail = () => {
         </>
       ) : (
         <>
-          <div className="container-fluid">
-            <h1>No se encontró el producto</h1>
+          <div>
+            <i className="bi bi-search info-icon-6"></i>
+            <div className="h4">No se encontró el producto</div>
           </div>
         </>
       )}

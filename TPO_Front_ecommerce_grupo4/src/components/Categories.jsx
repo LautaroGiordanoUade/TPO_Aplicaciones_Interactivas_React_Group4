@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
-  const [hasError, setHasError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const init = async () => {
@@ -14,9 +12,6 @@ const Categories = () => {
         const response = await getCategories();
         setCategories(response);
       } catch (error) {
-        setFavoriteProductHasError;
-        setHasError(true);
-        setErrorMessage("Ocurrió un error.");
       }
     };
     init();
