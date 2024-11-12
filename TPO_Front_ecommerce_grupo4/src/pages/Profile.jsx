@@ -6,36 +6,32 @@ import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
     const { user } = useAuth();
-    const userId = user?.id;
+    const userId = user?.id || user?.userId;
     const [userData, setUserData] = useState(null);
-    const [userPurchases, setUserPurchases] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
 
+    const fetchUserData = async () => {
+        try {
+            const profileData = await getUserProfile(userId);
+            setUserData(profileData);
+        } catch (error) {
+            setError("Error al obtener los datos del usuario.");
+        }
+    };
+
     useEffect(() => {
         if (!userId) return;
-
-        const fetchUserData = async () => {
-            try {
-                const profileData = await getUserProfile(userId);
-                setUserData(profileData);
-            } catch (error) {
-                setError("Error al obtener los datos del usuario.");
-            }
-        };
-
-        const fetchUserPurchases = async () => {
-            try {
-                const purchases = await getUserPurchases(userId);
-                setUserPurchases(purchases);
-            } catch (error) {
-                setError("Error al obtener las compras del usuario.");
-            }
-        };
-
         fetchUserData();
-        fetchUserPurchases();
-    }, [userId]);
+    }, [user]);
+
+    const handlerPurchaseHistory = () => {
+        if (user) {
+            navigate("/purchase-history");
+          } else {
+            navigate("/userLogin");
+          } 
+    };
 
     const handleEditProfile = () => {
         navigate('/edit-profile'); 
@@ -50,6 +46,8 @@ const UserProfile = () => {
                     <h2>Datos del Usuario</h2>
                     <p><strong>Nombre:</strong> {userData.firstName} {userData.lastName}</p>
                     <p><strong>Email:</strong> {userData.email}</p>
+                    <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.dob).toLocaleDateString()}</p>
+                    <p><strong>Dirección:</strong> {userData.address}</p>
                     <button 
                         onClick={handleEditProfile} 
                         style={{ padding: '10px 15px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: '10px' }}
@@ -60,29 +58,17 @@ const UserProfile = () => {
             ) : (
                 <p>Cargando datos del usuario...</p>
             )}
-            {/* Compras del usuario */}
-            <h2>Mis Compras</h2>
-            {userPurchases.length > 0 ? (
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {userPurchases.map((purchase) => (
-                        <li key={purchase.id} style={{ marginBottom: '15px', border: '1px solid #eee', padding: '10px', borderRadius: '5px' }}>
-                            <p><strong>Fecha de Compra:</strong> {new Date(purchase.date).toLocaleDateString()}</p>
-                            <p><strong>Productos Comprados:</strong></p>
-                            <ul style={{ listStyleType: 'none', padding: 0 }}>
-                                {purchase.products.map((product) => (
-                                    <li key={product.id}>
-                                        {product.name} - Cantidad: {product.quantity}
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No has realizado ninguna compra.</p>
-            )}
+            <></>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <LogoutButton />
+               Cerrar sesión <LogoutButton />
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                Historial carrito de compras<button 
+                        className="btn btn-outline-success ms-2" 
+                        onClick={handlerPurchaseHistory} 
+                        title="Historial carrito de compras">
+                            <i className="bi bi-cart-fill" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     );
