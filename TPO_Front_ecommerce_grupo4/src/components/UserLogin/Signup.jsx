@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../../services/userService';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
@@ -12,27 +11,40 @@ const Signup = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
-
-  const handleSignup = async (e) => {
+  const handlerSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setSuccess(false);
+    setError('');
 
-    }, 5000);
+    const minLoadingTime = 5000; // Tiempo mínimo de carga
+    const startTime = Date.now();
+
+    const finalizeSignup = (isSuccess) => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+
+        setTimeout(() => {           
+            setLoading(false);
+            if (isSuccess) {
+              setUsername('');
+              setEmail('');
+              setPassword('');
+            }
+        }, remainingTime);
+    };
+
     try {
-      const data = await registerUser(username, email, password);
-      localStorage.setItem('user', JSON.stringify(data));
-      setSuccess(true);
-      setTimeout(() => {
-        navigate('/'); // Redirige al home
-      }, 3000);
+        const data = await registerUser(username, email, password);
+        localStorage.setItem('user', JSON.stringify(data));
+        setSuccess('Usuario registrado con éxito');
+        finalizeSignup(true);
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al registrar');
-    } finally {
-      setLoading(false);
+        console.error(err);
+        setError(err.response?.data?.message || 'Error al registrar');
+        finalizeSignup(false);
     }
-  };
+};
 
   const propsLoading = {
     text:'Registrando, por favor espere...'
@@ -41,7 +53,7 @@ const Signup = () => {
   return (
     <div>
     {loading && <LoadingSpinner {...propsLoading}/>}
-    <form onSubmit={handleSignup}>
+    <form onSubmit={handlerSignup}>
       <div className="mb-3">
         <input
           type="text"
@@ -69,7 +81,7 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error &&<div className="alert alert-danger">{error}</div>}
       {success && <div className="alert alert-success">¡Registro exitoso!</div>}
       <button type="submit" className="btn btn-success w-100">Registrarse</button>
     </form>
