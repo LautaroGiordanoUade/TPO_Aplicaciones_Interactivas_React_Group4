@@ -335,6 +335,7 @@
       "email": "juan@example.com",
       "firstName": "Juan",
       "lastName": "Pérez",
+      "password": "juan123",
       "purchases": [
         {
           "id": 201,
@@ -359,6 +360,7 @@
       "email": "maria@example.com",
       "firstName": "María",
       "lastName": "Gómez",
+      "password": "maria",
       "purchases": [
         {
           "id": 203,
@@ -375,6 +377,7 @@
       "email": "lopez@example.com",
       "firstName": "Carlos",
       "lastName": "López",
+      "password": "password789",
       "purchases": []
     }
     
