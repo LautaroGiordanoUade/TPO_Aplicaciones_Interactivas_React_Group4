@@ -4,22 +4,18 @@ export const getProducts = async () => {
     const response =  await apiClient.get('products');
     return response.data;
 }
-
 export const getFeaturedProducts = async () => {
-    const response =  await apiClient.get('product-featured');
+    const response =  await apiClient.get('products?featured=true&_limit=3');
     return response.data;
 }
-
 export const getFavorites = async () => {
-    const response =  await apiClient.get('favorites');
+    const response =  await apiClient.get('products?favorite=true&_limit=3');
     return response.data;
 }
-
 export const getViewed = async () => {
-    const response =  await apiClient.get('viewed');
+    const response =  await apiClient.get('products?viewed=true&_limit=3');
     return response.data;
 }
-
 export const getProductsById = async (id) => {
     const response =  await apiClient.get(`products/${id}`);
     return response.data;
