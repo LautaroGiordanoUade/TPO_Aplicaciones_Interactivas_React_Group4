@@ -92,37 +92,43 @@ const ProductDetail = () => {
               </div>
 
               <div className="col text-start">
-                <div className="row-1 text-end">
-                  {user && (
-                    <button
-                      className="favorite btn btn-link"
-                      onClick={handleFavorite}
-                    >
-                      <i
-                        className={
-                          isFavorite ? "h2 bi bi-heart-fill" : "h2 bi bi-heart"
-                        }
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  )}
+                <div className="row">
+                  <div className="col h6">
+                    <div className="row h1">{product.name}</div>
+                  </div>
+                  <div className="col-1 text-end">
+                    {user && (
+                      <button
+                        className="favorite btn btn-link"
+                        onClick={handleFavorite}
+                      >
+                        <i
+                          className={
+                            isFavorite
+                              ? "h2 bi bi-heart-fill"
+                              : "h2 bi bi-heart"
+                          }
+                          aria-hidden="true"
+                        ></i>
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div className="row h1">{product.name}</div>
-                <div className="row h2">$ {product.price}</div>
+                <div className="row h2">${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
                 <div className="row mt-4">{product.description}</div>
                 <div className="row mt-4 align-middle">
-                    <div className="col h6">
-                      Quedan {product.quantity} unidades
-                    </div>
-                    <div className="col text-end">
-                      <button
-                        type="button"
-                        className="btn btn-primary bi bi-cart-fill"
-                        onClick={() => handlerAddToCart(product)}
-                      >
-                        Agregar al carrito
-                      </button>
-                    </div>
+                  <div className="col h6">
+                    Quedan {product.quantity} unidades
+                  </div>
+                  <div className="col text-end">
+                    <button
+                      type="button"
+                      className="btn btn-primary bi bi-cart-fill"
+                      onClick={() => handlerAddToCart(product)}
+                    >
+                      Agregar al carrito
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
