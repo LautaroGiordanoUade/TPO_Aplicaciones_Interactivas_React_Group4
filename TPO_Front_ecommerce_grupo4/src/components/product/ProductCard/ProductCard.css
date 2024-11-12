@@ -2,8 +2,20 @@
   margin-top:10px;
 }
 
-.max-image {
-  max-width: 100%; /* Adjust the maximum width as needed */
-  max-height: 50px; /* Adjust the maximum height as needed */
-  object-fit: cover; /* Ensures the image fills the container without distortion */
+.image { /* Adjust the maximum width as needed */
+  max-height: 100px; /* Adjust the maximum height as needed */
+  object-fit: contain; /* Ensures the image fills the container without distortion */
+}
+
+a:link, a:visited, a:active {
+  color: #213547;
+  text-decoration:none;
+}
+.title{
+  width: 200px;
+  height: 50px;
+}
+
+.price{
+  text-align: right;
 }
