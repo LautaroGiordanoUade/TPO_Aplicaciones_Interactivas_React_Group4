@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
@@ -8,6 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 const Header = () => {
   const { user } = useAuth(); // Usamos el contexto para obtener el usuario autenticado
   const navigate = useNavigate();
+  const searchInputRef = useRef(null);
 
     const handlerLoginClick = () => {
         // Si el usuario está loggeado, redirige a su perfil
@@ -20,6 +22,12 @@ const Header = () => {
             
             navigate("/userLogin");
         }
+    };
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        const searchText = searchInputRef.current.value;
+        navigate("/products/" + searchText)
     };
 
     const handlerHistoryClick = () => {
@@ -55,11 +63,11 @@ const Header = () => {
                               </li>
                             )}
                         </ul>
-                        <form className="d-flex align-items-center" role="search">
-                            <Link className="nav-link" to="/Cart">
+                        <Link className="nav-link" to="/Cart">
                                     <i className="bi bi-cart" style={{ fontSize:'30px',marginRight: '10px' }}></i> 
                             </Link>
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <form className="d-flex align-items-center" role="search" onSubmit={handleSearch}>
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" ref={searchInputRef} />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <li className="nav-item">
