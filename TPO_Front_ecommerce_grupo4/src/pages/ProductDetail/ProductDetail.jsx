@@ -3,6 +3,13 @@ import { useParams } from "react-router-dom";
 import { getProductsById, postViewed } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
+import{
+  checkIfProductExistsInCart,
+  updateProductCart,
+  createProductCart,
+  getProductQuantityInCart
+  }
+  from "../../services/cartService.js";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -26,6 +33,35 @@ const ProductDetail = () => {
     handlerInit();
   }, [id]);
 
+  const handlerAddToCart = async(product)=>{
+    try {
+      
+      const exists = await checkIfProductExistsInCart(product.id);
+      console.log(exists);
+      
+      if (exists) {
+          
+          const currentQuantity = await getProductQuantityInCart(product.id); 
+          console.log(currentQuantity)
+          
+          product.quantityOnCart = currentQuantity || 0; 
+          product.quantityOnCart += 1; 
+          
+          
+          await updateProductCart(product);
+          console.log(`Producto actualizado en el carrito: ${product.id}, nueva cantidad: ${product.quantityOnCart}`);
+      } else {
+          
+          product.quantityOnCart = 1;
+          await createProductCart(product); // Asegúrate de que esta función maneje el objeto correctamente
+          console.log(`Producto agregado al carrito: ${product.id}`);
+      }
+  } catch (error) {
+      console.log("Error al agregar el producto al carrito:", error);
+  }
+    
+  }
+
   return (
     <>
       {product ? (
@@ -45,7 +81,7 @@ const ProductDetail = () => {
                 <h1 className="left-aligned">{product.name}</h1>
                 <h2>${product.price}</h2>
                 <p>{product.description}</p>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-primary" onClick={() => handlerAddToCart(product)}>
                   Agregar al carrito
                 </button>
               </div>
