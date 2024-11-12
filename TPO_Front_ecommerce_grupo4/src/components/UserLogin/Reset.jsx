@@ -1,24 +1,39 @@
 
 import React, { useState } from 'react';
 import { resetPassword } from '../../services/userService';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const Reset = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   const handleReset = async (e) => {
+    setLoading(true);
+    setError('');
+    setMessage('')
     e.preventDefault();
+    await delay(5000);
     try {
       const data = await resetPassword(email);
       setMessage('Correo de recuperación enviado');
     } catch (err) {
-      setError(err.response?.data?.message || 'Error al enviar el correo');
+      setError('El usuario no existe, ingrese otro mail');
+    } finally {
+      setLoading(false);
     }
   };
 
+  const propsLoading = {
+    text:'Enviado mail de recuperacion de contraseña, por favor espere...'
+  }
+
   return (
     <form onSubmit={handleReset}>
+      {loading && <LoadingSpinner {...propsLoading}/>}
       <div className="mb-3">
         <input
           type="email"

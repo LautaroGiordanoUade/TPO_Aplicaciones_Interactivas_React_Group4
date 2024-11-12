@@ -9,10 +9,11 @@ export const loginUser = async (email, password) => {
   return userData;
 };
 
-export const registerUser = async (username, email, password) => {
-  const response = await apiClient.post('auth/register', { username, email, password });
+export const registerUser = async (username, firstName, lastName, email, password, dob) => {
+  const data = await apiClient.post('auth/register', { username, firstName, lastName, email, password, dob });
+  const response = await apiClient.put(`users/${data.data.id}`, { username, firstName, lastName, email, password, dob });
   const userData = response.data;
-  if (userData?.token) {
+  if (data?.token) {
     localStorage.setItem("user", JSON.stringify(userData));
   }
   return userData;
