@@ -74,9 +74,6 @@ const Header = () => {
                             )}
                         </form>
                         <form className="d-flex align-items-center" role="search">
-                            <Link className="nav-link" to="/Cart">
-                                    <i className="bi bi-cart" style={{ fontSize:'30px',marginRight: '10px' }}></i> 
-                            </Link>
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
