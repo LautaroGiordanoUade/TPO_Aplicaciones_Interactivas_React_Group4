@@ -30,6 +30,14 @@ const Header = () => {
         }
       };
 
+    const handlerCartClick = () =>{
+        if(user){
+            navigate("/cart");
+        }else{
+            navigate("/userLogin");
+        }
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -47,6 +55,16 @@ const Header = () => {
                                 <Link className="nav-link" to="/products">Productos</Link>
                             </li>
                             <Categories/>
+                        </ul>
+                        <form className="d-flex align-items-center" role="search">
+                            <button
+                             className="nav-link" 
+                            onClick={handlerCartClick}
+                            title="Carrito de compras"
+                            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                            >
+                                <i className="bi bi-cart" style={{ fontSize:'30px',marginRight: '10px' }}></i> 
+                            </button>
                             {user?.admin && (
                               <li className="nav-item">
                                 <Link className="nav-link" to="/admin">
@@ -54,11 +72,8 @@ const Header = () => {
                                 </Link>
                               </li>
                             )}
-                        </ul>
+                        </form>
                         <form className="d-flex align-items-center" role="search">
-                            <Link className="nav-link" to="/Cart">
-                                    <i className="bi bi-cart" style={{ fontSize:'30px',marginRight: '10px' }}></i> 
-                            </Link>
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>

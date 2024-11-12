@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import '../components/StyledCart.css';
+import '../components/Cart/StyledCart.css';
 import { getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
 import ModalCart from '../components/Cart/ModalCart'; 
+import{
+deleteProductCart,
+updateProductCart
+}
+from "../services/cartService.js";
 
 const Cart = () => {
     const [products, setProducts] = useState([]); 
@@ -42,26 +47,46 @@ const Cart = () => {
         handlerfetchCartProducts();
     }, []);
 
+    const handlerRemoveCartdb = async (id)=>{
+        try {
+            const response = await deleteProductCart(id);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+    
+
+
+    const handlerUpdatedb = async(productCart)=>{
+        try{
+            const response=await updateProductCart(productCart);
+        }catch(error){
+            console.log(error)
+        }
+    }
+
 
 
     const handlerRemoveCartProduct = (id) => {
-      
-        
         const updatedProducts = products.reduce((acc, product) => {
             
             if (product.id === id) {
                 if (product.quantityOnCart > 1) {
                    
                     acc.push({ ...product, quantityOnCart: product.quantityOnCart - 1 });
+                    product.quantityOnCart=product.quantityOnCart-1
+                    handlerUpdatedb(product)
                 }
-              
+                
             } else {
                 acc.push(product);
             }
             return acc;
         }, []);
     
-
+        if (updatedProducts.length < products.length) {
+            handlerRemoveCartdb(id);
+        }
         setProducts(updatedProducts);
     };
 
@@ -76,7 +101,11 @@ const Cart = () => {
 
 
     const handlerCleanCart = () => {
+        for (const product of products){
+            handlerRemoveCartdb(product.id)
+        }
         setProducts([]); 
+        
     };
     
 
@@ -84,9 +113,9 @@ const Cart = () => {
     const handlerCheckout = () => {
         for (const product of products) {
             if (product.quantityOnCart > product.quantity) {
-                console.log("Ahora estoy en este producto", { product });
                 outOfStockItems.push(product);
             }
+            
         }
     
         if (outOfStockItems.length > 0) {
@@ -94,7 +123,13 @@ const Cart = () => {
             handleOpenModal()
             return;
         }
-    
+        /*for(const product of products){
+            product.quantity=product.quantity-product.quantityOnCart
+            product.quantityOnCart=0
+            handlerUpdatedb(product)
+        } PONER EN EL CHECKOUT PARA ASI CUANDO VALIDA QUE COMPLETO TODOS LOS DATOS DEL FORMULARIO RESTE 
+        DEBERIA SACARLOS DEL CARRITO Y ACTUALIZAR EN PRODUCTO 
+        */ 
         console.log("Productos actualizados:", products);
         navigate('/checkout', { state: { items: products, total: total } });
     };
@@ -104,12 +139,12 @@ const Cart = () => {
             <h3 className="cart-title">Carrito de Compras</h3>
             
             <div className="products-container">
-                {products.length > 0 ? (
-                    products.map((product) => {
+                {products?.length > 0 ? (
+                    products?.map((product) => {
                         const totalPrice = product.price * product.quantityOnCart; 
                         return (
                             <div className="product-item" key={product.id}>
-                                {product.images.length > 0 && (
+                                {product?.images?.length > 0 && (
                                     <img 
                                         src={product.images[0].imageBase64} 
                                         alt={product.name}
@@ -138,7 +173,7 @@ const Cart = () => {
             </div>
             <div>
                 <button className='btn-checkout' onClick={handlerCheckout}>
-                    Realizar Compra
+                    Realizar Checkout
                 </button>
             </div>
             <ModalCart 
