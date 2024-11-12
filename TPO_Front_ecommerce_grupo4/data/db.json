@@ -389,7 +389,9 @@
       "username": "user1",
       "email": "user1@example.com",
       "password": "password123",
-      "admin": true
+      "admin": true,
+      "firstName": "Flor",
+      "lastName": "Ferrin"
     },
     {
       "id": 2,
