@@ -11,12 +11,10 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const login = async (username, password) => {
+  const login = async (username, password, userId) => {
     try {
-      const response = {username, password}; //usuario ya validado en el componente login , envia ya datos verificados
+      const response = {username, password, userId}; //usuario ya validado en el componente login , envia ya datos verificados
       setUser(response);
-      console.log(user);
-      //localStorage.setItem("user", JSON.stringify(response));
       navigate("/");
     } catch (err) {
       setError("Credenciales incorrectas");

@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 
 const EditProfile = () => {
     const { user } = useAuth();
-    const userId = user?.id;
+    const userId = user?.id || user?.userId;
     const [userData, setUserData] = useState({ firstName: '', lastName: '', email: '' });
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
