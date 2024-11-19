@@ -22,7 +22,7 @@ const EditProduct = () => {
   const [showToast, setShowToast] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
-  const [imagenes, setImagenes] = useState([]);
+  const [images, setImages] = useState([]);
 
   const handleInit = async () => {
     if (id != null) {
@@ -30,7 +30,7 @@ const EditProduct = () => {
         const response = await getProductsById(id);
         setProduct(response);
         console.log(response);
-        setImagenes(response.images.map((image, index) => image.imageBase64));
+        setImages(response.images.map((image, index) => image.imageBase64));
       } catch (error) {
         console.log(error);
       }
@@ -75,30 +75,36 @@ const EditProduct = () => {
   };
 
   const handleSubmit = (values) => {
-    if (id != null) {
-      product.name = values.name;
-      product.description = values.description;
-      product.quantity = values.quantity;
-      product.price = values.price;
-      product.categoryId = values.category;
-      product.featured = values.featured;
-      product.images = getImagesList();
-      console.log(product);
-      handleEditProduct(product);
+    if (images.length < 1) {
+      setSaveMessage("Agregue al menos una imágen.");
+      setToastVariant("danger");
+      setShowToast(true);
     } else {
-      let newProduct = {
-        name: values.name,
-        description: values.description,
-        quantity: values.quantity,
-        price: values.price,
-        categoryId: values.category,
-        featured: values.featured,
-        favorite: false,
-        viewed: false,
-        images: getImagesList(),
-      };
-      console.log(newProduct);
-      handleCreateProduct(newProduct);
+      if (id != null) {
+        product.name = values.name;
+        product.description = values.description;
+        product.quantity = values.quantity;
+        product.price = values.price;
+        product.categoryId = values.category;
+        product.featured = values.featured;
+        product.images = getImagesList();
+        console.log(product);
+        handleEditProduct(product);
+      } else {
+        let newProduct = {
+          name: values.name,
+          description: values.description,
+          quantity: values.quantity,
+          price: values.price,
+          categoryId: values.category,
+          featured: values.featured,
+          favorite: false,
+          viewed: false,
+          images: getImagesList(),
+        };
+        console.log(newProduct);
+        handleCreateProduct(newProduct);
+      }
     }
   };
 
@@ -109,7 +115,7 @@ const EditProduct = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      const newImagenes = acceptedFiles.map(async (file) => {
+      const newImages = acceptedFiles.map(async (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
 
@@ -120,21 +126,21 @@ const EditProduct = () => {
         });
       });
 
-      Promise.all(newImagenes).then((results) => {
-        setImagenes([...imagenes, ...results]);
+      Promise.all(newImages).then((results) => {
+        setImages([...images, ...results]);
       });
     },
   });
 
-  const eliminarImagen = (index) => {
-    const nuevasImagenes = [...imagenes];
-    nuevasImagenes.splice(index, 1);
-    setImagenes(nuevasImagenes);
+  const deleteImage = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
   };
 
   const getImagesList = () => {
     let imageList = [];
-    imagenes.map((image, index) => imageList.push({ imageBase64: image }));
+    images.map((image, index) => imageList.push({ imageBase64: image }));
     return imageList;
   };
 
@@ -275,7 +281,7 @@ const EditProduct = () => {
                   </BootstrapForm.Group>
 
                   <div
-                    className="border border-info rounded p-4"
+                    className="border border-info rounded p-4 m-2"
                     {...getRootProps()}
                   >
                     <input {...getInputProps()} />
@@ -290,18 +296,15 @@ const EditProduct = () => {
                   </div>
 
                   <div className="d-flex justify-content-center">
-                    {imagenes.map((image, index) => (
-                      <div key={index}>
+                    {images.map((image, index) => (
+                      <div key={index} className="border border-info rounded p-1 m-1">
                         <img src={image} width={100} alt="Preview" />
                         <button
-                        className="btn btn-link"
-                        onClick={() => eliminarImagen(index)}
-                      >
-                        <i
-                          className="h2 bi bi-trash"
-                          aria-hidden="true"
-                        ></i>
-                      </button>
+                          className="btn btn-link"
+                          onClick={() => deleteImage(index)}
+                        >
+                          <i className="h2 bi bi-trash" aria-hidden="true"></i>
+                        </button>
                       </div>
                     ))}
                   </div>
