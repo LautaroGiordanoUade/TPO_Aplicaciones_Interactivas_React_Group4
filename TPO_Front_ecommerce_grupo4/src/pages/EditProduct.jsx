@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button, Form as BootstrapForm, Col } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDropzone } from "react-dropzone";
 import {
   getProductsById,
   getCategories,
@@ -21,16 +22,17 @@ const EditProduct = () => {
   const [showToast, setShowToast] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [toastVariant, setToastVariant] = useState("");
+  const [imagenes, setImagenes] = useState([]);
 
   const handleInit = async () => {
     if (id != null) {
       try {
         const response = await getProductsById(id);
         setProduct(response);
+        console.log(response);
+        setImagenes(response.images.map((image, index) => image.imageBase64));
       } catch (error) {
         console.log(error);
-        setProductHasError(true);
-        setProductErrorMessage("Ocurrió un error.");
       }
     }
   };
@@ -80,6 +82,8 @@ const EditProduct = () => {
       product.price = values.price;
       product.categoryId = values.category;
       product.featured = values.featured;
+      product.images = getImagesList();
+      console.log(product);
       handleEditProduct(product);
     } else {
       let newProduct = {
@@ -91,6 +95,7 @@ const EditProduct = () => {
         featured: values.featured,
         favorite: false,
         viewed: false,
+        images: getImagesList(),
       };
       console.log(newProduct);
       handleCreateProduct(newProduct);
@@ -99,6 +104,38 @@ const EditProduct = () => {
 
   const handleClose = () => {
     navigate("/admin");
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: "image/*",
+    onDrop: (acceptedFiles) => {
+      const newImagenes = acceptedFiles.map(async (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        return new Promise((resolve) => {
+          reader.onload = () => {
+            resolve(reader.result);
+          };
+        });
+      });
+
+      Promise.all(newImagenes).then((results) => {
+        setImagenes([...imagenes, ...results]);
+      });
+    },
+  });
+
+  const eliminarImagen = (index) => {
+    const nuevasImagenes = [...imagenes];
+    nuevasImagenes.splice(index, 1);
+    setImagenes(nuevasImagenes);
+  };
+
+  const getImagesList = () => {
+    let imageList = [];
+    imagenes.map((image, index) => imageList.push({ imageBase64: image }));
+    return imageList;
   };
 
   const validationSchema = Yup.object().shape({
@@ -236,6 +273,38 @@ const EditProduct = () => {
                       name="featured"
                     />
                   </BootstrapForm.Group>
+
+                  <div
+                    className="border border-info rounded p-4"
+                    {...getRootProps()}
+                  >
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <p>Suelta los archivos aquí ...</p>
+                    ) : (
+                      <p>
+                        Arrastra y suelta los archivos aquí, o haz clic para
+                        seleccionar.
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="d-flex justify-content-center">
+                    {imagenes.map((image, index) => (
+                      <div key={index}>
+                        <img src={image} width={100} alt="Preview" />
+                        <button
+                        className="btn btn-link"
+                        onClick={() => eliminarImagen(index)}
+                      >
+                        <i
+                          className="h2 bi bi-trash"
+                          aria-hidden="true"
+                        ></i>
+                      </button>
+                      </div>
+                    ))}
+                  </div>
 
                   <div className="text-end">
                     <Button
