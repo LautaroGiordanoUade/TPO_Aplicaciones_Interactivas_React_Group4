@@ -35,7 +35,7 @@ const Category = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="d-flex align-content-start flex-wrap">
       {loading && <LoadingSpinner {...propsLoading} />}
 
       {products === null ? (

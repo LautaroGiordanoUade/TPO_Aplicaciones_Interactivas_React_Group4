@@ -43,7 +43,7 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="d-flex align-content-center flex-wrap">
       {loading && <LoadingSpinner {...propsLoading} />}
       {products === null ? (
         <div>
@@ -62,7 +62,7 @@ const AllProducts = () => {
       ) : (
         <div className="row">
           {products.map((product) => (
-            <div className="col" key={product.id}>
+            <div className="col-4" key={product.id}>
               <ProductCard product={product} />
             </div>
           ))}
