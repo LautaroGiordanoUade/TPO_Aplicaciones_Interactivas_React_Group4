@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getProducts, deleteProduct } from "../services/productService";
+import { deleteProduct, getProductsByUser } from "../services/productService";
 import DeleteProductModal from "../components/product/DeleteProductModal";
 import { useAuth } from "../hooks/useAuth";
 
@@ -14,7 +14,7 @@ const AdminProducts = () => {
 
   const handlerInit = async () => {
     try {
-      const response = await getProducts();
+      const response = await getProductsByUser();
       setProducts(response);
     } catch (error) {}
   };

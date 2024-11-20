@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsById, editProduct } from "../../services/productService.js";
+import { getProductsById, editProduct, addFavorites, deleteFavorites } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
 import placeholderImage from "/public/placeholder.png";
@@ -24,7 +24,12 @@ const ProductDetail = () => {
   const handleFavorite = async () => {
     try {
       product.favorite = !product.favorite;
-      await editProduct(product);
+      if (isFavorite) {
+        await deleteFavorites(id);
+      } else {
+        await addFavorites(id)
+      }
+      //await editProduct(product);
     } catch (error) {
       product.favorite = !product.favorite;
     } finally {
