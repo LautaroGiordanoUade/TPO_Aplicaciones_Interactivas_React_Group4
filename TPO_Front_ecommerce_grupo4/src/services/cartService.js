@@ -42,7 +42,7 @@ export const getPurchaseHistory = async (user) => {
     const response = await apiClient.get('/purchase-history');
     
     // Filtrar las compras de acuerdo al userId
-    const filteredHistory = response.data.filter(purchase => purchase.userId === user.userId);
+    const filteredHistory = response.data.filter(purchase => purchase.userId === (user.userId|| user.id));
     
     return filteredHistory;
   } catch (error) {
