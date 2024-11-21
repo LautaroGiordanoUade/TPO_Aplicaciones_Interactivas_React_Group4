@@ -57,7 +57,7 @@ const Checkout = () => {
 
     const handlePurchase = async () => {
         setLoading(true);
-        const minLoadingTime = 5000;// seteado a 5 segundos
+        const minLoadingTime = 2000;//delay para mostrar el loading, solo 2 segundos
         const startTime = Date.now();
     
         const finalizePurchase = (message, variant, isBought) => {
