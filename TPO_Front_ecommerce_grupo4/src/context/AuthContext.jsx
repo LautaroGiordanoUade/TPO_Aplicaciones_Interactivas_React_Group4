@@ -12,9 +12,9 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const login = async (username, password, userId) => {
+  const login = async (username, password, userId, role) => {
     try {
-      const response = {username, password, userId};
+      const response = {username, password, userId, role};
       setUser(response);
       navigate("/");
     } catch (err) {
