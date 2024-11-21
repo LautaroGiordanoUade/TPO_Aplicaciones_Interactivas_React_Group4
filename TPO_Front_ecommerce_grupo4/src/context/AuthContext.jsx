@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { logOutUser } from "../services/userService";
 
 const AuthContext = createContext();
 
@@ -13,7 +14,7 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password, userId) => {
     try {
-      const response = {username, password, userId}; //usuario ya validado en el componente login , envia ya datos verificados
+      const response = {username, password, userId};
       setUser(response);
       navigate("/");
     } catch (err) {
@@ -23,7 +24,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    logOutUser();
     navigate("/userLogin");
   };
 

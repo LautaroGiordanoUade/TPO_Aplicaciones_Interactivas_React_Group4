@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { registerUser } from '../../services/userService';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
@@ -43,7 +43,7 @@ const Signup = () => {
       return;
     }
 
-    const minLoadingTime = 5000; // Tiempo mínimo de carga
+    const minLoadingTime = 2000; //delay para mostrar el loading, solo 2 segundos
     const startTime = Date.now();
 
     const finalizeSignup = (isSuccess) => {
