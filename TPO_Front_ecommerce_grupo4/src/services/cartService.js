@@ -2,23 +2,23 @@ import axios from "axios";
 import apiClient from "./apiClient"
 
 export const getProductsCart = async () => {
-    const response = await apiClient.get('cart-Products');
+    const response = await apiClient.get('cart-Products'); //getCartUser
     return response.data    
 }
 
 export const deleteProductCart = async (id) => {
-  const response =  await apiClient.delete(`cart-Products/${id}`);
+  const response =  await apiClient.delete(`cart-Products/${id}`);//deleteProductFromCart
   return response.data;
 }
 
 
 export const deleteAllProductCart = async () => {
-  const response = await apiClient.delete('cart-Products');
+  const response = await apiClient.delete('cart-Products');//emptyCart
   return response.data;
 }
 
 export const createProductCart = async (product) => {
-  const response =  await apiClient.post('cart-Products', product);
+  const response =  await apiClient.post('cart-Products', product);//addProductToCart
   return response.data;
 }
 
@@ -32,7 +32,7 @@ export const checkIfProductExistsInCart = async (productId) => {
       return cartProducts.some(product => product.id === productId); // Retorna true si existe, false si no
   }
   export const getProductQuantityInCart = async (id) => {
-    const response = await apiClient.get(`cart-Products/${id}`);
+    const response = await apiClient.get(`cart-Products/${id}`);   //getProductQuantityInCart
     return response.data.quantityOnCart; // Asegúrate de que el formato de la respuesta sea correcto
 };
  
