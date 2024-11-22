@@ -29,7 +29,7 @@ const ModalCart = ({ showModal, handleClose, items, total,quantityOfProduct }) =
                                                 <tr key={item.id}>
                                                     <td> {item.name}</td>
                                                     <td>{item.quantity}</td>
-                                                    <td>{quantityOfProduct}</td> //cambiar aca
+                                                    <td>{quantityOfProduct}</td>
                                                 </tr>
                                             );
                                         })}

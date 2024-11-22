@@ -1,5 +1,4 @@
 import apiClient from "./apiClient"
-import apiClientPublic from "./apiClientPublic";
 
 export const getProductsCart = async () => {
     const response = await apiClient.get('cart');
@@ -17,14 +16,24 @@ export const deleteAllProductCart = async () => {
   return response.data;
 }
 
-export const createProductCart = async (id) => {
-  const response =  await apiClient.post(`cart/add/${id}`);
-  return response.data;
+export const createProductCart = async (productCart) => {
+  try{
+    const response =  await apiClient.post(`cart/add`,JSON.stringify(productCart));
+    return response.data;
+  }
+   catch (error) {
+    console.error('Error intentando crear el producto en el carrito: ' + error.message);
+  }
 }
 
 export const updateProductCart = async (productCart) => {
-  const response =  await apiClient.put(`cart/update`,  JSON.stringify(productCart)); 
-  return response.data;
+  try{
+    const response =  await apiClient.put(`cart/update`,  JSON.stringify(productCart)); 
+    return response.data;
+  }
+  catch (error) {
+    console.error('Error intentando actualizar el producto en el carrito: ' + error.message);
+  }
 }
 
 export const checkIfProductExistsInCart = async (productId) => {

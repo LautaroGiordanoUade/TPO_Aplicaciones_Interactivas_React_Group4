@@ -75,10 +75,9 @@ const Cart = () => {
             
             if (product.id === id) {
                 if (product.quantity > 1) {
-                   
                     acc.push({ ...product, quantity: product.quantity - 1 });
-                    product.quantity=product.quantity-1
                     handlerUpdatedb(product)
+                    return acc;
                 }
                 
             } else {
