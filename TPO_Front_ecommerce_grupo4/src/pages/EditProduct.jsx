@@ -12,6 +12,7 @@ import {
 } from "../services/productService.js";
 import ToastMessage from "../components/ToastMessage";
 import { useAuth } from "../hooks/useAuth";
+import {UI_ACESS} from '../components/uiConstants'
 
 const EditProduct = () => {
   const { user } = useAuth();
@@ -167,7 +168,7 @@ const EditProduct = () => {
 
   return (
     <>
-      {user?.admin ? (
+      {user?.role == UI_ACESS.ADMIN ? (
         (id && product) || id == null ? (
           <>
             <h2>{product ? "Editar Producto" : "Crear Producto"}</h2>

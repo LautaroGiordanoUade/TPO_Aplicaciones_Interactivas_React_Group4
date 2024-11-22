@@ -10,10 +10,10 @@ const apiClient = axios.create({
     }
 });
 
-apiClient.interceptors.request.use(
+  apiClient.interceptors.request.use(
     (config) => {
-      //const token = localStorage.getItem("token"); // TODO: configurar
-      const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTczMjEzMDg0NiwiZXhwIjoxNzMyMjE3MjQ2fQ.BW-RGqoBu_Fj-n8TGhQjY93l-_yAjk7Dx8c34N58DMhW0ZXOmh5AN5NdREda7nZwHtDLg15sCZqP0xisY2MC1A";
+      const token = localStorage.getItem("token");
+
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -22,6 +22,6 @@ apiClient.interceptors.request.use(
     (error) => {
       return Promise.reject(error);
     }
-  );
+);
 
 export default apiClient;
