@@ -65,16 +65,16 @@ const ProductDetail = () => {
       const exists = await checkIfProductExistsInCart(product.id);
 
       if (exists) {
-        const currentQuantity = await getProductQuantityInCart(product.id);
+        const currentQuantity = await getProductQuantityInCart(product);
 
-        product.quantityOnCart = currentQuantity || 0;
-        product.quantityOnCart += 1;
+        product.quantity = currentQuantity || 0;
+        product.quantity += 1;
 
-        await updateProductCart(product);
+        await updateProductCart(product.id);
         handleOpenModal(product);
       } else {
-        product.quantityOnCart = 1;
-        await createProductCart(product);
+        product.quantity = 1;
+        await createProductCart(product.id);
         handleOpenModal(product);
       }
     } catch (error) {
