@@ -8,12 +8,14 @@ deleteProductCart,
 updateProductCart
 }
 from "../services/cartService.js";
+import {getProductsById} from "../services/productService.js";
 
 const Cart = () => {
     const [products, setProducts] = useState([]); 
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
     const [outOfStockItems, setOutOfStockItems] = useState([]);
+    const[quantityProduct,setQuantityProduct]=useState(0);
     const [showModal, setShowModal] = useState(false);
 
 
@@ -22,6 +24,7 @@ const Cart = () => {
     const handleCloseModal = () => {
         setShowModal(false);
         setOutOfStockItems([]); 
+        setQuantityProduct(0);
     };
 
     useEffect(() => {
@@ -71,11 +74,10 @@ const Cart = () => {
         const updatedProducts = products.reduce((acc, product) => {
             
             if (product.id === id) {
-                if (product.quantityOnCart > 1) {
-                   
-                    acc.push({ ...product, quantityOnCart: product.quantityOnCart - 1 });
-                    product.quantityOnCart=product.quantityOnCart-1
+                if (product.quantity > 1) {
+                    acc.push({ ...product, quantity: product.quantity - 1 });
                     handlerUpdatedb(product)
+                    return acc;
                 }
                 
             } else {
@@ -94,7 +96,7 @@ const Cart = () => {
     
     useEffect(() => {
         const newTotal = products.reduce((acc, product) => {
-            return acc + (product.price * product.quantityOnCart);
+            return acc + (product.price * product.quantity);
         }, 0);
         setTotal(newTotal);
     }, [products]);
@@ -110,16 +112,19 @@ const Cart = () => {
     
 
 
-    const handlerCheckout = () => {
+    const  handlerCheckout = async () => {
         for (const product of products) {
-            if (product.quantityOnCart > product.quantity) {
+            const originalItem = await getProductsById(product.id); 
+            if (product.quantity > originalItem.quantity) { 
                 outOfStockItems.push(product);
+                quantityProduct.push(originalItem.quantity);
             }
             
         }
     
         if (outOfStockItems.length > 0) {
             setOutOfStockItems(outOfStockItems);
+            setQuantityProduct(quantityProduct);
             handleOpenModal()
             return;
         }
@@ -134,7 +139,7 @@ const Cart = () => {
             <div className="products-container">
                 {products?.length > 0 ? (
                     products?.map((product) => {
-                        const totalPrice = product.price * product.quantityOnCart; 
+                        const totalPrice = product.price * product.quantity; 
                         return (
                             <div className="product-item" key={product.id}>
                                 {product?.images?.length > 0 && (
@@ -144,7 +149,7 @@ const Cart = () => {
                                         className='produc-image'
                                     />
                                 )}     
-                                <h4 className="product-name">{product.name} (X{product.quantityOnCart})</h4>
+                                <h4 className="product-name">{product.name} (X{product.quantity})</h4>
                                 <p className="product-price">Precio Unitario: ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                 <p className="product-total-price">Precio Total: ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                
@@ -172,7 +177,8 @@ const Cart = () => {
             <ModalCart 
             showModal={showModal} 
             handleClose={handleCloseModal} 
-            items={outOfStockItems} 
+            items={outOfStockItems}
+            quantityOfProduct={quantityProduct} 
         />
         </div>
     );
