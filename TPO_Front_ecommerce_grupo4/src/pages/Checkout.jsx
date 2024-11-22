@@ -57,7 +57,7 @@ const Checkout = () => {
 
     const handlePurchase = async () => {
         setLoading(true);
-        const minLoadingTime = 5000;// seteado a 5 segundos
+        const minLoadingTime = 2000;//delay para mostrar el loading, solo 2 segundos
         const startTime = Date.now();
     
         const finalizePurchase = (message, variant, isBought) => {
@@ -73,7 +73,7 @@ const Checkout = () => {
         };
     
         try {
-            await postPurchaseHistory(user.userId, currentProducts);
+            await postPurchaseHistory(user.userId || user.id, currentProducts);
             finalizePurchase('Compra realizada con éxito', 'success', true);
             
         } catch (error) {
@@ -86,7 +86,7 @@ const Checkout = () => {
         for (const item of currentProducts) {
             const originalItem = await getProductsById(item.id); 
             if (originalItem) {
-                const newQuantity = originalItem.quantity - item.quantityOnCart;
+                const newQuantity = originalItem.quantity - item.quantity; // ver tema aca
                 if(newQuantity>0){
                     originalItem.quantity=newQuantity;
                     await handlerUpdatedb(originalItem); 
@@ -116,11 +116,11 @@ const Checkout = () => {
                         </thead>
                         <tbody>
                             {currentProducts.map((item, index) => {
-                                const totalPrice = item.price * item.quantityOnCart; 
+                                const totalPrice = item.price * item.quantity; 
                                 return (
                                     <tr key={index} className="productCheckout-item">
                                         <td>
-                                            <div className="productCheckout-name">X {item.quantityOnCart} {item.name} </div>
+                                            <div className="productCheckout-name">X {item.quantity} {item.name} </div>
                                         </td>
                                         <td>
                                             <div className="productCheckout-price">${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>

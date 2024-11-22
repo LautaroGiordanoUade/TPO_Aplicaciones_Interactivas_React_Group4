@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getProducts, deleteProduct } from "../services/productService";
+import { deleteProduct, getProductsByUser } from "../services/productService";
 import DeleteProductModal from "../components/product/DeleteProductModal";
+import {UI_ACESS} from '../components/uiConstants'
 import { useAuth } from "../hooks/useAuth";
 
 const AdminProducts = () => {
@@ -14,7 +15,7 @@ const AdminProducts = () => {
 
   const handlerInit = async () => {
     try {
-      const response = await getProducts();
+      const response = await getProductsByUser();
       setProducts(response);
     } catch (error) {}
   };
@@ -51,7 +52,7 @@ const AdminProducts = () => {
 
   return (
     <>
-      {user?.admin ? (
+      {user?.role == UI_ACESS.ADMIN ? (
         <div>
           <Table striped bordered hover>
             <thead>

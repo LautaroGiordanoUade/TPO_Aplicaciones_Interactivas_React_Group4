@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import {UI_ACESS} from '../components/uiConstants' 
 import Categories from "./Categories";
 import { useAuth } from "../hooks/useAuth";
 
@@ -82,7 +83,7 @@ const Header = () => {
                 </Link>
               </li>
               <Categories />
-              {user?.admin && (
+              {user?.role == UI_ACESS.ADMIN && (
                 <li className="nav-item">
                   <Link className="nav-link" to="/admin">
                     Admin

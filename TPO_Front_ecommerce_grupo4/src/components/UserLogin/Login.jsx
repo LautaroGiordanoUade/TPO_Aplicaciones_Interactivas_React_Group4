@@ -21,7 +21,7 @@ const Login = ({ setView }) => {
       const user = await loginUser(email, password);
       
       if (user) {
-        await login(email, password, user.id);
+        await login(email, password, user.id, user?.role);
         setLoading(false);
       }
     } catch (error) {

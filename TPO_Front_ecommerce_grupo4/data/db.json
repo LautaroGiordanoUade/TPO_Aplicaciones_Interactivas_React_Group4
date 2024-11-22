@@ -5,7 +5,7 @@
       "name": "Pantalón Deportivo Real Madrid Originals",
       "description": "Pantalones deportivos del Real Madrid inspirados en el legado de adidas y hechos parcialmente con materiales reciclados",
       "categoryId": 1,
-      "quantity": 9,
+      "quantity": 5,
       "price": 119999,
       "featured": true,
       "favorite": true,
@@ -51,7 +51,7 @@
       "name": "Remera Adizero Running",
       "description": "Una remera de running ligera diseñada para ayudarte a llegar lejos.",
       "categoryId": 2,
-      "quantity": 48,
+      "quantity": 43,
       "price": 80,
       "featured": false,
       "favorite": false,
@@ -325,7 +325,7 @@
     {
       "name": "Musculosa De Tenis Adidas Pro",
       "description": "Sentí frescura bajo presión.\nConfeccionada con adidas AIRCHILL, esta musculosa maximiza el flujo de aire desde todas las direcciones mientras que la tecnología HEAT.RDY ayuda a mantener el calor y la humedad a raya.\nEsta musculosa adidas te permite moverte con fluidez en la cancha o concentrarte en el golpe ganador.\nGracias a su sensación de ligereza y frescura, no perderás de vista tu concentración, a pesar de que el sol del mediodía cae y el partido está en su punto.\nEste producto está hecho con materiales 100% reciclados.\nUtilizando materiales reciclados disminuimos los residuos, nuestra dependencia de los recursos finitos y la huella que generan los productos que fabricamos.\nLogo ADIDAS estampado.",
-      "quantity": 42,
+      "quantity": 41,
       "price": 82.999,
       "categoryId": "2",
       "featured": false,
@@ -436,218 +436,28 @@
   ],
   "purchase-history": [
     {
-      "date": "2024-11-12T13:42:48.816Z",
+      "userId": 1731424239836,
+      "date": "2024-11-12T20:47:08.958Z",
       "products": [
+        {
+          "id": 3,
+          "name": "Remera Adizero Running",
+          "price": 80,
+          "quantity": 3
+        },
         {
           "id": 1,
           "name": "Pantalón Deportivo Real Madrid Originals",
           "price": 119999,
-          "quantity": 2
-        },
-        {
-          "id": 5,
-          "name": "Buzo con Capucha Adicolor Classics Trifolio",
-          "price": 121,
           "quantity": 2
         }
       ],
       "id": 1
     },
     {
-      "date": "2024-11-12T13:49:28.794Z",
+      "userId": 1731424239836,
+      "date": "2024-11-12T20:48:08.390Z",
       "products": [
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 2
-        },
-        {
-          "id": 5,
-          "name": "Buzo con Capucha Adicolor Classics Trifolio",
-          "price": 121,
-          "quantity": 2
-        }
-      ],
-      "id": 2
-    },
-    {
-      "date": "2024-11-12T13:50:56.109Z",
-      "products": [
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 2
-        },
-        {
-          "id": 5,
-          "name": "Buzo con Capucha Adicolor Classics Trifolio",
-          "price": 121,
-          "quantity": 2
-        }
-      ],
-      "id": 3
-    },
-    {
-      "date": "2024-11-12T13:52:38.720Z",
-      "products": [
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 2
-        },
-        {
-          "id": 5,
-          "name": "Buzo con Capucha Adicolor Classics Trifolio",
-          "price": 121,
-          "quantity": 2
-        }
-      ],
-      "id": 4
-    },
-    {
-      "date": "2024-11-12T14:12:11.446Z",
-      "products": [
-        {
-          "id": 4,
-          "name": "Remera Own the Run 3 Tiras",
-          "price": 60,
-          "quantity": 2
-        },
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 1
-        }
-      ],
-      "id": 7
-    },
-    {
-      "date": "2024-11-12T14:28:17.201Z",
-      "products": [
-        {
-          "id": 4,
-          "name": "Remera Own the Run 3 Tiras",
-          "price": 60,
-          "quantity": 2
-        },
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 1
-        }
-      ],
-      "id": 8
-    },
-    {
-      "date": "2024-11-12T14:45:23.019Z",
-      "products": [
-        {
-          "id": 4,
-          "name": "Remera Own the Run 3 Tiras",
-          "price": 60,
-          "quantity": 2
-        },
-        {
-          "id": 2,
-          "name": "Pantalón Adicolor 70s",
-          "price": 97999,
-          "quantity": 1
-        }
-      ],
-      "id": 9
-    },
-    {
-      "date": "2024-11-12T14:46:16.777Z",
-      "products": [
-        {
-          "id": 4,
-          "name": "Remera Own the Run 3 Tiras",
-          "price": 60,
-          "quantity": 2
-        },
-        {
-          "id": 2,
-          "name": "Pantalón Adicolor 70s",
-          "price": 97999,
-          "quantity": 1
-        }
-      ],
-      "id": 2
-    },
-    {
-      "date": "2024-11-12T11:57:29.066Z",
-      "products": [
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "name": "Pantalón Adicolor 70s",
-          "price": 97999,
-          "quantity": 1
-        },
-        {
-          "id": 3,
-          "name": "Remera Adizero Running",
-          "price": 80,
-          "quantity": 1
-        },
-        {
-          "id": 4,
-          "name": "Remera Own the Run 3 Tiras",
-          "price": 60,
-          "quantity": 1
-        }
-      ],
-      "id": 3
-    },
-    {
-      "date": "2024-11-12T17:16:48.404Z",
-      "products": [
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 1
-        }
-      ],
-      "id": 10
-    },
-    {
-      "date": "2024-11-12T17:18:48.209Z",
-      "products": [
-        {
-          "id": 2,
-          "name": "Pantalón Adicolor 70s",
-          "price": 97999,
-          "quantity": 2
-        }
-      ],
-      "id": 11
-    },
-    {
-      "date": "2024-11-12T19:10:25.170Z",
-      "products": [
-        {
-          "id": 2,
-          "name": "Pantalón Adicolor 70s",
-          "price": 97999,
-          "quantity": 11
-        },
-        {
-          "id": 1,
-          "name": "Pantalón Deportivo Real Madrid Originals",
-          "price": 119999,
-          "quantity": 7
-        },
         {
           "id": 3,
           "name": "Remera Adizero Running",
@@ -655,7 +465,20 @@
           "quantity": 2
         }
       ],
-      "id": 12
+      "id": 2
+    },
+    {
+      "userId": 1731424239836,
+      "date": "2024-11-12T20:50:40.404Z",
+      "products": [
+        {
+          "id": 22,
+          "name": "Musculosa De Tenis Adidas Pro",
+          "price": 82.999,
+          "quantity": 1
+        }
+      ],
+      "id": 3
     }
   ]
 }

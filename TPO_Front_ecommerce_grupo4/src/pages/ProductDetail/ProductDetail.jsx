@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsById, editProduct } from "../../services/productService.js";
+import { getProductsById, editProduct, addFavorites, deleteFavorites } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
 import placeholderImage from "/public/placeholder.png";
@@ -17,6 +17,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [product, setProduct] = useState(null);
+  const[quantityOnCart,setQuantityOnCart]=useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
@@ -24,7 +25,12 @@ const ProductDetail = () => {
   const handleFavorite = async () => {
     try {
       product.favorite = !product.favorite;
-      await editProduct(product);
+      if (isFavorite) {
+        await deleteFavorites(id);
+      } else {
+        await addFavorites(id)
+      }
+      //await editProduct(product);
     } catch (error) {
       product.favorite = !product.favorite;
     } finally {
@@ -57,21 +63,13 @@ const ProductDetail = () => {
 
   const handlerAddToCart = async (product) => {
     try {
-      const exists = await checkIfProductExistsInCart(product.id);
-
-      if (exists) {
-        const currentQuantity = await getProductQuantityInCart(product.id);
-
-        product.quantityOnCart = currentQuantity || 0;
-        product.quantityOnCart += 1;
-
-        await updateProductCart(product);
-        handleOpenModal(product);
-      } else {
-        product.quantityOnCart = 1;
-        await createProductCart(product);
-        handleOpenModal(product);
-      }
+        const newProduct={
+          product:product,
+          quantity:1,
+          price:product.price,
+        };
+      const updatedCart=await createProductCart(newProduct);
+      handleOpenModal(updatedCart);
     } catch (error) {
       handleOpenModal("Error al agregar el producto al carrito.");
     }
@@ -145,7 +143,7 @@ const ProductDetail = () => {
       <ModalOnCart
         show={showModal}
         handleClose={handleCloseModal}
-        product={product}
+        product={updatedCart}
       />
     </>
   );

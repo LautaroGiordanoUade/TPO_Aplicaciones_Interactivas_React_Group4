@@ -7,7 +7,7 @@ import placeholderImage from "/public/placeholder.png";
 const ProductCard = ({ product }) => {
   const { images, name, price } = product;
   return (
-    <Card className="card d-flex flex-column">
+    <Card className="card">
       <Link to={"/product/" + product.id}>
         <Card.Img
           className="image"
