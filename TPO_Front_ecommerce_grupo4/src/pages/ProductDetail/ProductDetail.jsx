@@ -17,7 +17,6 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [product, setProduct] = useState(null);
-  const[quantityOnCart,setQuantityOnCart]=useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
@@ -63,13 +62,21 @@ const ProductDetail = () => {
 
   const handlerAddToCart = async (product) => {
     try {
-        const newProduct={
-          product:product,
-          quantity:1,
-          price:product.price,
-        };
-      const updatedCart=await createProductCart(newProduct);
-      handleOpenModal(updatedCart);
+      const exists = await checkIfProductExistsInCart(product.id);
+
+      if (exists) {
+        const currentQuantity = await getProductQuantityInCart(product.id);
+
+        product.quantityOnCart = currentQuantity || 0;
+        product.quantityOnCart += 1;
+
+        await updateProductCart(product);
+        handleOpenModal(product);
+      } else {
+        product.quantityOnCart = 1;
+        await createProductCart(product);
+        handleOpenModal(product);
+      }
     } catch (error) {
       handleOpenModal("Error al agregar el producto al carrito.");
     }
@@ -143,7 +150,7 @@ const ProductDetail = () => {
       <ModalOnCart
         show={showModal}
         handleClose={handleCloseModal}
-        product={updatedCart}
+        product={product}
       />
     </>
   );
