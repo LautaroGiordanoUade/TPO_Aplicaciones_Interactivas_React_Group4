@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductsById, editProduct, addFavorites, deleteFavorites } from "../../services/productService.js";
+import { getProductsById, addFavorites, deleteFavorites } from "../../services/productService.js";
 import ImageCarousel from "../../components/product/ImageCarousel.jsx";
 import "./StyledProductDetail.css";
 import placeholderImage from "/public/placeholder.png";
@@ -55,7 +55,6 @@ const ProductDetail = () => {
       const response = await getProductsById(id);
       setProduct(response);
       setIsFavorite(response.favorite);
-      //await postViewed();
     } catch (error) {
       console.log(error);
       if (isTokenError(error)) {

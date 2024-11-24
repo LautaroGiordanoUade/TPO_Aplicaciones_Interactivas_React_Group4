@@ -5,6 +5,8 @@ import { getFavorites } from "../../services/productService";
 import ProductCard from "./ProductCard/ProductCard";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useAuth } from "../../hooks/useAuth";
+import Carousel from "react-bootstrap/Carousel";
+import _ from "lodash";
 
 const FavoriteProducts = () => {
   const { user } = useAuth();
@@ -61,11 +63,22 @@ const FavoriteProducts = () => {
         </div>
       ) : (
         <div className="row">
-          {products.map((product) => (
-            <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
+          <Carousel data-bs-theme="dark">
+            {_.chunk(products, 3).map((group, index) => (
+              <Carousel.Item key={index} data-bs-theme="light">
+                <div className="row">
+                  {group.map((product, productIndex) => (
+                    <div
+                      key={productIndex}
+                      className="col-md-4 col-sm-6 col-xs-12"
+                    >
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </div>
       )}
     </div>
