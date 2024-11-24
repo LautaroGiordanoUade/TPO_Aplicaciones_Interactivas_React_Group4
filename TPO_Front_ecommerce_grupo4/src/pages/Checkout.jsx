@@ -37,6 +37,10 @@ const Checkout = () => {
     useEffect(() => {
         fetchCurrentProducts();
     }, []);
+    useEffect(() => {
+        console.log("Productos actuales: ", currentProducts);
+        console.log(currentProducts.items)
+    }, [currentProducts]);
 
     const handlerUpdatedb = async(productCart)=>{
         try{
@@ -83,19 +87,18 @@ const Checkout = () => {
 
         }
 
-        for (const item of currentProducts) {
-            const originalItem = await getProductsById(item.id); 
-            if (originalItem) {
-                const newQuantity = originalItem.quantity - item.quantityOnCart;
-                if(newQuantity>0){
-                    originalItem.quantity=newQuantity;
-                    await handlerUpdatedb(originalItem); 
-                }else{
-                    await deleteProduct(originalItem.id);
+       /* for (const item of currentProducts) {
+            const originalItem = await getProductsById(item.items.product.id); 
+            const newQuantity = items.items.product.quantity - item.items.quantity;
+            if(newQuantity>0){
+                originalItem.quantity=newQuantity;
+                await handlerUpdatedb(originalItem); 
+            }else{
+                await deleteProduct(originalItem.id);
                 }
-            }
+            
             await handlerDeleteForCheckout(item.id)
-        }
+        } */
         
     };
     
@@ -115,19 +118,21 @@ const Checkout = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentProducts.map((item, index) => {
-                                const totalPrice = item.price * item.quantityOnCart; 
+                            {currentProducts.map((cartItem, index) => {
+                             return cartItem.items.map((item, itemIndex) => {
+                                const totalPrice = item.product.price * item.quantity; 
                                 return (
-                                    <tr key={index} className="productCheckout-item">
+                                    <tr key={`${index}-${itemIndex}`} className="productCheckout-item">
                                         <td>
-                                            <div className="productCheckout-name">X {item.quantityOnCart} {item.name} </div>
+                                            <div className="productCheckout-name">X { item.quantity } { item.product.name } </div>
                                         </td>
                                         <td>
                                             <div className="productCheckout-price">${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
                                         </td>
                                     </tr>
                                 );
-                            })}
+                            });
+                        })}
                         </tbody>
                     </table>
                     <p className="totalCheckout">Su total es ${total.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>

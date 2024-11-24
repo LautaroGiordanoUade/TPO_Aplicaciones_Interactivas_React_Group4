@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../components/Cart/StyledCart.css';
-import { getProductsCart } from '../services/cartService';
+import { deleteAllProductCart, getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
 import ModalCart from '../components/Cart/ModalCart'; 
 import{
@@ -29,16 +29,16 @@ const Cart = () => {
            await handlerfetchCartProducts();
         };
         fetchCartProducts();
-    }, []);
+    }, [products]);
     
 
     const handlerfetchCartProducts = async () => {
         try {
-            const initialCartProducts = await getProductsCart();
-            setProducts(initialCartProducts);
+            const initialCartProducts = await getProductsCart(); //revisar tema imagen
+            setProducts(initialCartProducts.items);
+            
         } catch (error) {
             console.log('Error al cargar los productos del carrito:', error);
-            setcartHasError(true);
             setcartErrorMessage(error.message || 'Ocurrió un error.');
         }
     };
@@ -47,13 +47,16 @@ const Cart = () => {
         handlerfetchCartProducts();
     }, []);
 
-    const handlerRemoveCartdb = async (id)=>{
+    const handlerRemoveCartdb = async (productCart)=>{
         try {
-            const response = await deleteProductCart(id);
+            const response = await deleteProductCart(productCart);
+            console.log("Producto Eliminado:", response)
           } catch (error) {
             console.log(error);
           }
         }
+
+    
     
 
 
@@ -66,59 +69,53 @@ const Cart = () => {
     }
 
 
+    const createProductRemove = (productId, quantity) => {
+        return {
+          productId,
+          quantity,
+        };
+      };
 
-    const handlerRemoveCartProduct = (id) => {
-        const updatedProducts = products.reduce((acc, product) => {
-            
-            if (product.id === id) {
-                if (product.quantityOnCart > 1) {
-                   
-                    acc.push({ ...product, quantityOnCart: product.quantityOnCart - 1 });
-                    product.quantityOnCart=product.quantityOnCart-1
-                    handlerUpdatedb(product)
-                }
-                
-            } else {
-                acc.push(product);
-            }
-            return acc;
-        }, []);
-    
-        if (updatedProducts.length < products.length) {
-            handlerRemoveCartdb(id);
-        }
-        setProducts(updatedProducts);
+    const handlerRemoveCartProduct = (productRemoveId) => {
+        try{
+            console.log(productRemoveId)
+            const productCart= createProductRemove(productRemoveId,1);
+            handlerRemoveCartdb(productCart);
+        }catch (error) {
+            handleOpenModal("Error al borrar el producto del carrito.");
+          }
     };
 
 
     
     useEffect(() => {
         const newTotal = products.reduce((acc, product) => {
-            return acc + (product.price * product.quantityOnCart);
+            return acc + (product.price * product.quantity);
         }, 0);
         setTotal(newTotal);
     }, [products]);
 
 
-    const handlerCleanCart = () => {
-        for (const product of products){
-            handlerRemoveCartdb(product.id)
-        }
+    const handlerCleanCart = async () => {
+        await deleteAllProductCart();
         setProducts([]); 
         
     };
     
 
 
-    const handlerCheckout = () => {
+    const handlerCheckout = async () => {
         for (const product of products) {
-            if (product.quantityOnCart > product.quantity) {
+            if (product.quantity > product.product.quantity) {
+                console.log("Aca andamo el producto es: ",product)
                 outOfStockItems.push(product);
+
             }
             
         }
     
         if (outOfStockItems.length > 0) {
+            console.log(outOfStockItems)
             setOutOfStockItems(outOfStockItems);
             handleOpenModal()
             return;
@@ -134,21 +131,21 @@ const Cart = () => {
             <div className="products-container">
                 {products?.length > 0 ? (
                     products?.map((product) => {
-                        const totalPrice = product.price * product.quantityOnCart; 
+                        const totalPrice = product.price * product.quantity; 
                         return (
                             <div className="product-item" key={product.id}>
-                                {product?.images?.length > 0 && (
+                                {product?.product.images?.length > 0 && (
                                     <img 
-                                        src={product.images[0].imageBase64} width={300} 
+                                        src={product.product.images[0].imageBase64} width={300} 
                                         alt={product.name}
                                         className='produc-image'
                                     />
                                 )}     
-                                <h4 className="product-name">{product.name} (X{product.quantityOnCart})</h4>
+                                <h4 className="product-name">{product.product.name} (X{product.quantity})</h4>
                                 <p className="product-price">Precio Unitario: ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                 <p className="product-total-price">Precio Total: ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                
-                                <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.id)}>
+                                <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.product.id)}>
                                     Eliminar
                                 </button>
                             </div>

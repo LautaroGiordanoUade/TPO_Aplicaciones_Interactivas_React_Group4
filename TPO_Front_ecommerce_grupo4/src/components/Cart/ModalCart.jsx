@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ModalCart = ({ showModal, handleClose, items, total }) => {
+const ModalCart = ({ showModal, handleClose, items }) => {
     return (
         <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden={!showModal}>
             <div className="modal-dialog">
@@ -24,12 +24,12 @@ const ModalCart = ({ showModal, handleClose, items, total }) => {
                                     </thead>
                                     <tbody>
                                         {items.map((item) => {
-                                            const totalPrice = item.price * item.quantityOnCart; 
+                                            
                                             return (
-                                                <tr key={item.id}>
-                                                    <td> {item.name}</td>
-                                                    <td>{item.quantityOnCart}</td>
+                                                <tr key={item.product.id}>
+                                                    <td> {item.product.name}</td>
                                                     <td>{item.quantity}</td>
+                                                    <td>{item.product.quantity}</td>
                                                 </tr>
                                             );
                                         })}

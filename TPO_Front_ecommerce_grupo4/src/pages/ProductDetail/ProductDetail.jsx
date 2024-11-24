@@ -37,8 +37,8 @@ const ProductDetail = () => {
     }
   };
 
-  const handleOpenModal = (product) => {
-    setModalProduct(product);
+  const handleOpenModal = (response) => {
+    setModalProduct(response);
     setShowModal(true);
   };
 
@@ -48,6 +48,7 @@ const ProductDetail = () => {
   const handlerInit = async () => {
     try {
       const response = await getProductsById(id);
+      console.log(response)
       setProduct(response);
       setIsFavorite(response.favorite);
       //await postViewed();
@@ -60,22 +61,23 @@ const ProductDetail = () => {
     handlerInit();
   }, [id, isFavorite]);
 
+  const createProductObject = (productId, quantity) => {
+    return {
+      productId,
+      quantity,
+    };
+  };
+
   const handlerAddToCart = async (product) => {
     try {
-      const exists = await checkIfProductExistsInCart(product.id);
-
-      if (exists) {
-        const currentQuantity = await getProductQuantityInCart(product.id);
-
-        product.quantityOnCart = currentQuantity || 0;
-        product.quantityOnCart += 1;
-
-        await updateProductCart(product);
-        handleOpenModal(product);
-      } else {
-        product.quantityOnCart = 1;
-        await createProductCart(product);
-        handleOpenModal(product);
+      
+      const productCart = createProductObject(product.id, 1);
+      
+     
+      const response = await createProductCart(productCart);
+      if (response) {
+        handleOpenModal(response);
+        
       }
     } catch (error) {
       handleOpenModal("Error al agregar el producto al carrito.");
@@ -150,7 +152,7 @@ const ProductDetail = () => {
       <ModalOnCart
         show={showModal}
         handleClose={handleCloseModal}
-        product={product}
+        product={modalProducto}
       />
     </>
   );
