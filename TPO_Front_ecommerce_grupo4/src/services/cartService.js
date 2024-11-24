@@ -26,7 +26,7 @@ export const createProductCart = async (productCart) => {
   }
 }
 
-export const updateProductCart = async (productCart) => {
+export const updateProductCart = async (productCartid,quantity) => {
   try{
     const response =  await apiClient.put(`cart/update`,  JSON.stringify(productCart)); 
     return response.data;
@@ -38,11 +38,11 @@ export const updateProductCart = async (productCart) => {
 
 export const checkIfProductExistsInCart = async (productId) => {
       const cartProducts = await getProductsCart();
-      return cartProducts.some(product => product.id === productId); // Retorna true si existe, false si no
+      return cartProducts.some(cartItems => cartItems.id === productId); // Retorna true si existe, false si no
   }
-  export const getProductQuantityInCart = async (productCart) => {
-    const response = await apiClient.get(`cart/quantity`.JSON.stringify(productCart));   
-    return response.data.quantity; 
+  export const getProductQuantityInCart = async (productCartID) => {
+    const response = await apiClient.get(`cart/quantity/${id}`);   
+    return response.data; 
 };
  
 //TODO: cuando la integracion se realice , cambiar para q envie los datos de usuario y con eso ya filtra

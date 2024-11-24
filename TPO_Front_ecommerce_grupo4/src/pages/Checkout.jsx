@@ -86,7 +86,7 @@ const Checkout = () => {
         for (const item of currentProducts) {
             const originalItem = await getProductsById(item.id); 
             if (originalItem) {
-                const newQuantity = originalItem.quantity - item.quantity; // ver tema aca
+                const newQuantity = originalItem.quantity - item.quantityOnCart; 
                 if(newQuantity>0){
                     originalItem.quantity=newQuantity;
                     await handlerUpdatedb(originalItem); 
@@ -116,11 +116,11 @@ const Checkout = () => {
                         </thead>
                         <tbody>
                             {currentProducts.map((item, index) => {
-                                const totalPrice = item.price * item.quantity; 
+                                const totalPrice = item.price * item.quantityOnCart; 
                                 return (
                                     <tr key={index} className="productCheckout-item">
                                         <td>
-                                            <div className="productCheckout-name">X {item.quantity} {item.name} </div>
+                                            <div className="productCheckout-name">X {item.quantityOnCart} {item.name} </div>
                                         </td>
                                         <td>
                                             <div className="productCheckout-price">${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>

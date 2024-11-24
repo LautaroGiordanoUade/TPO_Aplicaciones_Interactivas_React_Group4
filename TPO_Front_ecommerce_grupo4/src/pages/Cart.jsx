@@ -15,7 +15,6 @@ const Cart = () => {
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
     const [outOfStockItems, setOutOfStockItems] = useState([]);
-    const[quantityProduct,setQuantityProduct]=useState(0);
     const [showModal, setShowModal] = useState(false);
 
 
@@ -24,7 +23,6 @@ const Cart = () => {
     const handleCloseModal = () => {
         setShowModal(false);
         setOutOfStockItems([]); 
-        setQuantityProduct(0);
     };
 
     useEffect(() => {
@@ -69,15 +67,15 @@ const Cart = () => {
     }
 
 
-
     const handlerRemoveCartProduct = (id) => {
         const updatedProducts = products.reduce((acc, product) => {
             
             if (product.id === id) {
-                if (product.quantity > 1) {
-                    acc.push({ ...product, quantity: product.quantity - 1 });
+                if (product.quantityOnCart > 1) {
+                    acc.push({ ...product, quantityOnCart: product.quantityOnCart - 1 });
+                    product.quantityOnCart=product.quantityOnCart-1
                     handlerUpdatedb(product)
-                    return acc;
+                    
                 }
                 
             } else {
@@ -96,7 +94,7 @@ const Cart = () => {
     
     useEffect(() => {
         const newTotal = products.reduce((acc, product) => {
-            return acc + (product.price * product.quantity);
+            return acc + (product.price * product.quantityOnCart);
         }, 0);
         setTotal(newTotal);
     }, [products]);
@@ -112,19 +110,17 @@ const Cart = () => {
     
 
 
-    const  handlerCheckout = async () => {
+    const handlerCheckout =  () => {
         for (const product of products) {
-            const originalItem = await getProductsById(product.id); 
-            if (product.quantity > originalItem.quantity) { 
+            if (product.quantityOnCart  > originalItem.quantity) { 
                 outOfStockItems.push(product);
-                quantityProduct.push(originalItem.quantity);
+                
             }
             
         }
     
         if (outOfStockItems.length > 0) {
             setOutOfStockItems(outOfStockItems);
-            setQuantityProduct(quantityProduct);
             handleOpenModal()
             return;
         }
@@ -139,7 +135,7 @@ const Cart = () => {
             <div className="products-container">
                 {products?.length > 0 ? (
                     products?.map((product) => {
-                        const totalPrice = product.price * product.quantity; 
+                        const totalPrice = product.price * product.quantityOnCart; 
                         return (
                             <div className="product-item" key={product.id}>
                                 {product?.images?.length > 0 && (
@@ -149,7 +145,7 @@ const Cart = () => {
                                         className='produc-image'
                                     />
                                 )}     
-                                <h4 className="product-name">{product.name} (X{product.quantity})</h4>
+                                <h4 className="product-name">{product.name} (X{product.quantityOnCart})</h4>
                                 <p className="product-price">Precio Unitario: ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                 <p className="product-total-price">Precio Total: ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                
@@ -178,7 +174,6 @@ const Cart = () => {
             showModal={showModal} 
             handleClose={handleCloseModal} 
             items={outOfStockItems}
-            quantityOfProduct={quantityProduct} 
         />
         </div>
     );
