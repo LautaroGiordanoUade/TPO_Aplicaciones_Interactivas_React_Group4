@@ -7,7 +7,7 @@ import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 const AllProducts = () => {
   const location = useLocation();
-  const search = new URLSearchParams(location.search).get('search');
+  const search = new URLSearchParams(location.search).get("search");
 
   const [products, setProducts] = useState(null);
   const [error, setError] = useState("");
@@ -43,26 +43,22 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="d-flex align-content-center flex-wrap">
+    <div className="d-flex align-content-start flex-wrap">
       {loading && <LoadingSpinner {...propsLoading} />}
       {products === null ? (
-        <div>
-          <div>
-            <i className="bi bi-exclamation-circle info-icon-6"></i>
-            <div className="h4">{error}</div>
-          </div>
+        <div className="col">
+          <i className="bi bi-exclamation-circle info-icon-6"></i>
+          <div className="h4">{error}</div>
         </div>
       ) : products.length < 1 ? (
-        <div>
-          <div>
-            <i className="bi bi-search info-icon-6"></i>
-            <div className="h4">No hay productos por el momento.</div>
-          </div>
+        <div className="col">
+          <i className="bi bi-search info-icon-6"></i>
+          <div className="h4">No hay productos por el momento.</div>
         </div>
       ) : (
         <div className="row">
           {products.map((product) => (
-            <div className="col-4" key={product.id}>
+            <div className="col" key={product.id}>
               <ProductCard product={product} />
             </div>
           ))}
