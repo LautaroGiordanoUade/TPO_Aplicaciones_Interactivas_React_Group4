@@ -12,7 +12,7 @@ const formatDate = (date) => {
 // Obtener perfil de usuario por ID
 export const getUserProfile = async (userId) => {
   try {
-    const response = await apiClient.get(`users/${userId}`);
+    const response = await apiClient.get("/api/v1/user/profile");
     return response.data;
   } catch (error) {
     console.error("Error al obtener el perfil del usuario:", error);
@@ -27,7 +27,7 @@ export const updateUserProfile = async (userId, profileData) => {
     if (profileData.birthDate) {
       profileData.birthDate = formatDate(profileData.birthDate);
     }
-    const response = await apiClient.put(`users/${userId}`, profileData);
+    const response = await apiClient.patch("/api/v1/user/profile", profileData);
     return response.data;
   } catch (error) {
     console.error("Error al actualizar el perfil del usuario:", error);
