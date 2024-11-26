@@ -12,10 +12,12 @@ import {
   getProductQuantityInCart,
 } from "../../services/cartService.js";
 import { useAuth } from "../../hooks/useAuth";
+import { isTokenError } from "../../components/utils/isTokenError.js";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const { logout } = useAuth();
   const [product, setProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
@@ -32,6 +34,9 @@ const ProductDetail = () => {
       //await editProduct(product);
     } catch (error) {
       product.favorite = !product.favorite;
+      if (isTokenError(error)) {
+        logout();
+      }
     } finally {
       setIsFavorite(product.favorite);
     }
@@ -52,12 +57,15 @@ const ProductDetail = () => {
       setIsFavorite(response.favorite);
     } catch (error) {
       console.log(error);
+      if (isTokenError(error)) {
+        logout();
+      }
     }
   };
 
   useEffect(() => {
     handlerInit();
-  }, [id, isFavorite]);
+  }, [id]);
 
   const handlerAddToCart = async (product) => {
     try {
@@ -77,6 +85,9 @@ const ProductDetail = () => {
         handleOpenModal(product);
       }
     } catch (error) {
+      if (isTokenError(error)) {
+        logout();
+      }
       handleOpenModal("Error al agregar el producto al carrito.");
     }
   };
