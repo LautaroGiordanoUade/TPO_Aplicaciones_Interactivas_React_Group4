@@ -7,7 +7,6 @@ import placeholderImage from "/public/placeholder.png";
 import ModalOnCart from "../../components/Cart/ModalOnCart.jsx";
 import {
   checkIfProductExistsInCart,
-  updateProductCart,
   createProductCart,
   getProductQuantityInCart,
 } from "../../services/cartService.js";

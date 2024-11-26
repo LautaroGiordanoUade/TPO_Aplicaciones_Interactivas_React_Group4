@@ -4,8 +4,7 @@ import { deleteAllProductCart, getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
 import ModalCart from '../components/Cart/ModalCart'; 
 import{
-deleteProductCart,
-updateProductCart
+deleteProductCart
 }
 from "../services/cartService.js";
 
@@ -58,15 +57,6 @@ const Cart = () => {
 
     
     
-
-
-    const handlerUpdatedb = async(productCart)=>{
-        try{
-            const response=await updateProductCart(productCart);
-        }catch(error){
-            console.log(error)
-        }
-    }
 
 
     const createProductRemove = (productId, quantity) => {

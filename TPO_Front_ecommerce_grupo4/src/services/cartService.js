@@ -22,9 +22,14 @@ export const createProductCart = async (product) => {
   return response.data;
 }
 
-export const updateProductCart = async (productCart) => {
+/*export const updateProductCart = async (productCart) => {
   const response =  await apiClient.put(`cart-Products/${productCart.id}`,  JSON.stringify(productCart));
   return response.data;
+}*/
+
+export const checkoutCart = async ()=>{
+  const response= await apiClient.post('cart/checkout');
+  return response.data
 }
 
 export const checkIfProductExistsInCart = async (productId) => {

@@ -7,7 +7,7 @@ import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import { 
     postPurchaseHistory,
     getProductsCart,
-    deleteProductCart
+    checkoutCart
     }    
     from '../services/cartService';
 import {editProduct,getProductsById,deleteProduct} from "../services/productService.js";
@@ -28,8 +28,9 @@ const Checkout = () => {
 
     const fetchCurrentProducts = async () => {
         try {
-            const products = await getProductsCart(); // Obtener todos los productos desde la base de datos
-            setCurrentProducts(products);
+            const products = await getProductsCart();
+            console.log("Productos obtenidos: ",products.items) // Obtener todos los productos desde la base de datos
+            setCurrentProducts(products.items);
         } catch (error) {
             console.error("Error al obtener productos: ", error);
         }
@@ -38,9 +39,15 @@ const Checkout = () => {
         fetchCurrentProducts();
     }, []);
     useEffect(() => {
+        console.log("Cantidad de currentProducts: ", currentProducts.length);
         console.log("Productos actuales: ", currentProducts);
-        console.log(currentProducts.items)
+
     }, [currentProducts]);
+
+    useEffect (()=>{
+        console.log("Cargando productos ..");
+        fetchCurrentProducts();
+    },[]);
 
     const handlerUpdatedb = async(productCart)=>{
         try{
@@ -49,9 +56,9 @@ const Checkout = () => {
             console.log(error)
         }
     }
-    const handlerDeleteForCheckout= async (id)=>{
+    const CheckoutCart= async ()=>{
         try{
-            const response=await deleteProductCart(id)
+            const response=await checkoutCart()
         }catch(error){
             console.log(error)
         }
@@ -76,7 +83,7 @@ const Checkout = () => {
             }, remainingTime);
         };
     
-        try {
+       /* try {
             await postPurchaseHistory(user.userId || user.id, currentProducts);
             finalizePurchase('Compra realizada con éxito', 'success', true);
             
@@ -85,20 +92,20 @@ const Checkout = () => {
             finalizePurchase('Error al realizar la compra', 'danger', false);
         } finally {
 
-        }
+        }*/
 
-       /* for (const item of currentProducts) {
-            const originalItem = await getProductsById(item.items.product.id); 
-            const newQuantity = items.items.product.quantity - item.items.quantity;
-            if(newQuantity>0){
-                originalItem.quantity=newQuantity;
-                await handlerUpdatedb(originalItem); 
-            }else{
-                await deleteProduct(originalItem.id);
-                }
-            
-            await handlerDeleteForCheckout(item.id)
-        } */
+   
+        try{
+            await CheckoutCart();
+            finalizePurchase("Compra realizada con exito",'success',true);
+        }catch(error){
+            console.error(error);
+            finalizePurchase('Error al realizar la compra', 'danger', false);
+        } finally {}
+        
+       await CheckoutCart();
+
+        
         
     };
     
@@ -119,19 +126,17 @@ const Checkout = () => {
                         </thead>
                         <tbody>
                             {currentProducts.map((cartItem, index) => {
-                             return cartItem.items.map((item, itemIndex) => {
-                                const totalPrice = item.product.price * item.quantity; 
+                                const totalPrice = cartItem.product.price * cartItem.quantity; 
                                 return (
-                                    <tr key={`${index}-${itemIndex}`} className="productCheckout-item">
+                                    <tr key={`${index}-${cartItem}`} className="productCheckout-item">
                                         <td>
-                                            <div className="productCheckout-name">X { item.quantity } { item.product.name } </div>
+                                            <div className="productCheckout-name">X { cartItem.quantity } { cartItem.product.name } </div>
                                         </td>
                                         <td>
                                             <div className="productCheckout-price">${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</div>
                                         </td>
                                     </tr>
                                 );
-                            });
                         })}
                         </tbody>
                     </table>
