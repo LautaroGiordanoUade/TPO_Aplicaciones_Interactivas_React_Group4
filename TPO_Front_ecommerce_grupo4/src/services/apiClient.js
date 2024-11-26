@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const baseUrlDev = 'http://localhost:3000/';
 const baseUrlProd = 'http://localhost:8080/api/v1/';
 
@@ -10,18 +9,31 @@ const apiClient = axios.create({
     }
 });
 
-  apiClient.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem("token");
 
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+apiClient.interceptors.request.use(
+  (config) => {
+    const tokenData = JSON.parse(localStorage.getItem("token"))
+    const currentTime = Date.now(); 
+
+    if (tokenData && tokenData.token) {
+      const expirationTime = tokenData.expiration;
+      if (currentTime > expirationTime) {
+        return Promise.reject("Token expired");
       }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
+    } else {
+      return Promise.reject("No token found");
     }
+
+    if (tokenData && tokenData.token) {
+      config.headers.Authorization = `Bearer ${tokenData.token}`;
+    }
+
+    return config;
+
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 export default apiClient;

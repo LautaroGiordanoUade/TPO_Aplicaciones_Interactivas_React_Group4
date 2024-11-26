@@ -39,9 +39,12 @@ const Category = () => {
       {loading && <LoadingSpinner {...propsLoading} />}
 
       {products === null ? (
-        <div>{error}</div>
+        <div className="col">
+          <i className="bi bi-exclamation-circle info-icon-6"></i>
+          <div className="h4">{error}</div>
+        </div>
       ) : products.length < 1 ? (
-        <div>
+        <div className="col">
           <i className="bi bi-search info-icon-6"></i>
           <div className="h4">
             No hay productos para la categoría. Prueba otra o{" "}
