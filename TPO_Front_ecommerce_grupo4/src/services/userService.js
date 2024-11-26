@@ -6,7 +6,12 @@ export const loginUser = async (email, password) => {
   const userData = response.data;
 
   if (userData?.access_token) {
-    localStorage.setItem("token", userData?.access_token);
+    const expirationTime = new Date().getTime() + 10 * 60 * 1000; // Tiempo actual + 10 minutos
+    const tokenData = {
+      token: userData?.access_token,
+      expiration: expirationTime,
+    };
+    localStorage.setItem("token",  JSON.stringify(tokenData));
     localStorage.setItem("user", JSON.stringify(userData));
   }
   return userData;
