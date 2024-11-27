@@ -29,25 +29,18 @@ const Checkout = () => {
     const fetchCurrentProducts = async () => {
         try {
             const products = await getProductsCart();
-            console.log("Productos obtenidos: ",products.items) // Obtener todos los productos desde la base de datos
+            console.log("Productos obtenidos: ",products.items)
             setCurrentProducts(products.items);
         } catch (error) {
+            if (isTokenError(error)) {
+                logout();
+              }
             console.error("Error al obtener productos: ", error);
         }
     };
     useEffect(() => {
         fetchCurrentProducts();
     }, []);
-    useEffect(() => {
-        console.log("Cantidad de currentProducts: ", currentProducts.length);
-        console.log("Productos actuales: ", currentProducts);
-
-    }, [currentProducts]);
-
-    useEffect (()=>{
-        console.log("Cargando productos ..");
-        fetchCurrentProducts();
-    },[]);
 
     const handlerUpdatedb = async(productCart)=>{
         try{
@@ -91,10 +84,9 @@ const Checkout = () => {
             console.error(error);
             finalizePurchase('Error al realizar la compra', 'danger', false);
         } finally {
-
+            
         }*/
 
-   
         try{
             await CheckoutCart();
             finalizePurchase("Compra realizada con exito",'success',true);
@@ -102,7 +94,7 @@ const Checkout = () => {
             console.error(error);
             finalizePurchase('Error al realizar la compra', 'danger', false);
         } finally {}
-        
+
        await CheckoutCart();
 
         

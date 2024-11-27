@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import '../components/Cart/StyledCart.css';
 import { deleteAllProductCart, getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
+import ToastMessage from '../components/ToastMessage';
+import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import ModalCart from '../components/Cart/ModalCart'; 
 import{
 deleteProductCart
 }
 from "../services/cartService.js";
+import { isTokenError } from '../components//utils/isTokenError.js';
 
 const Cart = () => {
     const [products, setProducts] = useState([]); 
@@ -14,6 +17,10 @@ const Cart = () => {
     const navigate = useNavigate();
     const [outOfStockItems, setOutOfStockItems] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastVariant, setToastVariant] = useState("success");
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -23,22 +30,36 @@ const Cart = () => {
         setOutOfStockItems([]); 
     };
 
-    useEffect(() => {
-        const fetchCartProducts = async () => {
-           await handlerfetchCartProducts();
-        };
-        fetchCartProducts();
-    }, [products]);
-    
+  
 
     const handlerfetchCartProducts = async () => {
+        /*setLoading(true);
+        const minLoadingTime = 1000;//delay para mostrar el loading, solo 2 segundos
+        const startTime = Date.now();
+
+        const toastHandler = (message, variant) => {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+            setTimeout(() => {
+                setToastMessage(message);
+                setToastVariant(variant);
+                setShowToast(true);
+                setLoading(false); 
+            }, remainingTime);
+        };*/
+        
         try {
-            const initialCartProducts = await getProductsCart(); //revisar tema imagen
+            const initialCartProducts = await getProductsCart(); 
             setProducts(initialCartProducts.items);
             
         } catch (error) {
-            console.log('Error al cargar los productos del carrito:', error);
-            setcartErrorMessage(error.message || 'Ocurrió un error.');
+            /*if (isTokenError(error)) {
+                logout();
+              }
+              else{
+                console.log('Error al cargar los productos del carrito:', error);
+                //toastHandler('Error al cargar los productos del carrito','danger')
+              } */  
         }
     };
 
@@ -50,7 +71,14 @@ const Cart = () => {
         try {
             const response = await deleteProductCart(productCart);
             console.log("Producto Eliminado:", response)
+            if(response){
+                const initialCartProducts = await getProductsCart(); 
+                setProducts(initialCartProducts.items);
+            }
           } catch (error) {
+            if (isTokenError(error)) {
+                logout();
+              }
             console.log(error);
           }
         }
@@ -116,6 +144,7 @@ const Cart = () => {
   
     return (
         <div className="cart-container">
+            {loading && <LoadingSpinner text="Buscando productos..." />}
             <h3 className="cart-title">Carrito de Compras</h3>
             
             <div className="products-container">
@@ -161,6 +190,12 @@ const Cart = () => {
             handleClose={handleCloseModal} 
             items={outOfStockItems} 
         />
+        <ToastMessage
+                show={showToast}
+                setShow={setShowToast}
+                message={toastMessage}
+                variant={toastVariant}
+            />
         </div>
     );
 }

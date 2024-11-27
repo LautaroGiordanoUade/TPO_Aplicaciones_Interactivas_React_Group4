@@ -6,9 +6,7 @@ import "./StyledProductDetail.css";
 import placeholderImage from "/public/placeholder.png";
 import ModalOnCart from "../../components/Cart/ModalOnCart.jsx";
 import {
-  checkIfProductExistsInCart,
-  createProductCart,
-  getProductQuantityInCart,
+  createProductCart
 } from "../../services/cartService.js";
 import { useAuth } from "../../hooks/useAuth";
 import { isTokenError } from "../../components/utils/isTokenError.js";
@@ -52,7 +50,6 @@ const ProductDetail = () => {
   const handlerInit = async () => {
     try {
       const response = await getProductsById(id);
-      console.log(response)
       setProduct(response);
       setIsFavorite(response.favorite);
     } catch (error) {
@@ -78,18 +75,20 @@ const ProductDetail = () => {
     try {
       
       const productCart = createProductObject(product.id, 1);
-      
-     
       const response = await createProductCart(productCart);
+      console.log(response)
       if (response) {
         handleOpenModal(response);
-        
       }
     } catch (error) {
       if (isTokenError(error)) {
         logout();
       }
-      handleOpenModal("Error al agregar el producto al carrito.");
+      else{
+        console.error(error);
+        handleOpenModal(error.response?.data?.message || "Error al agregar el producto al carrito.");
+      }
+      
     }
   };
 
