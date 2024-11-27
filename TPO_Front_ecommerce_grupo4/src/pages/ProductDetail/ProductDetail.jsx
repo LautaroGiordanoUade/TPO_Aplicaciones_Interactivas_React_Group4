@@ -31,7 +31,6 @@ const ProductDetail = () => {
       } else {
         await addFavorites(id)
       }
-      //await editProduct(product);
     } catch (error) {
       product.favorite = !product.favorite;
       if (isTokenError(error)) {
