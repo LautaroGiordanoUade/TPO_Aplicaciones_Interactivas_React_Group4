@@ -29,35 +29,45 @@ const Checkout = () => {
     const fetchCurrentProducts = async () => {
         try {
             const products = await getProductsCart();
-            console.log("Productos obtenidos: ",products.items)
+            
             setCurrentProducts(products.items);
         } catch (error) {
-            if (isTokenError(error)) {
-                logout();
-              }
-            console.error("Error al obtener productos: ", error);
+            
+            handlerToastMessage('Error al cargar los productos del carrito','danger')
         }
     };
     useEffect(() => {
         fetchCurrentProducts();
     }, []);
 
-    const handlerUpdatedb = async(productCart)=>{
-        try{
-            const response=await editProduct(productCart);
-        }catch(error){
-            console.log(error)
-        }
-    }
     const CheckoutCart= async ()=>{
         try{
             const response=await checkoutCart()
         }catch(error){
             console.log(error)
+            handlerToastMessage('Error al realizar checkout','danger')
         }
     }
 
-
+    const handlerToastMessage = async (message, variant) => {
+        setLoading(true);
+        const minLoadingTime = 500; 
+        const startTime = Date.now();
+    
+        
+        setToastMessage(message);
+        setToastVariant(variant);
+        setShowToast(true);
+    
+        
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        
+        setTimeout(() => {
+            setLoading(false);
+        }, remainingTime);
+    };
 
     const handlePurchase = async () => {
         setLoading(true);
@@ -76,17 +86,7 @@ const Checkout = () => {
             }, remainingTime);
         };
     
-       /* try {
-            await postPurchaseHistory(user.userId || user.id, currentProducts);
-            finalizePurchase('Compra realizada con éxito', 'success', true);
-            
-        } catch (error) {
-            console.error(error);
-            finalizePurchase('Error al realizar la compra', 'danger', false);
-        } finally {
-            
-        }*/
-
+      
         try{
             await CheckoutCart();
             finalizePurchase("Compra realizada con exito",'success',true);

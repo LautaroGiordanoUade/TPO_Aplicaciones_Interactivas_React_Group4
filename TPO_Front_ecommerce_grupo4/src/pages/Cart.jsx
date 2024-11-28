@@ -30,36 +30,32 @@ const Cart = () => {
         setOutOfStockItems([]); 
     };
 
-  
+    const handlerToastMessage = async (message, variant) => {
+        setLoading(true);
+        const minLoadingTime = 500; 
+        const startTime = Date.now();
+    
+        
+        setToastMessage(message);
+        setToastVariant(variant);
+        setShowToast(true);
+    
+        
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        
+        setTimeout(() => {
+            setLoading(false);
+        }, remainingTime);
+    };
 
     const handlerfetchCartProducts = async () => {
-        /*setLoading(true);
-        const minLoadingTime = 1000;//delay para mostrar el loading, solo 2 segundos
-        const startTime = Date.now();
-
-        const toastHandler = (message, variant) => {
-            const elapsedTime = Date.now() - startTime;
-            const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
-            setTimeout(() => {
-                setToastMessage(message);
-                setToastVariant(variant);
-                setShowToast(true);
-                setLoading(false); 
-            }, remainingTime);
-        };*/
-        
         try {
             const initialCartProducts = await getProductsCart(); 
             setProducts(initialCartProducts.items);
-            
         } catch (error) {
-            /*if (isTokenError(error)) {
-                logout();
-              }
-              else{
-                console.log('Error al cargar los productos del carrito:', error);
-                //toastHandler('Error al cargar los productos del carrito','danger')
-              } */  
+            handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
 
@@ -70,16 +66,13 @@ const Cart = () => {
     const handlerRemoveCartdb = async (productCart)=>{
         try {
             const response = await deleteProductCart(productCart);
-            console.log("Producto Eliminado:", response)
+
             if(response){
                 const initialCartProducts = await getProductsCart(); 
                 setProducts(initialCartProducts.items);
             }
           } catch (error) {
-            if (isTokenError(error)) {
-                logout();
-              }
-            console.log(error);
+            handlerToastMessage('Error al remover el producto del carrito','danger')
           }
         }
 
@@ -96,11 +89,10 @@ const Cart = () => {
 
     const handlerRemoveCartProduct = (productRemoveId) => {
         try{
-            console.log(productRemoveId)
             const productCart= createProductRemove(productRemoveId,1);
             handlerRemoveCartdb(productCart);
         }catch (error) {
-            handleOpenModal("Error al borrar el producto del carrito.");
+            handlerToastMessage('Error al remover el producto del carrito','danger')
           }
     };
 
@@ -125,9 +117,7 @@ const Cart = () => {
     const handlerCheckout = async () => {
         for (const product of products) {
             if (product.quantity > product.product.quantity) {
-                console.log("Aca andamo el producto es: ",product)
                 outOfStockItems.push(product);
-
             }
             
         }
@@ -144,7 +134,6 @@ const Cart = () => {
   
     return (
         <div className="cart-container">
-            {loading && <LoadingSpinner text="Buscando productos..." />}
             <h3 className="cart-title">Carrito de Compras</h3>
             
             <div className="products-container">

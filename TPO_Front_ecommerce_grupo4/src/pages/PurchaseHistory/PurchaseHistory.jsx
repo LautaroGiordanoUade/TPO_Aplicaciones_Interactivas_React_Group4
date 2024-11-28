@@ -12,12 +12,43 @@ const PurchaseHistory = () => {
     const fetchHistory = async () => {
         try {
             const data = await getPurchaseHistory(user);
-            console.log(data);
             setHistory(data);
             setSortedHistory(data); // Inicializar el historial con los datos sin ordenar
         } catch (error) {
             console.error('No se pudo cargar el historial de compras:', error);
+            handlerToastMessage('Error al cargar el historial de compras','danger')
         }
+    };
+    const handlerToastMessage = async (message, variant) => {
+        setLoading(true);
+        const minLoadingTime = 500; 
+        const startTime = Date.now();
+    
+        
+        setToastMessage(message);
+        setToastVariant(variant);
+        setShowToast(true);
+    
+        
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        
+        setTimeout(() => {
+            setLoading(false);
+        }, remainingTime);
+    };
+    const formatDate = (dateString) => {
+        console.log(dateString)
+        const date = new Date(dateString);
+    
+        
+        const day = String(date.getDate()).padStart(2, '0'); 
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const year = date.getFullYear();
+    
+        
+        return `${day}/${month}/${year}`;
     };
 
     useEffect(() => {
@@ -66,7 +97,7 @@ const PurchaseHistory = () => {
                                                 <tr key={item.id} style={{ marginBottom: '5px' }}>
                                                     {itemIndex === 0 && (
                                                         <td rowSpan={purchase.items.length}>
-                                                            {new Date(purchase.checkoutDate).toLocaleDateString()}
+                                                            {formatDate(purchase.checkoutDate)}
                                                         </td>
                                                     )}
                                                     <td>{item.product.name}</td>

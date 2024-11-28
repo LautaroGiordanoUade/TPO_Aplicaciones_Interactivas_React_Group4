@@ -10,6 +10,7 @@ import {
 } from "../../services/cartService.js";
 import { useAuth } from "../../hooks/useAuth";
 import { isTokenError } from "../../components/utils/isTokenError.js";
+import ToastMessage from '../../components/ToastMessage.jsx'
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -19,6 +20,11 @@ const ProductDetail = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("success");
+  const [loading, setLoading] = useState(false);
+
 
   const handleFavorite = async () => {
     try {
@@ -72,22 +78,28 @@ const ProductDetail = () => {
   };
 
   const handlerAddToCart = async (product) => {
+    setLoading(true);
+    const minLoadingTime = 2000;
+    const startTime = Date.now();
+    const errorMessage = (message, variant) => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        setTimeout(() => {
+            setToastMessage(message);
+            setToastVariant(variant);
+            setShowToast(true);
+            setLoading(false);
+        }, remainingTime);
+    };
+
     try {
-      
       const productCart = createProductObject(product.id, 1);
       const response = await createProductCart(productCart);
-      console.log(response)
       if (response) {
         handleOpenModal(response);
       }
     } catch (error) {
-      if (isTokenError(error)) {
-        logout();
-      }
-      else{
-        console.error(error);
-        handleOpenModal(error.response?.data?.message || "Error al agregar el producto al carrito.");
-      }
+        errorMessage("Error al agregar el producto al carrito, intentelo mas tarde",'danger')
       
     }
   };
@@ -162,7 +174,14 @@ const ProductDetail = () => {
         handleClose={handleCloseModal}
         product={modalProducto}
       />
+      <ToastMessage
+                show={showToast}
+                setShow={setShowToast}
+                message={toastMessage}
+                variant={toastVariant}
+            />
     </>
+    
   );
 };
 
