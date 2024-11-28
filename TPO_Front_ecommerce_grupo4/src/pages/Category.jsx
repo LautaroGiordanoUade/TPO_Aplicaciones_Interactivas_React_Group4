@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { getProductsByCategory } from "../services/productService";
 import ProductCard from "../components/product/ProductCard/ProductCard";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import { getCategoryById } from "../services/CategoryService";
 
 const Category = () => {
   const { id } = useParams();
   const [products, setProducts] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState([]);
 
   const handlerInit = async () => {
     try {
@@ -26,7 +28,15 @@ const Category = () => {
     }
   };
 
+  const handleGetCategory = async () => {
+    try {
+      const response = await getCategoryById(id);
+      setCategory(response);
+    } catch (err) {}
+  };
+
   useEffect(() => {
+    handleGetCategory();
     handlerInit();
   }, [id]);
 
@@ -35,6 +45,8 @@ const Category = () => {
   };
 
   return (
+    <>
+    <h4 className="text-start">{category.name}</h4>
     <div className="d-flex align-content-start flex-wrap">
       {loading && <LoadingSpinner {...propsLoading} />}
 
@@ -61,6 +73,7 @@ const Category = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

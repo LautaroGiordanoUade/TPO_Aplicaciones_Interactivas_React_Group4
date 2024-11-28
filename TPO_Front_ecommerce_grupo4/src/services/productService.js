@@ -46,16 +46,6 @@ export const getProductsByCategory = async (categoryId) => {
     return response.data;
 }
 
-export const getCategories = async (id) => {
-    const response =  await apiClientPublic.get('category');
-    return response.data;
-}
-
-/*export const postViewed = async () => {
-    const response =  await apiClient.post('viewed');
-    return response.data;
-}*/
-
 export const getProductsByUser = async () => {
     const response =  await apiClient.get('product/admin');
     return response.data;

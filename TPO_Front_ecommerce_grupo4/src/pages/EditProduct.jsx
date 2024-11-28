@@ -6,13 +6,13 @@ import * as Yup from "yup";
 import { useDropzone } from "react-dropzone";
 import {
   getProductsById,
-  getCategories,
   editProduct,
   createProduct,
 } from "../services/productService.js";
 import ToastMessage from "../components/ToastMessage";
 import { useAuth } from "../hooks/useAuth";
 import {UI_ACESS} from '../components/uiConstants'
+import { getCategories } from "../services/CategoryService.js";
 
 const EditProduct = () => {
   const { user } = useAuth();
