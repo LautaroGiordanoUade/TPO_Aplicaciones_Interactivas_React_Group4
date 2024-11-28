@@ -16,7 +16,7 @@ const Login = ({ setView }) => {
   const handleLogin = async (e) => {
     setLoading(true);
     e.preventDefault();
-    await delay(5000);
+    await delay(2000);
     try {
       const user = await loginUser(email, password);
       

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { eventEmitter } from "../components/utils/eventEmitter";
 const baseUrlDev = 'http://localhost:3000/';
 const baseUrlProd = 'http://localhost:8080/api/v1/';
 
@@ -18,9 +19,11 @@ apiClient.interceptors.request.use(
     if (tokenData && tokenData.token) {
       const expirationTime = tokenData.expiration;
       if (currentTime > expirationTime) {
+        eventEmitter.emit('tokenExpired');
         return Promise.reject("Token expired");
       }
     } else {
+      eventEmitter.emit('tokenExpired');
       return Promise.reject("No token found");
     }
 
