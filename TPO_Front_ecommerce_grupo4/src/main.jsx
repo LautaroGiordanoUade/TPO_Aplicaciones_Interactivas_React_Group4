@@ -5,11 +5,14 @@ import "./index.css";
 import App from "./App";
 import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./context/AuthContext";
+import ConnectionWrapper from './context/ConnectionWrapper';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <AuthProvider>
-      <AppRoutes/>
+      <ConnectionWrapper>
+         <AppRoutes/>
+      </ConnectionWrapper>
       </AuthProvider>
    </BrowserRouter>
 );

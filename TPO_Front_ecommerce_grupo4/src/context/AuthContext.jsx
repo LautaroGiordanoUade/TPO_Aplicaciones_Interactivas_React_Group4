@@ -27,23 +27,24 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const logout = async () => {
-    try {
-      setLoading(true);
-      setToastMessage("La sesión expiró, por favor vuelva a ingresar");
-      setShowToast(true);
-
-      setTimeout(() => {
-        setUser(null);
-        logOutUser();
-        navigate("/userLogin");
-        setLoading(false); 
-        setShowToast(false); 
-      }, 2000);
-    } catch (err) {
-      setError("Ocurrió un error al cerrar sesión");
-      setLoading(false);
-  };
+  const logout = async (reason="logout") => {
+    logOutUser();
+    if (reason=='tokenExpired') {
+      try {
+        setLoading(true);
+        setToastMessage("La sesión expiró, por favor vuelva a ingresar");
+        setShowToast(true);
+        setTimeout(() => {
+          setUser(null);
+          setLoading(false); 
+          setShowToast(false); 
+        }, 2000);
+      } catch (err) {
+        setError("Ocurrió un error al cerrar sesión");
+        setLoading(false);
+    }
+    } 
+    navigate("/userLogin");
 };
 
   useEffect(() => {
