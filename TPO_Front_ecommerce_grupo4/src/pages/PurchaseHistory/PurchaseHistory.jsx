@@ -2,23 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { getPurchaseHistory } from '../../services/cartService';
 import { Container, Message, SortButton, HistoryTable } from './StyledPurchaseHistory';
+import ToastMessage from '../../components/ToastMessage'
 
 const PurchaseHistory = () => {
     const [history, setHistory] = useState([]);
     const { user } = useAuth();
     const [sortedHistory, setSortedHistory] = useState([]);
     const [sortOrder, setSortOrder] = useState("desc"); // Por defecto ordenar descendente
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastVariant, setToastVariant] = useState("success");
+    const [loading, setLoading] = useState(false);
+
 
     const fetchHistory = async () => {
         try {
             const data = await getPurchaseHistory(user);
+            console.log(data);
             setHistory(data);
-            setSortedHistory(data); // Inicializar el historial con los datos sin ordenar
+            setSortedHistory(data); 
         } catch (error) {
-            console.error('No se pudo cargar el historial de compras:', error);
             handlerToastMessage('Error al cargar el historial de compras','danger')
         }
     };
+
     const handlerToastMessage = async (message, variant) => {
         setLoading(true);
         const minLoadingTime = 500; 
@@ -38,18 +45,7 @@ const PurchaseHistory = () => {
             setLoading(false);
         }, remainingTime);
     };
-    const formatDate = (dateString) => {
-        console.log(dateString)
-        const date = new Date(dateString);
     
-        
-        const day = String(date.getDate()).padStart(2, '0'); 
-        const month = String(date.getMonth() + 1).padStart(2, '0'); 
-        const year = date.getFullYear();
-    
-        
-        return `${day}/${month}/${year}`;
-    };
 
     useEffect(() => {
         if (user) {
@@ -59,8 +55,8 @@ const PurchaseHistory = () => {
 
     const sortByDate = () => {
         const sorted = [...history].sort((a, b) => {
-            const dateA = new Date(a.checkoutDate);
-            const dateB = new Date(b.checkoutDate);
+            const dateA = new Date(a.chechkoutDate);
+            const dateB = new Date(b.chechkoutDate);
             return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
         });
         setSortedHistory(sorted);
@@ -97,7 +93,7 @@ const PurchaseHistory = () => {
                                                 <tr key={item.id} style={{ marginBottom: '5px' }}>
                                                     {itemIndex === 0 && (
                                                         <td rowSpan={purchase.items.length}>
-                                                            {formatDate(purchase.checkoutDate)}
+                                                            {new Date(purchase.chechkoutDate).toLocaleDateString()}
                                                         </td>
                                                     )}
                                                     <td>{item.product.name}</td>
@@ -121,6 +117,12 @@ const PurchaseHistory = () => {
                     ) : (
                         <p>No hay compras registradas.</p>
                     )}
+                     <ToastMessage
+                show={showToast}
+                setShow={setShowToast}
+                message={toastMessage}
+                variant={toastVariant}
+            />
                 </div>
             )}
         </Container>

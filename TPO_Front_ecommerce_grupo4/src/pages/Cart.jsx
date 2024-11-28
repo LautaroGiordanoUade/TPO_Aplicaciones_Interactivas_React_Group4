@@ -66,7 +66,6 @@ const Cart = () => {
     const handlerRemoveCartdb = async (productCart)=>{
         try {
             const response = await deleteProductCart(productCart);
-
             if(response){
                 const initialCartProducts = await getProductsCart(); 
                 setProducts(initialCartProducts.items);

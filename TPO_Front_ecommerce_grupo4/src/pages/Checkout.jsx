@@ -5,12 +5,10 @@ import '../components/Cart/StyledCheckout.css';
 import ToastMessage from '../components/ToastMessage'
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import { 
-    postPurchaseHistory,
     getProductsCart,
     checkoutCart
     }    
     from '../services/cartService';
-import {editProduct,getProductsById,deleteProduct} from "../services/productService.js";
 
 
 
@@ -29,10 +27,8 @@ const Checkout = () => {
     const fetchCurrentProducts = async () => {
         try {
             const products = await getProductsCart();
-            
             setCurrentProducts(products.items);
         } catch (error) {
-            
             handlerToastMessage('Error al cargar los productos del carrito','danger')
         }
     };
@@ -44,7 +40,6 @@ const Checkout = () => {
         try{
             const response=await checkoutCart()
         }catch(error){
-            console.log(error)
             handlerToastMessage('Error al realizar checkout','danger')
         }
     }
@@ -71,7 +66,7 @@ const Checkout = () => {
 
     const handlePurchase = async () => {
         setLoading(true);
-        const minLoadingTime = 2000;//delay para mostrar el loading, solo 2 segundos
+        const minLoadingTime = 2000;
         const startTime = Date.now();
     
         const finalizePurchase = (message, variant, isBought) => {
@@ -86,12 +81,10 @@ const Checkout = () => {
             }, remainingTime);
         };
     
-      
         try{
             await CheckoutCart();
             finalizePurchase("Compra realizada con exito",'success',true);
         }catch(error){
-            console.error(error);
             finalizePurchase('Error al realizar la compra', 'danger', false);
         } finally {}
 
