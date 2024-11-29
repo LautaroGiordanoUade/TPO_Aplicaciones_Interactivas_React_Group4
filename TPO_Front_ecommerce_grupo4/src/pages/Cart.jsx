@@ -52,10 +52,15 @@ const Cart = () => {
 
     const handlerfetchCartProducts = async () => {
         try {
-            const initialCartProducts = await getProductsCart(); 
+            const initialCartProducts = await getProductsCart();
             setProducts(initialCartProducts.items);
         } catch (error) {
-            handlerToastMessage('Error al cargar los productos del carrito','danger') 
+            if(error.response && error.response.status==500){
+                
+                return;
+            }
+                
+                handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
 
@@ -106,8 +111,13 @@ const Cart = () => {
 
 
     const handlerCleanCart = async () => {
-        await deleteAllProductCart();
-        setProducts([]); 
+        try{
+            await deleteAllProductCart();
+            setProducts([]);
+        }catch (error) {
+            handlerToastMessage('Error al vaciar el carrito','danger')
+          }
+         
         
     };
     
@@ -122,7 +132,7 @@ const Cart = () => {
         }
     
         if (outOfStockItems.length > 0) {
-            console.log(outOfStockItems)
+            
             setOutOfStockItems(outOfStockItems);
             handleOpenModal()
             return;

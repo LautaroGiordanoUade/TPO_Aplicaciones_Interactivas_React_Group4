@@ -29,20 +29,17 @@ const Checkout = () => {
             const products = await getProductsCart();
             setCurrentProducts(products.items);
         } catch (error) {
-            handlerToastMessage('Error al cargar los productos del carrito','danger')
+            if(error.response && error.response.status==500){
+                return;
+            }
+                handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
+            
     useEffect(() => {
         fetchCurrentProducts();
     }, []);
 
-    const CheckoutCart= async ()=>{
-        try{
-            const response=await checkoutCart()
-        }catch(error){
-            handlerToastMessage('Error al realizar checkout','danger')
-        }
-    }
 
     const handlerToastMessage = async (message, variant) => {
         setLoading(true);
@@ -82,16 +79,15 @@ const Checkout = () => {
         };
     
         try{
-            await CheckoutCart();
+            const response=await checkoutCart()
+            console.log(response)
             finalizePurchase("Compra realizada con exito",'success',true);
         }catch(error){
             finalizePurchase('Error al realizar la compra', 'danger', false);
         } finally {}
 
-       await CheckoutCart();
 
-        
-        
+  
     };
     
     

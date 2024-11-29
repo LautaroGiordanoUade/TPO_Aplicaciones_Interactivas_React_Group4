@@ -18,7 +18,6 @@ const PurchaseHistory = () => {
     const fetchHistory = async () => {
         try {
             const data = await getPurchaseHistory(user);
-            console.log(data);
             setHistory(data);
             setSortedHistory(data); 
         } catch (error) {
