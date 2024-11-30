@@ -29,10 +29,8 @@ const Checkout = () => {
             const products = await getProductsCart();
             setCurrentProducts(products.items);
         } catch (error) {
-            if(error.response && error.response.status==500){
-                return;
-            }
-                handlerToastMessage('Error al cargar los productos del carrito','danger') 
+            console.log(error)
+            handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
             
