@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { getCategories } from "../services/productService";
 import { Link } from "react-router-dom";
+import { getCategories } from "../services/CategoryService";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
