@@ -29,7 +29,6 @@ const Checkout = () => {
             const products = await getProductsCart();
             setCurrentProducts(products.items);
         } catch (error) {
-            console.log(error)
             handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
@@ -78,7 +77,6 @@ const Checkout = () => {
     
         try{
             const response=await checkoutCart()
-            console.log(response)
             finalizePurchase("Compra realizada con exito",'success',true);
         }catch(error){
             finalizePurchase('Error al realizar la compra', 'danger', false);

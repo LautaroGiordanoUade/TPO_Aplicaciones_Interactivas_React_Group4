@@ -55,7 +55,6 @@ const Cart = () => {
             const initialCartProducts = await getProductsCart();
             setProducts(initialCartProducts.items);
         } catch (error) {
-            console.log(error)  
             handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
@@ -128,7 +127,6 @@ const Cart = () => {
         }
     
         if (outOfStockItems.length > 0) {
-            
             setOutOfStockItems(outOfStockItems);
             handleOpenModal()
             return;
