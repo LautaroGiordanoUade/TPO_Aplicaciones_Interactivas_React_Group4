@@ -17,6 +17,7 @@ const ProductDetail = () => {
   const { user } = useAuth();
   const { logout } = useAuth();
   const [product, setProduct] = useState(null);
+  const[quantityOnCart,setQuantityOnCart]=useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
