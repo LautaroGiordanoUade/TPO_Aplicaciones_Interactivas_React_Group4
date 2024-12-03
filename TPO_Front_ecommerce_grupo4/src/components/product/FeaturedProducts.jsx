@@ -17,7 +17,10 @@ const FavoriteProducts = () => {
       const response = await getFeaturedProducts();
       setProducts(response);
     } catch (err) {
-      setError(err.response?.data?.message || "No pudimos obtener los productos destacados. Intenta más tarde.");
+      setError(
+        err.response?.data?.message ||
+          "No pudimos obtener los productos destacados. Intenta más tarde."
+      );
     } finally {
       setLoading(false);
     }
@@ -28,8 +31,8 @@ const FavoriteProducts = () => {
   }, []);
 
   const propsLoading = {
-    text:'Cargando destacados, por favor espere...'
-  }
+    text: "Cargando destacados, por favor espere...",
+  };
 
   return (
     <div className="container-fluid border border-success rounded m-3 p-3">
@@ -38,9 +41,9 @@ const FavoriteProducts = () => {
       {products === null ? (
         <div>
           <div>
-          <i className="bi bi-exclamation-circle info-icon-4"></i>
-          <div>{error}</div>
-        </div>
+            <i className="bi bi-exclamation-circle info-icon-4"></i>
+            <div>{error}</div>
+          </div>
         </div>
       ) : products.length < 1 ? (
         <div>
@@ -49,22 +52,30 @@ const FavoriteProducts = () => {
         </div>
       ) : (
         <div className="row">
-          <Carousel data-bs-theme="dark">
-            {_.chunk(products, 3).map((group, index) => (
-              <Carousel.Item key={index} data-bs-theme="light">
-                <div className="row">
-                  {group.map((product, productIndex) => (
-                    <div
-                      key={productIndex}
-                      className="col-md-4 col-sm-6 col-xs-12"
-                    >
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
+          {products.length < 4 ? (
+            products.map((product) => (
+              <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+                <ProductCard product={product} />
+              </div>
+            ))
+          ) : (
+            <Carousel data-bs-theme="dark">
+              {_.chunk(products, 3).map((group, index) => (
+                <Carousel.Item key={index} data-bs-theme="light">
+                  <div className="row">
+                    {group.map((product, productIndex) => (
+                      <div
+                        key={productIndex}
+                        className="col-md-4 col-sm-6 col-xs-12"
+                      >
+                        <ProductCard product={product} />
+                      </div>
+                    ))}
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
         </div>
       )}
     </div>
