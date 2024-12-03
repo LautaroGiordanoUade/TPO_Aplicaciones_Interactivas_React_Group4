@@ -28,8 +28,6 @@ export const checkoutCart = async ()=>{
   return response.data
 }
 
-
- 
 export const getPurchaseHistory = async () => {
     const response = await apiClient.get('cart/purchase-history');
     return response.data;
