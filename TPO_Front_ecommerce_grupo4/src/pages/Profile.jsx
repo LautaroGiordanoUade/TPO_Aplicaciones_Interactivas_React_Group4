@@ -15,7 +15,6 @@ const UserProfile = () => {
     const fetchUserData = async () => {
         try {
             const profileData = await getUserProfile(userId);
-            console.log(profileData);
             // Convertir fecha de nacimiento al formato compatible con el input date
             if (profileData.birthDate) {
                 profileData.birthDate = new Date(profileData.birthDate).toISOString().split("T")[0];

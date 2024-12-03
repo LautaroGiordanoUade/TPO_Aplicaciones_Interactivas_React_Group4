@@ -124,14 +124,12 @@ const Cart = () => {
         for (const product of products) {
             if (product.quantity > product.product.quantity) {
                 outOfStockItems.push(product);
-                quantityProduct.push(originalItem.quantity);
             }
             
         }
     
         if (outOfStockItems.length > 0) {
             setOutOfStockItems(outOfStockItems);
-            setQuantityProduct(quantityProduct);
             handleOpenModal()
             return;
         }
@@ -185,7 +183,6 @@ const Cart = () => {
             showModal={showModal} 
             handleClose={handleCloseModal} 
             items={outOfStockItems}
-            quantityOfProduct={quantityProduct} 
         />
         <ToastMessage
                 show={showToast}
