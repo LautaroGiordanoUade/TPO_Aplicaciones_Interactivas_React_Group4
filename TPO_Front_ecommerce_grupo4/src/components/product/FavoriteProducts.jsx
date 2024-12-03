@@ -45,16 +45,16 @@ const FavoriteProducts = () => {
       <h4>Favoritos:</h4>
       {!user ? (
         <div>
-        <i className="bi bi-box2-heart info-icon-4"></i>
-        <div>
-          <Link to="/userLogin">Inicia sesión</Link> para ver tus productos
-          favoritos
+          <i className="bi bi-box2-heart info-icon-4"></i>
+          <div>
+            <Link to="/userLogin">Inicia sesión</Link> para ver tus productos
+            favoritos
+          </div>
         </div>
-      </div>
       ) : products === null ? (
         <div>
           <i className="bi bi-exclamation-circle info-icon-4"></i>
-          <div >{error}</div>
+          <div>{error}</div>
         </div>
       ) : products.length < 1 ? (
         <div>
@@ -63,22 +63,30 @@ const FavoriteProducts = () => {
         </div>
       ) : (
         <div className="row">
-          <Carousel data-bs-theme="dark">
-            {_.chunk(products, 3).map((group, index) => (
-              <Carousel.Item key={index} data-bs-theme="light">
-                <div className="row">
-                  {group.map((product, productIndex) => (
-                    <div
-                      key={productIndex}
-                      className="col-md-4 col-sm-6 col-xs-12"
-                    >
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
+          {products.length < 4 ? (
+            products.map((product) => (
+              <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+                <ProductCard product={product} />
+              </div>
+            ))
+          ) : (
+            <Carousel data-bs-theme="dark">
+              {_.chunk(products, 3).map((group, index) => (
+                <Carousel.Item key={index} data-bs-theme="light">
+                  <div className="row">
+                    {group.map((product, productIndex) => (
+                      <div
+                        key={productIndex}
+                        className="col-md-4 col-sm-6 col-xs-12"
+                      >
+                        <ProductCard product={product} />
+                      </div>
+                    ))}
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
         </div>
       )}
     </div>

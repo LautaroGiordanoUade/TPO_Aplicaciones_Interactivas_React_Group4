@@ -237,7 +237,7 @@
       "name": "Buzo De Boca Medio Cierre Adidas",
       "description": "Viví la pasión por boca con la nueva equipación en entrenamiento ADIDAS. El tejido Aeroready favorece el secado rápido, ya que al ser un tejido ultraligero, absorbe el sudor para alejarlo de la piel y hacer que se evapore rápidamente. Buzo medio cierre. Logo ADIDAS estampado. Escudo CABJ estampado.",
       "categoryId": "3",
-      "quantity": 10,
+      "quantity": 9,
       "price": 133330,
       "featured": false,
       "favorite": false,
@@ -253,7 +253,7 @@
     {
       "name": "Botines De Futbol Adidas Goletto",
       "description": "No importa si los estás anotando o parando, el deporte rey se trata de goles. Estos botines adidas Goletto VIII lucen un exterior sintético moderno que incorpora puntadas en antepié para un mayor control y un cómodo acolchado en el talón. La suela de caucho con tapones se adhiere al pasto sintético para ayudarte a brillar. Hechos parcialmente con contenido reciclado generado a partir de desechos de producción, tales como recortes de tela y desechos domésticos postconsumo, para evitar un mayor impacto ambiental al producir contenido virgen.",
-      "quantity": 1000,
+      "quantity": 999,
       "price": 79999,
       "categoryId": "4",
       "featured": false,
@@ -376,6 +376,24 @@
       "password": "fede123",
       "dob": "1978-04-26",
       "id": 1731424239836
+    },
+    {
+      "username": "Florcita",
+      "firstName": "Florencia",
+      "lastName": "Tironili",
+      "email": "flor123@yahoo.com",
+      "password": "flor123",
+      "dob": "1999-08-19",
+      "id": 1731433471440
+    },
+    {
+      "username": "tali@gmail.com",
+      "firstName": "Tatiana",
+      "lastName": "Vazquez",
+      "email": "tali@gmail.com",
+      "password": "tali123",
+      "dob": "2000-01-01",
+      "id": 1731433904869
     }
   ],
   "categories": [
