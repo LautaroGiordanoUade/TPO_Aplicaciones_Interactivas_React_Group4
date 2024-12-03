@@ -6,13 +6,11 @@ import "./StyledProductDetail.css";
 import placeholderImage from "/public/placeholder.png";
 import ModalOnCart from "../../components/Cart/ModalOnCart.jsx";
 import {
-  checkIfProductExistsInCart,
-  updateProductCart,
-  createProductCart,
-  getProductQuantityInCart,
+  createProductCart
 } from "../../services/cartService.js";
 import { useAuth } from "../../hooks/useAuth";
 import { isTokenError } from "../../components/utils/isTokenError.js";
+import ToastMessage from '../../components/ToastMessage.jsx'
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -23,6 +21,11 @@ const ProductDetail = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalProducto, setModalProduct] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState("success");
+  const [loading, setLoading] = useState(false);
+
 
   const handleFavorite = async () => {
     try {
@@ -42,8 +45,8 @@ const ProductDetail = () => {
     }
   };
 
-  const handleOpenModal = (product) => {
-    setModalProduct(product);
+  const handleOpenModal = (response) => {
+    setModalProduct(response);
     setShowModal(true);
   };
 
@@ -67,20 +70,37 @@ const ProductDetail = () => {
     handlerInit();
   }, [id]);
 
+  const createProductObject = (productId, quantity) => {
+    return {
+      productId,
+      quantity,
+    };
+  };
+
   const handlerAddToCart = async (product) => {
+    setLoading(true);
+    const minLoadingTime = 2000;
+    const startTime = Date.now();
+    const errorMessage = (message, variant) => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        setTimeout(() => {
+            setToastMessage(message);
+            setToastVariant(variant);
+            setShowToast(true);
+            setLoading(false);
+        }, remainingTime);
+    };
+
     try {
-        const newProduct={
-          product:product,
-          quantity:1,
-          price:product.price,
-        };
-      const updatedCart=await createProductCart(newProduct);
-      handleOpenModal(updatedCart);
-    } catch (error) {
-      if (isTokenError(error)) {
-        logout();
+      const productCart = createProductObject(product.id, 1);
+      const response = await createProductCart(productCart);
+      if (response) {
+        handleOpenModal(response);
       }
-      handleOpenModal("Error al agregar el producto al carrito.");
+    } catch (error) {
+        errorMessage("Error al agregar el producto al carrito, intentelo mas tarde",'danger')
+      
     }
   };
 
@@ -152,9 +172,16 @@ const ProductDetail = () => {
       <ModalOnCart
         show={showModal}
         handleClose={handleCloseModal}
-        product={updatedCart}
+        product={modalProducto}
       />
+      <ToastMessage
+                show={showToast}
+                setShow={setShowToast}
+                message={toastMessage}
+                variant={toastVariant}
+            />
     </>
+    
   );
 };
 

@@ -20,7 +20,7 @@ const ModalOnCart = ({ show, handleClose, product,quantity }) => {
                                     <strong>Precio:</strong> ${product.price}
                                 </div>
                                 <div>
-                                    <strong>Cantidad agregada:</strong> {quantity}
+                                    <strong>Cantidad agregada:</strong> {product.quantity}
                                 </div>
                             </>
                         ) : (

@@ -5,8 +5,8 @@ export const getProductsCart = async () => {
     return response.data    
 }
 
-export const deleteProductCart = async (id) => {
-  const response =  await apiClient.delete(`cart/remove/${id}`);
+export const deleteProductCart = async (product) => {
+  const response =  await apiClient.delete(`cart/remove`,{data:product});
   return response.data;
 }
 
@@ -16,68 +16,21 @@ export const deleteAllProductCart = async () => {
   return response.data;
 }
 
-export const createProductCart = async (productCart) => {
-  try{
-    const response =  await apiClient.post(`cart/add`,JSON.stringify(productCart));
-    return response.data;
-  }
-   catch (error) {
-    console.error('Error intentando crear el producto en el carrito: ' + error.message);
-  }
+export const createProductCart = async (product) => {
+  
+  const response =  await apiClient.post('cart/add', JSON.stringify(product));
+  return response.data;
 }
 
-export const updateProductCart = async (productCart) => {
-  try{
-    const response =  await apiClient.put(`cart/update`,  JSON.stringify(productCart)); 
-    return response.data;
-  }
-  catch (error) {
-    console.error('Error intentando actualizar el producto en el carrito: ' + error.message);
-  }
+
+export const checkoutCart = async ()=>{
+  const response= await apiClient.post('cart/checkout');
+  return response.data
 }
 
-export const checkIfProductExistsInCart = async (productId) => {
-      const cartProducts = await getProductsCart();
-      return cartProducts.some(product => product.id === productId); // Retorna true si existe, false si no
-  }
-  export const getProductQuantityInCart = async (productCart) => {
-    const response = await apiClient.get(`cart/quantity`.JSON.stringify(productCart));   
-    return response.data.quantity; 
-};
+
  
-//TODO: cuando la integracion se realice , cambiar para q envie los datos de usuario y con eso ya filtra
-export const getPurchaseHistory = async (user) => {
-  try {
-    const response = await apiClient.get('/purchase-history');
-    
-    // Filtrar las compras de acuerdo al userId
-    const filteredHistory = response.data.filter(purchase => purchase.userId === (user.userId|| user.id));
-    
-    return filteredHistory;
-  } catch (error) {
-    console.error('Error intentando obtener purchase history: ' + error.message);
-  }
-};
-// VER CON LAUTI
-
-export const postPurchaseHistory = async (userId, items) => {
-  try {
-    const purchaseData = {
-      userId: userId,
-      date: new Date().toISOString(),
-      products: items.map((item) => ({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-      })),
-    };
-
-    const response = await apiClient.post('/purchase-history', purchaseData);
+export const getPurchaseHistory = async () => {
+    const response = await apiClient.get('cart/purchase-history');
     return response.data;
-  } catch (error) {
-    console.error('Error intentando comprar productos: ' + error.message);
-    throw error;
-  }
 };
-//VER CON LAUTI
