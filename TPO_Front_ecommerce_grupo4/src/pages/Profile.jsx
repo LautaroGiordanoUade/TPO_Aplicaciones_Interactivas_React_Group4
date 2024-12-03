@@ -15,6 +15,7 @@ const UserProfile = () => {
     const fetchUserData = async () => {
         try {
             const profileData = await getUserProfile(userId);
+            console.log(profileData);
             // Convertir fecha de nacimiento al formato compatible con el input date
             if (profileData.birthDate) {
                 profileData.birthDate = new Date(profileData.birthDate).toISOString().split("T")[0];
@@ -44,7 +45,7 @@ const UserProfile = () => {
 
     const handleSaveProfile = async () => {
         try {
-            await updateUserProfile(userId, userData); // Enviar datos al backend
+            await updateUserProfile(userData); // Enviar datos al backend
             setEditing(false); // Salir del modo edición
         } catch (error) {
             setError("Error al actualizar los datos del usuario.");
@@ -110,8 +111,8 @@ const UserProfile = () => {
                                 <strong>Fecha de Nacimiento:</strong>
                                 <input
                                     type="date"
-                                    name="dob"
-                                    value={userData.birthDate || ""}
+                                    name="birthDate"
+                                    value={userData?.birthDate || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
                                 />
@@ -137,7 +138,7 @@ const UserProfile = () => {
                         <h2>Datos del Usuario</h2>
                         <p><strong>Nombre:</strong> {userData.firstName} {userData.lastName}</p>
                         <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.birthDate).toLocaleDateString()}</p>
+                        <p><strong>Fecha de Nacimiento:</strong> {userData.birthDate}</p>
                         <button 
                             onClick={handleEditProfile} 
                             style={{ padding: '10px 15px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: '10px' }}

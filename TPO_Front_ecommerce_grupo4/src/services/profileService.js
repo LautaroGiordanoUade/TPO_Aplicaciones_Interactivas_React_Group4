@@ -24,9 +24,6 @@ export const getUserProfile = async (userId) => {
 export const updateUserProfile = async (profileData) => {
   try {
     // Formatear fecha si existe antes de enviar al backend
-    if (profileData.birthDate) {
-      profileData.birthDate = formatDate(profileData.birthDate);
-    }
     const response = await apiClient.patch(`user/profile`, profileData);
   return response.data;
   } catch (error) {
