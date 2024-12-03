@@ -53,6 +53,7 @@ const UserProfile = () => {
                 setEditing(false); 
             }
         } catch (error) {
+            setTempUserData(userData);
             setError("Error al actualizar los datos del usuario.");
         }
     };
