@@ -27,6 +27,12 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const setOutUser = () => {
+    setUser(null);
+    setLoading(false); 
+    setShowToast(false); 
+  }
+
   const logout = async (reason="logout") => {
     logOutUser();
     if (reason=='tokenExpired') {
@@ -35,16 +41,18 @@ export function AuthProvider({ children }) {
         setToastMessage("La sesión expiró, por favor vuelva a ingresar");
         setShowToast(true);
         setTimeout(() => {
-          setUser(null);
-          setLoading(false); 
-          setShowToast(false); 
+          setOutUser();
         }, 2000);
+        navigate("/userLogin");
       } catch (err) {
         setError("Ocurrió un error al cerrar sesión");
         setLoading(false);
     }
-    } 
-    navigate("/userLogin");
+    }else {
+      setOutUser(); 
+      navigate("/userLogin");
+    }
+    
 };
 
   useEffect(() => {
