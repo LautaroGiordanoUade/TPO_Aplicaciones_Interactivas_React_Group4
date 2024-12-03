@@ -65,22 +65,30 @@ const ViewedProducts = () => {
         </div>
       ) : (
         <div className="row">
-          <Carousel data-bs-theme="dark">
-            {_.chunk(products, 3).map((group, index) => (
-              <Carousel.Item key={index} data-bs-theme="light">
-                <div className="row">
-                  {group.map((product, productIndex) => (
-                    <div
-                      key={productIndex}
-                      className="col-md-4 col-sm-6 col-xs-12"
-                    >
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
+          {products.length < 4 ? (
+            products.map((product) => (
+              <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+                <ProductCard product={product} />
+              </div>
+            ))
+          ) : (
+            <Carousel data-bs-theme="dark">
+              {_.chunk(products, 3).map((group, index) => (
+                <Carousel.Item key={index} data-bs-theme="light">
+                  <div className="row">
+                    {group.map((product, productIndex) => (
+                      <div
+                        key={productIndex}
+                        className="col-md-4 col-sm-6 col-xs-12"
+                      >
+                        <ProductCard product={product} />
+                      </div>
+                    ))}
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
         </div>
       )}
     </div>
