@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../components/Cart/StyledCart.css';
-import { getProductsCart } from '../services/cartService';
+import { deleteAllProductCart, getProductsCart } from '../services/cartService';
 import { useNavigate } from 'react-router-dom';
+import ToastMessage from '../components/ToastMessage';
+import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 import ModalCart from '../components/Cart/ModalCart'; 
 import{
-deleteProductCart,
-updateProductCart
+deleteProductCart
 }
 from "../services/cartService.js";
+import { isTokenError } from '../components//utils/isTokenError.js';
 
 const Cart = () => {
     const [products, setProducts] = useState([]); 
@@ -15,6 +17,10 @@ const Cart = () => {
     const navigate = useNavigate();
     const [outOfStockItems, setOutOfStockItems] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastVariant, setToastVariant] = useState("success");
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -24,22 +30,32 @@ const Cart = () => {
         setOutOfStockItems([]); 
     };
 
-    useEffect(() => {
-        const fetchCartProducts = async () => {
-           await handlerfetchCartProducts();
-        };
-        fetchCartProducts();
-    }, []);
+    const handlerToastMessage = async (message, variant) => {
+        setLoading(true);
+        const minLoadingTime = 500; 
+        const startTime = Date.now();
     
+        
+        setToastMessage(message);
+        setToastVariant(variant);
+        setShowToast(true);
+    
+        
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        
+        setTimeout(() => {
+            setLoading(false);
+        }, remainingTime);
+    };
 
     const handlerfetchCartProducts = async () => {
         try {
             const initialCartProducts = await getProductsCart();
-            setProducts(initialCartProducts);
+            setProducts(initialCartProducts.items);
         } catch (error) {
-            console.log('Error al cargar los productos del carrito:', error);
-            setcartHasError(true);
-            setcartErrorMessage(error.message || 'Ocurrió un error.');
+            handlerToastMessage('Error al cargar los productos del carrito','danger') 
         }
     };
 
@@ -47,72 +63,64 @@ const Cart = () => {
         handlerfetchCartProducts();
     }, []);
 
-    const handlerRemoveCartdb = async (id)=>{
+    const handlerRemoveCartdb = async (productCart)=>{
         try {
-            const response = await deleteProductCart(id);
+            const response = await deleteProductCart(productCart);
+            if(response){
+                const initialCartProducts = await getProductsCart(); 
+                setProducts(initialCartProducts.items);
+            }
           } catch (error) {
-            console.log(error);
+            handlerToastMessage('Error al remover el producto del carrito','danger')
           }
         }
+
+    
     
 
 
-    const handlerUpdatedb = async(productCart)=>{
+    const createProductRemove = (productId, quantity) => {
+        return {
+          productId,
+          quantity,
+        };
+      };
+
+    const handlerRemoveCartProduct = (productRemoveId) => {
         try{
-            const response=await updateProductCart(productCart);
-        }catch(error){
-            console.log(error)
-        }
-    }
-
-
-
-    const handlerRemoveCartProduct = (id) => {
-        const updatedProducts = products.reduce((acc, product) => {
-            
-            if (product.id === id) {
-                if (product.quantityOnCart > 1) {
-                   
-                    acc.push({ ...product, quantityOnCart: product.quantityOnCart - 1 });
-                    product.quantityOnCart=product.quantityOnCart-1
-                    handlerUpdatedb(product)
-                }
-                
-            } else {
-                acc.push(product);
-            }
-            return acc;
-        }, []);
-    
-        if (updatedProducts.length < products.length) {
-            handlerRemoveCartdb(id);
-        }
-        setProducts(updatedProducts);
+            const productCart= createProductRemove(productRemoveId,1);
+            handlerRemoveCartdb(productCart);
+        }catch (error) {
+            handlerToastMessage('Error al remover el producto del carrito','danger')
+          }
     };
 
 
     
     useEffect(() => {
         const newTotal = products.reduce((acc, product) => {
-            return acc + (product.price * product.quantityOnCart);
+            return acc + (product.price * product.quantity);
         }, 0);
         setTotal(newTotal);
     }, [products]);
 
 
-    const handlerCleanCart = () => {
-        for (const product of products){
-            handlerRemoveCartdb(product.id)
-        }
-        setProducts([]); 
+    const handlerCleanCart = async () => {
+        try{
+            await deleteAllProductCart();
+            setProducts([]);
+        }catch (error) {
+            handlerToastMessage('Error al vaciar el carrito','danger')
+          }
+         
         
     };
     
 
 
-    const handlerCheckout = () => {
+    const handlerCheckout = async () => {
         for (const product of products) {
-            if (product.quantityOnCart > product.quantity) {
+            if (product.quantity > product.product.quantity) {
                 outOfStockItems.push(product);
             }
             
@@ -134,21 +142,21 @@ const Cart = () => {
             <div className="products-container">
                 {products?.length > 0 ? (
                     products?.map((product) => {
-                        const totalPrice = product.price * product.quantityOnCart; 
+                        const totalPrice = product.price * product.quantity; 
                         return (
                             <div className="product-item" key={product.id}>
-                                {product?.images?.length > 0 && (
+                                {product?.product.images?.length > 0 && (
                                     <img 
-                                        src={product.images[0].imageBase64} width={300} 
+                                        src={product.product.images[0].imageBase64} width={300} 
                                         alt={product.name}
                                         className='produc-image'
                                     />
                                 )}     
-                                <h4 className="product-name">{product.name} (X{product.quantityOnCart})</h4>
+                                <h4 className="product-name">{product.product.name} (X{product.quantity})</h4>
                                 <p className="product-price">Precio Unitario: ${product.price.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                 <p className="product-total-price">Precio Total: ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</p>
                                
-                                <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.id)}>
+                                <button className='btn-remove' onClick={() => handlerRemoveCartProduct(product.product.id)}>
                                     Eliminar
                                 </button>
                             </div>
@@ -174,6 +182,12 @@ const Cart = () => {
             handleClose={handleCloseModal} 
             items={outOfStockItems} 
         />
+        <ToastMessage
+                show={showToast}
+                setShow={setShowToast}
+                message={toastMessage}
+                variant={toastVariant}
+            />
         </div>
     );
 }
