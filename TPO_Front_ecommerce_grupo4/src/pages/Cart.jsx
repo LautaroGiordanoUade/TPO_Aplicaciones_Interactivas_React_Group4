@@ -16,7 +16,6 @@ const Cart = () => {
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
     const [outOfStockItems, setOutOfStockItems] = useState([]);
-    const[quantityProduct,setQuantityProduct]=useState(0);
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
@@ -29,7 +28,6 @@ const Cart = () => {
     const handleCloseModal = () => {
         setShowModal(false);
         setOutOfStockItems([]); 
-        setQuantityProduct(0);
     };
 
     const handlerToastMessage = async (message, variant) => {
@@ -124,14 +122,13 @@ const Cart = () => {
         for (const product of products) {
             if (product.quantity > product.product.quantity) {
                 outOfStockItems.push(product);
-                quantityProduct.push(originalItem.quantity);
             }
             
         }
     
         if (outOfStockItems.length > 0) {
             setOutOfStockItems(outOfStockItems);
-            setQuantityProduct(quantityProduct);
+            
             handleOpenModal()
             return;
         }
@@ -185,7 +182,6 @@ const Cart = () => {
             showModal={showModal} 
             handleClose={handleCloseModal} 
             items={outOfStockItems}
-            quantityOfProduct={quantityProduct} 
         />
         <ToastMessage
                 show={showToast}
