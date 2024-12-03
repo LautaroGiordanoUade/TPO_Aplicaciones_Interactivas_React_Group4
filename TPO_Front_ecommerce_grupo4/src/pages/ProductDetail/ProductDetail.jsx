@@ -58,7 +58,6 @@ const ProductDetail = () => {
       setProduct(response);
       setIsFavorite(response.favorite);
     } catch (error) {
-      console.log(error);
       if (isTokenError(error)) {
         logout();
       }

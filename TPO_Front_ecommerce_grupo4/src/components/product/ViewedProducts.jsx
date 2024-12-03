@@ -20,8 +20,6 @@ const ViewedProducts = () => {
       const response = await getViewed();
       setProducts(response);
     } catch (err) {
-      console.log(err);
-      console.log(products);
       setError(
         err.response?.data?.message ||
           "No pudimos obtener los últimos productos vistos. Intenta más tarde."
