@@ -4,7 +4,7 @@ import apiClientPublic from "./apiClientPublic";
 export const loginUser = async (email, password) => {
   const response = await apiClientPublic.post('auth/authenticate', { email, password });
   const userData = response.data;
-  const tokenTimer = 0.5;
+  const tokenTimer = 10;
 
   if (userData?.access_token) {
     const expirationTime = new Date().getTime() + tokenTimer* 60 * 1000; // Tiempo actual + tokenTimer minutos
