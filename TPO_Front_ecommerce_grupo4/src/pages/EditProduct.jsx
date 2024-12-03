@@ -30,10 +30,8 @@ const EditProduct = () => {
       try {
         const response = await getProductsById(id);
         setProduct(response);
-        console.log(response);
         setImages(response.images.map((image, index) => image.imageBase64));
       } catch (error) {
-        console.log(error);
       }
     }
   };
@@ -45,7 +43,6 @@ const EditProduct = () => {
         setCategories(response);
       } catch (error) {}
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -89,7 +86,6 @@ const EditProduct = () => {
         product.categoryId = values.category;
         product.featured = values.featured;
         product.images = getImagesList();
-        console.log(product);
         handleEditProduct(product);
       } else {
         let newProduct = {
@@ -103,7 +99,6 @@ const EditProduct = () => {
           viewed: false,
           images: getImagesList(),
         };
-        console.log(newProduct);
         handleCreateProduct(newProduct);
       }
     }
@@ -185,9 +180,9 @@ const EditProduct = () => {
               onSubmit={handleSubmit}
             >
               {({ errors, touched }) => (
-                <Form className="col-12">
+                <Form className="col text-center">
                   <BootstrapForm.Group className="row p-2">
-                    <BootstrapForm.Label className="col text-start">
+                    <BootstrapForm.Label className="col text-end">
                       Nombre
                     </BootstrapForm.Label>
                     <Field className="form-control col" name="name" />
@@ -199,7 +194,7 @@ const EditProduct = () => {
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group className="row p-2">
-                    <BootstrapForm.Label className="col text-start">
+                    <BootstrapForm.Label className="col text-end">
                       Descripción
                     </BootstrapForm.Label>
                     <Field
@@ -216,7 +211,7 @@ const EditProduct = () => {
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group className="row p-2">
-                    <BootstrapForm.Label className="col text-start">
+                    <BootstrapForm.Label className="col text-end">
                       Precio
                     </BootstrapForm.Label>
                     <Field
@@ -232,7 +227,7 @@ const EditProduct = () => {
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group className="row p-2">
-                    <BootstrapForm.Label className="col text-start">
+                    <BootstrapForm.Label className="col text-end">
                       Cantidad
                     </BootstrapForm.Label>
                     <Field
@@ -248,7 +243,7 @@ const EditProduct = () => {
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group className="row p-2">
-                    <BootstrapForm.Label className="col text-start">
+                    <BootstrapForm.Label className="col text-end">
                       Categoría
                     </BootstrapForm.Label>
                     <Field
@@ -271,7 +266,7 @@ const EditProduct = () => {
                   </BootstrapForm.Group>
 
                   <BootstrapForm.Group className="row p-2">
-                    <BootstrapForm.Label className="col text-start">
+                    <BootstrapForm.Label className="col-6 text-end">
                       Destacado
                     </BootstrapForm.Label>
                     <Field
