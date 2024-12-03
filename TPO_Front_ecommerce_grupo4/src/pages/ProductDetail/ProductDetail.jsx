@@ -98,7 +98,10 @@ const ProductDetail = () => {
         handleOpenModal(response);
       }
     } catch (error) {
-        errorMessage("Error al agregar el producto al carrito, intentelo mas tarde",'danger')
+      if (isTokenError(error)) {
+        logout();
+      }      
+      errorMessage("Error al agregar el producto al carrito, intentelo mas tarde",'danger')
       
     }
   };
