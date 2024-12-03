@@ -21,7 +21,12 @@ const Reset = () => {
       const data = await resetPassword(email);
       setMessage(data);
     } catch (err) {
-      setError('El usuario no existe, ingrese otro mail');
+      if (err?.code !='ERR_NETWORK') {
+        setError('El usuario no existe, ingrese otro mail');
+      } else {
+        setError("Hay un error de conexión por favor intente mas tarde");
+      }
+      
     } finally {
       setLoading(false);
     }
