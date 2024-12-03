@@ -8,6 +8,7 @@ const UserProfile = () => {
     const { user } = useAuth();
     const userId = user?.id || user?.userId;
     const [userData, setUserData] = useState(null);
+    const [tempUserData, setTempUserData] = useState(null); // Estado temporal para cambios
     const [editing, setEditing] = useState(false); // Para alternar entre vista y edición
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
@@ -20,6 +21,7 @@ const UserProfile = () => {
                 profileData.birthDate = new Date(profileData.birthDate).toISOString().split("T")[0];
             }
             setUserData(profileData);
+            setTempUserData(profileData);
         } catch (error) {
             setError("Error al obtener los datos del usuario.");
         }
@@ -45,8 +47,11 @@ const UserProfile = () => {
     const handleSaveProfile = async (e) => {
         e.preventDefault();
         try {
-            await updateUserProfile(userData); // Enviar datos al backend
-            setEditing(false); // Salir del modo edición
+            const response= await updateUserProfile(tempUserData);
+            if(response){
+                setUserData(tempUserData);
+                setEditing(false); 
+            }
         } catch (error) {
             setError("Error al actualizar los datos del usuario.");
         }
@@ -59,7 +64,8 @@ const UserProfile = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setUserData({ ...userData, [name]: value }); // Actualizar datos en tiempo real
+        console.log(name,value);
+        setTempUserData({ ...tempUserData, [name]: value });// Actualizar datos en tiempo real
     };
 
     return (
@@ -76,7 +82,7 @@ const UserProfile = () => {
                                 <input
                                     type="text"
                                     name="firstName"
-                                    value={userData.firstName || ""}
+                                    value={tempUserData.firstName || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
                                 />
@@ -88,7 +94,7 @@ const UserProfile = () => {
                                 <input
                                     type="text"
                                     name="lastName"
-                                    value={userData.lastName || ""}
+                                    value={tempUserData.lastName || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
                                 />
@@ -101,7 +107,7 @@ const UserProfile = () => {
                                     type="email"
                                     name="email"
                                     className="form-control"
-                                    value={userData.email || ""}
+                                    value={tempUserData.email || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
                                 />
@@ -113,7 +119,7 @@ const UserProfile = () => {
                                 <input
                                     type="date"
                                     name="birthDate"
-                                    value={userData?.birthDate || ""}
+                                    value={tempUserData?.birthDate || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
                                 />
