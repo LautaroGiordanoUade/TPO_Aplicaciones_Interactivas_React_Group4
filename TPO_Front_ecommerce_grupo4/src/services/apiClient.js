@@ -23,7 +23,7 @@ apiClient.interceptors.request.use(
         return Promise.reject("Token expired");
       }
     } else {
-      eventEmitter.emit('tokenExpired');
+      eventEmitter.emit('no_token_found');
       return Promise.reject("No token found");
     }
 
