@@ -25,8 +25,11 @@ const Login = ({ setView }) => {
         setLoading(false);
       }
     } catch (error) {
-      setError("Las credenciales ingresadas son incorrectas");
-      console.error(error);
+      if (error?.code !='ERR_NETWORK') {
+        setError("Las credenciales ingresadas son incorrectas");
+      } else {
+        setError("Hay un error de conexión por favor intente mas tarde");
+      }
       setLoading(false);
     }
   };

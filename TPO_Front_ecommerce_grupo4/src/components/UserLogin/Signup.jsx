@@ -71,9 +71,12 @@ const Signup = () => {
         setSuccess('Usuario registrado con éxito');
         finalizeSignup(true);
     } catch (err) {
-        console.error(err);
-        setError(err.response?.data?.message || 'Error al registrar');
-        finalizeSignup(false);
+      if (err?.code !='ERR_NETWORK') {
+        setError(err.response?.data || 'Error al registrar');
+      } else {
+        setError("Hay un error de conexión por favor intente mas tarde");
+      }       
+      finalizeSignup(false);
     }
 };
 

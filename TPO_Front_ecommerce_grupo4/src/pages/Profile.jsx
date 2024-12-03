@@ -43,7 +43,8 @@ const UserProfile = () => {
         setEditing(true); // Activar modo edición
     };
 
-    const handleSaveProfile = async () => {
+    const handleSaveProfile = async (e) => {
+        e.preventDefault();
         try {
             await updateUserProfile(userData); // Enviar datos al backend
             setEditing(false); // Salir del modo edición
@@ -68,7 +69,7 @@ const UserProfile = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {userData ? (
                 editing ? (
-                    <form>
+                    <form onSubmit={handleSaveProfile}>
                         <h2>Editar Perfil</h2>
                         <div style={{ marginBottom: '10px' }}>
                             <label>
@@ -100,6 +101,7 @@ const UserProfile = () => {
                                 <input
                                     type="email"
                                     name="email"
+                                    className="form-control"
                                     value={userData.email || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
@@ -119,8 +121,7 @@ const UserProfile = () => {
                             </label>
                         </div>
                         <button
-                            type="button"
-                            onClick={handleSaveProfile}
+                            type="submit"
                             style={{ padding: '10px 15px', backgroundColor: '#28a745', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}
                         >
                             Guardar
@@ -138,7 +139,7 @@ const UserProfile = () => {
                         <h2>Datos del Usuario</h2>
                         <p><strong>Nombre:</strong> {userData.firstName} {userData.lastName}</p>
                         <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Fecha de Nacimiento:</strong> {userData.birthDate}</p>
+                        <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.birthDate)?.toISOString()?.split('T')[0].split('-')?.reverse()?.join('/')}</p>
                         <button 
                             onClick={handleEditProfile} 
                             style={{ padding: '10px 15px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: '10px' }}
