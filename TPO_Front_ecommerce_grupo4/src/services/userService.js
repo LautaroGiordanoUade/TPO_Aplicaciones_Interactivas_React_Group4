@@ -41,7 +41,9 @@ export const getUserById = async (id) => {
 
 
 export const resetPassword = async (email) => {
-  const response = await apiClient.post('auth/reset-password', { email });
+  const response = await apiClientPublic.get('user/checkEmail', {
+    params: { email },
+  });
   return response.data;
 };
 
@@ -53,18 +55,4 @@ export const getUserFromLocalStorage = () => {
 export const logOutUser = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
-};
-
-
-//TODO: este es el que tenes que usar Flor, probalo y sino desp lo vemos (para editar los datos de profile, siendo user)
-export const updateUser = async (id, userData) => {
-  const response = await apiClient.patch(`user/profile`, userData);
-  return response.data;
-};
-
-// y con este vas a traer los datos de usuario para mostrar , migralos a tu servicio profile y poneles el nombre con eso
-// ya deberia funcionar, fijate q solamente hay q darle formato a la fecha
-export const getUserData = async () => {
-  const response = await apiClient.get(`user/profile`);
-  return response.data;
 };

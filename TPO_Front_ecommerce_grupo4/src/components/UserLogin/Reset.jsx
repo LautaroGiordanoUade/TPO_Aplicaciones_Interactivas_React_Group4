@@ -16,10 +16,10 @@ const Reset = () => {
     setError('');
     setMessage('')
     e.preventDefault();
-    await delay(5000);
+    await delay(1000);
     try {
       const data = await resetPassword(email);
-      setMessage('Correo de recuperación enviado');
+      setMessage(data);
     } catch (err) {
       setError('El usuario no existe, ingrese otro mail');
     } finally {
