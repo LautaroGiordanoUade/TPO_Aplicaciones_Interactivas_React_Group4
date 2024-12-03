@@ -16,8 +16,8 @@ const UserProfile = () => {
         try {
             const profileData = await getUserProfile(userId);
             // Convertir fecha de nacimiento al formato compatible con el input date
-            if (profileData.dob) {
-                profileData.dob = new Date(profileData.dob).toISOString().split("T")[0];
+            if (profileData.birthDate) {
+                profileData.birthDate = new Date(profileData.birthDate).toISOString().split("T")[0];
             }
             setUserData(profileData);
         } catch (error) {
@@ -111,7 +111,7 @@ const UserProfile = () => {
                                 <input
                                     type="date"
                                     name="dob"
-                                    value={userData.dob || ""}
+                                    value={userData.birthDate || ""}
                                     onChange={handleInputChange}
                                     style={{ display: 'block', width: '100%', padding: '8px', marginTop: '5px' }}
                                 />
@@ -137,7 +137,7 @@ const UserProfile = () => {
                         <h2>Datos del Usuario</h2>
                         <p><strong>Nombre:</strong> {userData.firstName} {userData.lastName}</p>
                         <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.dob).toLocaleDateString()}</p>
+                        <p><strong>Fecha de Nacimiento:</strong> {new Date(userData.birthDate).toLocaleDateString()}</p>
                         <button 
                             onClick={handleEditProfile} 
                             style={{ padding: '10px 15px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginTop: '10px' }}
